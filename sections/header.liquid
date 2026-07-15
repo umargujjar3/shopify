@@ -8,12 +8,16 @@
 
       <!-- Logo -->
       <a href="{{ routes.root_url }}" class="logo" aria-label="{{ shop.name }}">
-        <svg class="logo__icon" viewBox="0 0 64 64" aria-hidden="true">
-          <rect width="64" height="64" rx="16" fill="var(--color-primary)"/>
-          <path d="M32 14c-7 8-11 14-11 21a11 11 0 0 0 22 0c0-7-4-13-11-21z" fill="var(--color-natural-green)"/>
-          <path d="M32 22c-3.5 4-5.5 7-5.5 10.5a5.5 5.5 0 0 0 11 0c0-3.5-2-6.5-5.5-10.5z" fill="var(--color-gold)"/>
-        </svg>
-        <span class="logo__text">Spin<span class="logo__accent">exa</span></span>
+        {%- if section.settings.logo != blank -%}
+          <!-- Customizer Logo -->
+          <img src="{{ section.settings.logo | image_url: width: section.settings.logo_width }}" 
+               alt="{{ shop.name }}" 
+               style="max-width: {{ section.settings.logo_width }}px; display: block; height: auto;"
+               loading="eager">
+        {%- else -%}
+          <!-- Text Logo: OrganicsFU -->
+          <span class="logo__text">Organics<span class="logo__accent">FU</span></span>
+        {%- endif -%}
       </a>
 
       <!-- Desktop nav -->
@@ -64,8 +68,13 @@
   <div class="mobile-menu__panel">
     <div class="mobile-menu__header">
       <a href="{{ routes.root_url }}" class="logo">
-        <svg class="logo__icon" viewBox="0 0 64 64"><rect width="64" height="64" rx="16" fill="var(--color-primary)"/><path d="M32 14c-7 8-11 14-11 21a11 11 0 0 0 22 0c0-7-4-13-11-21z" fill="var(--color-natural-green)"/><path d="M32 22c-3.5 4-5.5 7-5.5 10.5a5.5 5.5 0 0 0 11 0c0-3.5-2-6.5-5.5-10.5z" fill="var(--color-gold)"/></svg>
-        <span class="logo__text">Spin<span class="logo__accent">exa</span></span>
+        {%- if section.settings.logo != blank -%}
+          <img src="{{ section.settings.logo | image_url: width: section.settings.logo_width }}" 
+               alt="{{ shop.name }}" 
+               style="max-width: {{ section.settings.logo_width }}px; height: auto;">
+        {%- else -%}
+          <span class="logo__text">Organics<span class="logo__accent">FU</span></span>
+        {%- endif -%}
       </a>
       <button class="mobile-menu__close header__action-btn" aria-label="{{ 'general.accessibility.close_menu' | t }}">
         {%- render 'icon', icon: 'close' -%}
@@ -101,6 +110,22 @@
 {% schema %}
 {
   "name": "Header",
-  "settings": []
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Select Logo Image"
+    },
+    {
+      "type": "range",
+      "id": "logo_width",
+      "min": 50,
+      "max": 250,
+      "step": 10,
+      "default": 130,
+      "unit": "px",
+      "label": "Custom Logo Width"
+    }
+  ]
 }
 {% endschema %}
