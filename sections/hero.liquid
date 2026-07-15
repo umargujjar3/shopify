@@ -1,16 +1,51 @@
-<section class="bg-gray-900 text-white py-32 text-center">
-  <h1 class="text-5xl font-extrabold mb-4">{{ section.settings.heading }}</h1>
-  <p class="text-xl text-gray-300 mb-8">{{ section.settings.subheading }}</p>
-  <a href="/collections/all" class="bg-white text-gray-900 px-6 py-3 rounded font-bold hover:bg-gray-100">Shop All</a>
+<section class="relative bg-gray-900 text-white py-24 px-6 md:px-12 text-center md:text-left flex items-center justify-between">
+  <div class="max-w-xl">
+    <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight mb-4">
+      {{ section.settings.heading }}
+    </h1>
+    <p class="text-lg md:text-xl text-gray-300 mb-8">
+      {{ section.settings.subheading }}
+    </p>
+    {% if section.settings.button_text != blank %}
+      <a href="{{ section.settings.button_link | default: '/collections/all' }}" class="inline-block bg-green-500 hover:bg-green-600 text-white font-bold px-8 py-3 rounded-lg shadow-lg transition duration-200">
+        {{ section.settings.button_text }}
+      </a>
+    {% endif %}
+  </div>
 </section>
 
 {% schema %}
 {
-  "name": "Hero Banner",
+  "name": "Hero Section",
   "settings": [
-    { "type": "text", "id": "heading", "label": "Heading", "default": "Welcome to My Store" },
-    { "type": "textarea", "id": "subheading", "label": "Subheading", "default": "Premium Products Only." }
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Premium Organic Supplements"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Feel the power of natural organic ingredients."
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "Shop Now"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    }
   ],
-  "presets": [{ "name": "Hero Banner" }]
+  "presets": [
+    {
+      "name": "Hero Section"
+    }
+  ]
 }
 {% endschema %}
