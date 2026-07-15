@@ -1,0 +1,33 @@
+<div class="customer-page">
+  <div class="customer-card">
+    <h1 class="h2 customer-card__title">Activate your account</h1>
+    <p class="customer-card__subtitle">Set a password to activate your Spinexa account.</p>
+
+    {%- form 'activate_customer_password' -%}
+      {%- if form.errors -%}
+        <div class="form-errors">
+          {{ form.errors | default_errors }}
+        </div>
+      {%- endif -%}
+
+      <div class="form-field">
+        <label for="CustomerPassword">Password</label>
+        <input type="password" id="CustomerPassword" name="customer[password]" required autocomplete="new-password">
+      </div>
+
+      <div class="form-field">
+        <label for="CustomerPasswordConfirmation">Confirm password</label>
+        <input type="password" id="CustomerPasswordConfirmation" name="customer[password_confirmation]" required autocomplete="new-password">
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-block">Activate account</button>
+    {%- endform -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Activate account",
+  "settings": []
+}
+{% endschema %}

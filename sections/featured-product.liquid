@@ -1,0 +1,101 @@
+{%- assign featured = section.settings.product -%}
+{%- if featured != blank -%}
+  {%- assign on_sale = false -%}
+  {%- if featured.compare_at_price > featured.price -%}
+    {%- assign on_sale = true -%}
+    {%- assign discount = featured.compare_at_price | minus: featured.price | times: 100 | divided_by: featured.compare_at_price -%}
+  {%- endif -%}
+  {%- assign current_variant = featured.selected_or_first_available_variant -%}
+
+  <section class="section--white" style="padding-block: var(--section-spacing, 80px);" id="featured">
+    <div class="container">
+      <div class="featured__grid">
+        <!-- Gallery -->
+        <div class="featured__gallery reveal">
+          <div class="featured__main">
+            <img src="{{ featured.featured_image | image_url: width: 900, height: 900, crop: 'center' }}" alt="{{ featured.title | escape }}" loading="lazy">
+            {%- if featured.tags contains 'bestseller' -%}
+              <span class="featured__badge">Bestseller</span>
+            {%- elsif featured.tags contains 'new' -%}
+              <span class="featured__badge">New</span>
+            {%- endif -%}
+          </div>
+          <div class="featured__thumbs">
+            {%- for image in featured.images limit: 4 -%}
+              <div class="featured__thumb"><img src="{{ image | image_url: width: 200 }}" alt="" loading="lazy"></div>
+            {%- endfor -%}
+          </div>
+        </div>
+
+        <!-- Info -->
+        <div>
+          <div class="reveal"><span class="eyebrow">{{ section.settings.eyebrow }}</span></div>
+          <div class="reveal" style="--reveal-delay:80ms"><h2 class="h2 featured__title">{{ featured.title }}</h2></div>
+          <div class="reveal" style="--reveal-delay:120ms"><p class="featured__subtitle">{{ section.settings.subtitle }}</p></div>
+          <div class="reveal" style="--reveal-delay:160ms">
+            <div style="margin-top:16px; display:flex; align-items:center; gap:12px;">
+              {%- render 'rating', rating_value: 5, rating_count: 1284, rating_size: 'md' -%}
+              <span style="font-size:14px; color: var(--color-primary);">· {{ 'sections.featured_product.verified' | t }}</span>
+            </div>
+          </div>
+          <div class="reveal" style="--reveal-delay:200ms">
+            <div class="featured__price-row">
+              <span class="featured__price">{{ featured.price | money }}</span>
+              {%- if on_sale -%}
+                <span class="featured__compare">{{ featured.compare_at_price | money }}</span>
+                <span class="featured__save">Save {{ featured.compare_at_price | minus: featured.price | money }}</span>
+              {%- endif -%}
+            </div>
+          </div>
+          <div class="reveal" style="--reveal-delay:240ms"><p class="featured__desc text-pretty">{{ section.settings.description }}</p></div>
+
+          <!-- Add to cart -->
+          <div class="reveal" style="--reveal-delay:300ms">
+            <div class="featured__actions">
+              <div class="qty-selector">
+                <button type="button" class="qty-btn" data-qty-dec-page aria-label="{{ 'general.accessibility.decrease_quantity' | t }}">−</button>
+                <input type="number" value="1" min="1" data-qty style="border:none; background:none; text-align:center; width:40px; font-weight:600;">
+                <button type="button" class="qty-btn" data-qty-inc-page aria-label="{{ 'general.accessibility.increase_quantity' | t }}">+</button>
+              </div>
+              <form method="post" action="/cart/add" style="display:inline;">
+                <input type="hidden" name="id" value="{{ current_variant.id }}" data-variant-id>
+                <button type="submit" class="btn btn-primary" data-add-to-cart="{{ current_variant.id }}">
+                  {%- render 'icon', icon: 'bag' -%}
+                  {{ 'general.products.add_to_cart' | t }}
+                </button>
+              </form>
+            </div>
+          </div>
+
+          <!-- Trust -->
+          <div class="reveal" style="--reveal-delay:360ms">
+            <div class="featured__trust">
+              <div class="featured__trust-item">{%- render 'icon', icon: 'leaf' -%}<span>{{ 'general.products.natural_formula' | t }}</span></div>
+              <div class="featured__trust-item">{%- render 'icon', icon: 'truck' -%}<span>{{ 'general.products.fast_delivery' | t }}</span></div>
+              <div class="featured__trust-item">{%- render 'icon', icon: 'shield' -%}<span>{{ 'general.products.secure_checkout' | t }}</span></div>
+            </div>
+          </div>
+
+          <div class="reveal" style="--reveal-delay:420ms">
+            <a href="{{ featured.url }}" class="link-underline" style="margin-top:24px; display:inline-block; font-size:14px; font-weight:600; color: var(--color-primary);">
+              {{ 'general.products.view_details' | t }} →
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Featured product",
+  "settings": [
+    { "type": "product", "id": "product", "label": "Product" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Featured Product" },
+    { "type": "text", "id": "subtitle", "label": "Subtitle", "default": "Premium botanical blend for everyday comfort" },
+    { "type": "textarea", "id": "description", "label": "Description", "default": "A premium botanical formula crafted to support your everyday comfort and relaxation routine." }
+  ],
+  "presets": [{ "name": "Featured product" }]
+}
+{% endschema %}

@@ -1,0 +1,43 @@
+<div class="customer-page">
+  <div class="customer-card">
+    <h1 class="h2 customer-card__title">Create account</h1>
+    <p class="customer-card__subtitle">Join the Spinexa circle</p>
+
+    {%- form 'create_customer', class: 'customer-form' -%}
+      {%- if form.errors -%}
+        <div style="color: #C0392B; font-size:14px; padding:12px; border-radius:12px; background: color-mix(in srgb, #C0392B 8%, transparent); margin-bottom:16px;">
+          {{ form.errors | default_errors }}
+        </div>
+      {%- endif -%}
+
+      <div class="customer-form__field">
+        <label class="customer-form__label">First name</label>
+        <input type="text" name="customer[first_name]" class="input">
+      </div>
+      <div class="customer-form__field">
+        <label class="customer-form__label">Last name</label>
+        <input type="text" name="customer[last_name]" class="input">
+      </div>
+      <div class="customer-form__field">
+        <label class="customer-form__label">Email</label>
+        <input type="email" name="customer[email]" class="input" required>
+      </div>
+      <div class="customer-form__field">
+        <label class="customer-form__label">Password</label>
+        <input type="password" name="customer[password]" class="input" required>
+      </div>
+      <button type="submit" class="btn btn-primary btn-block customer-form__submit">Create account</button>
+    {%- endform -%}
+
+    <p class="customer-card__footer">
+      Already have an account? <a href="{{ routes.account_login_url }}">Sign in</a>
+    </p>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Register",
+  "settings": []
+}
+{% endschema %}

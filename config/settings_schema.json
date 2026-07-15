@@ -1,0 +1,299 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Spinexa",
+    "theme_version": "1.0.0",
+    "theme_author": "Spinexa",
+    "theme_documentation_url": "https://spinexa.com",
+    "theme_support_url": "https://spinexa.com/contact"
+  },
+  {
+    "name": "Colors",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Brand Colors"
+      },
+      {
+        "type": "color",
+        "id": "color_primary",
+        "label": "Primary Green",
+        "default": "#2F7D32"
+      },
+      {
+        "type": "color",
+        "id": "color_primary_dark",
+        "label": "Primary Green Dark",
+        "default": "#256828"
+      },
+      {
+        "type": "color",
+        "id": "color_natural_green",
+        "label": "Natural Green",
+        "default": "#89B84C"
+      },
+      {
+        "type": "color",
+        "id": "color_gold",
+        "label": "Premium Gold",
+        "default": "#D8A84E"
+      },
+      {
+        "type": "color",
+        "id": "color_background",
+        "label": "Background",
+        "default": "#F7F9F5"
+      },
+      {
+        "type": "color",
+        "id": "color_text",
+        "label": "Text",
+        "default": "#1F2933"
+      },
+      {
+        "type": "color",
+        "id": "color_text_muted",
+        "label": "Text Muted",
+        "default": "#5B6877"
+      },
+      {
+        "type": "color",
+        "id": "color_white",
+        "label": "White / Cards",
+        "default": "#FFFFFF"
+      },
+      {
+        "type": "color",
+        "id": "color_border",
+        "label": "Border",
+        "default": "#E2E8D8"
+      }
+    ]
+  },
+  {
+    "name": "Typography",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Fonts"
+      },
+      {
+        "type": "font_picker",
+        "id": "font_heading",
+        "label": "Heading Font",
+        "default": "cormorant_garamond_n4"
+      },
+      {
+        "type": "font_picker",
+        "id": "font_body",
+        "label": "Body Font",
+        "default": "assistant_n4"
+      }
+    ]
+  },
+  {
+    "name": "Layout",
+    "settings": [
+      {
+        "type": "range",
+        "id": "page_width",
+        "label": "Maximum page width",
+        "min": 1100,
+        "max": 1600,
+        "step": 20,
+        "unit": "px",
+        "default": 1280
+      },
+      {
+        "type": "range",
+        "id": "section_spacing",
+        "label": "Section vertical spacing",
+        "min": 40,
+        "max": 120,
+        "step": 10,
+        "unit": "px",
+        "default": 80
+      },
+      {
+        "type": "checkbox",
+        "id": "show_breadcrumbs",
+        "label": "Show breadcrumbs",
+        "default": true
+      }
+    ]
+  },
+  {
+    "name": "Announcement Bar",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "announcement_bar_enabled",
+        "label": "Show announcement bar",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "announcement_bar_marquee",
+        "label": "Scrolling marquee animation",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "announcement_message_1",
+        "label": "Message 1",
+        "default": "Premium Herbal Wellness"
+      },
+      {
+        "type": "text",
+        "id": "announcement_message_2",
+        "label": "Message 2",
+        "default": "Fast Delivery Available"
+      },
+      {
+        "type": "text",
+        "id": "announcement_message_3",
+        "label": "Message 3",
+        "default": "Cruelty-Free & Vegan-Friendly"
+      }
+    ]
+  },
+  {
+    "name": "Conversion Features",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Toggle marketing features on/off"
+      },
+      {
+        "type": "checkbox",
+        "id": "whatsapp_button_enabled",
+        "label": "WhatsApp floating button",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "whatsapp_number",
+        "label": "WhatsApp number (international format, no +)",
+        "default": "923001234567"
+      },
+      {
+        "type": "checkbox",
+        "id": "social_proof_enabled",
+        "label": "Social proof popup",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "newsletter_popup_enabled",
+        "label": "Newsletter popup",
+        "default": true
+      },
+      {
+        "type": "range",
+        "id": "newsletter_popup_delay",
+        "label": "Newsletter popup delay (seconds)",
+        "min": 3,
+        "max": 20,
+        "step": 1,
+        "unit": "s",
+        "default": 12
+      },
+      {
+        "type": "checkbox",
+        "id": "discount_banner_enabled",
+        "label": "Discount banner",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "discount_banner_code",
+        "label": "Discount code",
+        "default": "SPINEXA10"
+      },
+      {
+        "type": "text",
+        "id": "discount_banner_text",
+        "label": "Discount banner text",
+        "default": "New Customer Offer — Get 10% off your first order with code"
+      },
+      {
+        "type": "checkbox",
+        "id": "free_shipping_bar_enabled",
+        "label": "Free shipping progress bar",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "free_shipping_threshold",
+        "label": "Free shipping threshold (amount, no currency)",
+        "default": "2500"
+      }
+    ]
+  },
+  {
+    "name": "Social Media",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Social media links"
+      },
+      {
+        "type": "text",
+        "id": "social_instagram",
+        "label": "Instagram URL",
+        "default": "https://instagram.com/spinexa"
+      },
+      {
+        "type": "text",
+        "id": "social_facebook",
+        "label": "Facebook URL",
+        "default": "https://facebook.com/spinexa"
+      },
+      {
+        "type": "text",
+        "id": "social_tiktok",
+        "label": "TikTok URL",
+        "default": "https://tiktok.com/@spinexa"
+      },
+      {
+        "type": "text",
+        "id": "social_twitter",
+        "label": "Twitter / X URL",
+        "default": ""
+      }
+    ]
+  },
+  {
+    "name": "Cart",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "cart_drawer_enabled",
+        "label": "Enable cart drawer (slide-out)",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "cart_notes_enabled",
+        "label": "Enable order notes",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "cart_show_recommendations",
+        "label": "Show recommended products in cart",
+        "default": true
+      }
+    ]
+  },
+  {
+    "name": "Favicon",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Favicon (32x32 PNG or SVG)"
+      }
+    ]
+  }
+]

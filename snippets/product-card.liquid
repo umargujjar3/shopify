@@ -1,0 +1,71 @@
+{%- comment -%} Product card snippet {%- endcomment -%}
+{%- liquid
+  assign product = product | default: card_product
+  assign lazy = lazy | default: true
+  if lazy
+    assign loading_attr = 'loading="lazy"'
+  else
+    assign loading_attr = ''
+  endif
+  assign on_sale = false
+  if product.compare_at_price > product.price
+    assign on_sale = true
+    assign discount = product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price
+  endif
+-%}
+<div class="product-card reveal">
+  <div class="product-card__inner">
+    <div class="product-card__image">
+      <a href="{{ product.url }}">
+        <img src="{{ product.featured_image | image_url: width: 600 }}" alt="{{ product.title | escape }}" {{ loading_attr }} width="600" height="600">
+      </a>
+      <div class="product-card__badges">
+        {%- if product.tags contains 'bestseller' -%}
+          <span class="product-card__badge">Bestseller</span>
+        {%- elsif product.tags contains 'new' -%}
+          <span class="product-card__badge">New</span>
+        {%- endif -%}
+        {%- if on_sale -%}
+          <span class="product-card__badge product-card__badge--sale">-{{ discount }}%</span>
+        {%- endif -%}
+      </div>
+      <button class="product-card__wishlist" aria-label="{{ 'general.accessibility.toggle_wishlist' | t }}" data-wishlist="{{ product.id }}">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+      </button>
+      <div class="product-card__quick-add">
+        <form method="post" action="/cart/add" data-quick-add-form>
+          <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+          <button type="submit" class="product-card__quick-add-btn" data-add-to-cart="{{ product.selected_or_first_available_variant.id }}">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+            <span>{{ 'general.products.quick_add' | t }}</span>
+          </button>
+        </form>
+      </div>
+    </div>
+    <div class="product-card__info">
+      {%- if product.type != blank -%}
+        <p class="product-card__category">{{ product.type }}</p>
+      {%- endif -%}
+      <a href="{{ product.url }}">
+        <h3 class="product-card__title">{{ product.title }}</h3>
+      </a>
+      {%- if product.metafields.custom.subtitle != blank -%}
+        <p class="product-card__subtitle">{{ product.metafields.custom.subtitle }}</p>
+      {%- endif -%}
+      <div class="product-card__rating">
+        {%- render 'rating', rating_value: product.metafields.reviews.rating.value, rating_count: product.metafields.reviews.rating_count.value -%}
+      </div>
+      <div class="product-card__price-row">
+        <div>
+          <span class="product-card__price">{{ product.price | money }}</span>
+          {%- if on_sale -%}
+            <span class="product-card__compare">{{ product.compare_at_price | money }}</span>
+          {%- endif -%}
+        </div>
+        <a href="{{ product.url }}" class="product-card__view" aria-label="{{ 'general.accessibility.view_product' | t }}">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

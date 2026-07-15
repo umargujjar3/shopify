@@ -1,0 +1,55 @@
+<section class="section--cream" style="padding-block: var(--section-spacing, 80px);">
+  <div class="container">
+    <div class="section-header">
+      <div class="reveal"><span class="eyebrow center">{{ section.settings.eyebrow }}</span></div>
+      <div class="reveal" style="--reveal-delay:100ms"><h2 class="h2 section-header__title text-balance">{{ section.settings.title }}</h2></div>
+      <div class="reveal" style="--reveal-delay:200ms"><p class="section-header__subtitle text-pretty">{{ section.settings.subtitle }}</p></div>
+    </div>
+
+    <div class="benefits__grid">
+      {%- for block in section.blocks -%}
+        <div class="benefit-card reveal" style="--reveal-delay:{{ forloop.index0 | times: 100 }}ms" {{ block.shopify_attributes }}>
+          <span class="benefit-card__icon">{%- render 'icon', icon: block.settings.icon -%}</span>
+          <h3 class="benefit-card__title">{{ block.settings.title }}</h3>
+          <p class="benefit-card__desc text-pretty">{{ block.settings.desc }}</p>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Benefits",
+  "max_blocks": 4,
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Why Spinexa" },
+    { "type": "text", "id": "title", "label": "Title", "default": "Care That Works With Your Body" },
+    { "type": "textarea", "id": "subtitle", "label": "Subtitle", "default": "Every detail — from ingredient to bottle — is designed to deliver a wellness experience you can feel." }
+  ],
+  "blocks": [
+    { "type": "benefit", "name": "Benefit", "settings": [
+      { "type": "select", "id": "icon", "label": "Icon", "default": "sprout", "options": [
+        { "value": "sprout", "label": "Sprout" },
+        { "value": "wind", "label": "Wind" },
+        { "value": "sun", "label": "Sun" },
+        { "value": "gem", "label": "Gem" },
+        { "value": "leaf", "label": "Leaf" },
+        { "value": "shield", "label": "Shield" },
+        { "value": "award", "label": "Award" }
+      ]},
+      { "type": "text", "id": "title", "label": "Title", "default": "Herbal Formula" },
+      { "type": "textarea", "id": "desc", "label": "Description", "default": "Cold-pressed botanical extracts, crafted with traditional herbal wisdom and modern precision." }
+    ]}
+  ],
+  "presets": [{
+    "name": "Benefits",
+    "blocks": [
+      { "type": "benefit", "settings": { "icon": "sprout", "title": "Herbal Formula", "desc": "Cold-pressed botanical extracts, crafted with traditional herbal wisdom and modern precision." } },
+      { "type": "benefit", "settings": { "icon": "wind", "title": "Relaxing Experience", "desc": "A calming aromatic ritual that helps you unwind, release tension, and find your moment of calm." } },
+      { "type": "benefit", "settings": { "icon": "sun", "title": "Everyday Wellness", "desc": "Designed for daily use — a simple, versatile addition to your morning and evening routine." } },
+      { "type": "benefit", "settings": { "icon": "gem", "title": "Premium Quality", "desc": "Meticulously sourced ingredients and premium packaging you will be proud to display." } }
+    ]
+  }]
+}
+{% endschema %}

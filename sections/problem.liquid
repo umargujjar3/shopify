@@ -1,0 +1,66 @@
+<section class="section--cream" style="padding-block: var(--section-spacing, 80px);">
+  <div class="container">
+    <div class="problem__grid">
+      <!-- Image -->
+      <div class="problem__image-wrap reveal">
+        <div class="problem__image">
+          {%- if section.settings.image != blank -%}
+            <img src="{{ section.settings.image | image_url: width: 1100, height: 800, crop: 'center' }}" alt="" loading="lazy">
+          {%- else -%}
+            <img src="https://images.pexels.com/photos/4046718/pexels-photo-4046718.jpeg?auto=compress&cs=tinysrgb&w=1100&h=1300&fit=crop" alt="" loading="lazy">
+          {%- endif -%}
+        </div>
+        <div class="problem__stat">
+          <p class="problem__stat-value">14-day</p>
+          <p class="problem__stat-label">{{ 'sections.problem.guarantee' | t }}</p>
+        </div>
+      </div>
+
+      <!-- Copy -->
+      <div class="problem__copy">
+        <div class="reveal"><span class="eyebrow">{{ section.settings.eyebrow }}</span></div>
+        <div class="reveal" style="--reveal-delay:100ms"><h2 class="h2 problem__title text-balance">{{ section.settings.title }}</h2></div>
+        <div class="reveal" style="--reveal-delay:200ms"><p class="problem__p text-pretty">{{ section.settings.paragraph_1 }}</p></div>
+        <div class="reveal" style="--reveal-delay:300ms"><p class="problem__p text-pretty">{{ section.settings.paragraph_2 }}</p></div>
+        <div class="reveal" style="--reveal-delay:400ms">
+          <div class="problem__stats">
+            {%- for block in section.blocks -%}
+              <div class="problem__stat-card" {{ block.shopify_attributes }}>
+                <p class="problem__stat-value">{{ block.settings.stat }}</p>
+                <p class="problem__stat-label" style="font-size:12px; line-height:1.4; color: var(--color-text-muted);">{{ block.settings.label }}</p>
+              </div>
+            {%- endfor -%}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Problem section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The Everyday Struggle" },
+    { "type": "text", "id": "title", "label": "Heading", "default": "Your Body Deserves Better Care" },
+    { "type": "textarea", "id": "paragraph_1", "label": "Paragraph 1", "default": "Modern life pulls your body in every direction. Hours at a desk. Workouts that push limits. Evenings that never quite switch off. The tension builds quietly — in your shoulders, your back, your everyday comfort." },
+    { "type": "textarea", "id": "paragraph_2", "label": "Paragraph 2", "default": "You deserve more than quick fixes and synthetic shortcuts. You deserve care that understands the way your body moves through the day — natural, intentional, and made to fit seamlessly into your routine." },
+    { "type": "image_picker", "id": "image", "label": "Image" }
+  ],
+  "max_blocks": 3,
+  "blocks": [
+    { "type": "stat", "name": "Statistic", "settings": [
+      { "type": "text", "id": "stat", "label": "Stat value", "default": "73%" },
+      { "type": "text", "id": "label", "label": "Stat label", "default": "of adults report daily tension from long desk hours" }
+    ]}
+  ],
+  "presets": [{
+    "name": "Problem section",
+    "blocks": [
+      { "type": "stat", "settings": { "stat": "73%", "label": "of adults report daily tension from long desk hours" } },
+      { "type": "stat", "settings": { "stat": "1 in 3", "label": "struggle to unwind after an active day" } },
+      { "type": "stat", "settings": { "stat": "60%", "label": "wish for a natural alternative to synthetic products" } }
+    ]
+  }]
+}
+{% endschema %}

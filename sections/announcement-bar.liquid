@@ -1,0 +1,41 @@
+{%- if settings.announcement_bar_enabled -%}
+  <div class="announcement-bar">
+    {%- if settings.announcement_bar_marquee -%}
+      <div class="announcement-bar__marquee">
+        {%- for n in (1..4) -%}
+          {%- for i in (1..3) -%}
+            {%- assign msg_key = 'announcement_message_' | append: i -%}
+            {%- assign msg = settings[msg_key] -%}
+            {%- if msg != blank -%}
+              <div class="announcement-bar__item">
+                {%- render 'icon', icon: 'sparkles' -%}
+                <span>{{ msg }}</span>
+                <span class="announcement-bar__sep">•</span>
+              </div>
+            {%- endif -%}
+          {%- endfor -%}
+        {%- endfor -%}
+      </div>
+    {%- else -%}
+      <div class="announcement-bar__static">
+        {%- for i in (1..3) -%}
+          {%- assign msg_key = 'announcement_message_' | append: i -%}
+          {%- assign msg = settings[msg_key] -%}
+          {%- if msg != blank -%}
+            <div class="announcement-bar__item">
+              {%- render 'icon', icon: 'sparkles' -%}
+              <span>{{ msg }}</span>
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Announcement bar",
+  "settings": []
+}
+{% endschema %}

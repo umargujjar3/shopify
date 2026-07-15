@@ -1,0 +1,32 @@
+{%- comment -%} Social proof popup {%- endcomment -%}
+<div class="social-proof hidden">
+  <div class="social-proof__card">
+    <button class="social-proof__close" data-social-proof-close aria-label="{{ 'general.accessibility.close' | t }}">
+      {%- render 'icon', icon: 'close' -%}
+    </button>
+    <div class="social-proof__icon">{%- render 'icon', icon: 'check-circle' -%}</div>
+    <div class="social-proof__text">
+      <p class="social-proof__name">Ahmed from Lahore</p>
+      <p class="social-proof__product">just purchased Herbal Wellness Oil</p>
+      <p class="social-proof__time">2 minutes ago · <span class="social-proof__verified">Verified</span></p>
+    </div>
+  </div>
+  <p class="social-proof__via">via Spinexa Secure Checkout</p>
+</div>
+
+<script>
+  window.theme = window.theme || {};
+  window.theme.socialProof = [
+    { name: 'Ahmed', city: 'Lahore', product: 'Herbal Wellness Oil', time: '2 minutes ago' },
+    { name: 'Sana', city: 'Karachi', product: 'Relaxation Blend', time: '7 minutes ago' },
+    { name: 'Imran', city: 'Islamabad', product: 'Active Recovery Oil', time: '14 minutes ago' },
+    { name: 'Mehwish', city: 'Faisalabad', product: 'Herbal Wellness Oil', time: '21 minutes ago' },
+    { name: 'Tariq', city: 'Rawalpindi', product: 'Daily Comfort Oil', time: '33 minutes ago' },
+    { name: 'Nida', city: 'Multan', product: 'Herbal Wellness Oil', time: '48 minutes ago' },
+    { name: 'Hamza', city: 'Gujranwala', product: 'Active Recovery Oil', time: '1 hour ago' },
+    { name: 'Zainab', city: 'Peshawar', product: 'Relaxation Blend', time: '1 hour ago' }
+  ];
+  window.theme.strings = window.theme.strings || {};
+  window.theme.strings.just_purchased = 'just purchased';
+  window.theme.strings.verified = 'Verified';
+</script>

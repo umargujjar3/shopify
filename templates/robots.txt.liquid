@@ -1,0 +1,11 @@
+layout: {%- comment %} theme.liquid {% endcomment -%}
+{% for group in robots.content_groups %}
+  {{- group }}
+{% endfor %}
+{% for path in robots.disallowed_paths %}
+  User-agent: *
+  Disallow: {{ path }}
+{% endfor %}
+{% if robots.sitemap_url %}
+  Sitemap: {{ robots.sitemap_url }}
+{% endif %}

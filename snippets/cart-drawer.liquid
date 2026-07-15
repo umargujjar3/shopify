@@ -1,0 +1,89 @@
+{%- comment -%} Cart drawer — rendered in theme.liquid {%- endcomment -%}
+<div class="cart-drawer__overlay" data-cart-overlay></div>
+<aside class="cart-drawer" aria-label="{{ 'general.cart.title' | t }}" aria-hidden="true">
+  <div class="cart-drawer__header">
+    <div class="cart-drawer__title">
+      {%- render 'icon', icon: 'bag' -%}
+      <span>{{ 'general.cart.title' | t }}</span>
+      <span class="cart-drawer__count" data-cart-count-badge>{{ cart.item_count }}</span>
+    </div>
+    <button class="cart-drawer__close" data-cart-close aria-label="{{ 'general.accessibility.close_cart' | t }}">
+      {%- render 'icon', icon: 'close' -%}
+    </button>
+  </div>
+
+  {%- if settings.free_shipping_bar_enabled -%}
+    <div class="cart-drawer__shipping" data-cart-shipping>
+      <div class="cart-drawer__shipping-text" data-shipping-text>
+        {%- if cart.total_price < settings.free_shipping_threshold | times: 100 -%}
+          {{ 'general.cart.add_more_for_free' | t }} <strong>{{ settings.free_shipping_threshold | minus: cart.total_price | divided_by: 100.0 | money }}</strong>
+        {%- else -%}
+          {{ 'general.cart.free_shipping_unlocked' | t }}
+        {%- endif -%}
+      </div>
+      <div class="cart-drawer__progress">
+        <div class="cart-drawer__progress-bar" data-shipping-progress style="width: {%- if settings.free_shipping_threshold != blank -%}{{ cart.total_price | divided_by: settings.free_shipping_threshold | times: 100 | at_most: 100 }}{%- else -%}0{%- endif -%}%"></div>
+      </div>
+    </div>
+  {%- endif -%}
+
+  <div class="cart-drawer__items" data-cart-items>
+    {%- if cart.item_count == 0 -%}
+      <div class="cart-drawer__empty">
+        <div class="cart-drawer__empty-icon">{%- render 'icon', icon: 'bag' -%}</div>
+        <p class="cart-drawer__empty-title">{{ 'general.cart.empty' | t }}</p>
+        <p class="cart-drawer__empty-text">{{ 'general.cart.empty_text' | t }}</p>
+        <a href="/collections/all" class="btn btn-primary" style="margin-top:24px" data-cart-close>{{ 'general.cart.empty_button' | t }}</a>
+      </div>
+    {%- else -%}
+      {%- for item in cart.items -%}
+        <div class="cart-drawer__item" data-line="{{ forloop.index }}">
+          <a href="{{ item.url }}" class="cart-drawer__item-img">
+            <img src="{{ item.image | image_url: width: 200 }}" alt="{{ item.title | escape }}" loading="lazy" width="96" height="96">
+          </a>
+          <div class="cart-drawer__item-info">
+            <div class="cart-drawer__item-top">
+              <a href="{{ item.url }}" class="cart-drawer__item-title">{{ item.product_title }}</a>
+              <button class="cart-drawer__item-remove" data-remove="{{ forloop.index }}" aria-label="{{ 'general.cart.remove' | t }}">
+                {%- render 'icon', icon: 'trash' -%}
+              </button>
+            </div>
+            <p class="cart-drawer__item-price">{{ item.price | money }}</p>
+            <div class="cart-drawer__item-bottom">
+              <div class="cart-qty">
+                <button class="cart-qty__btn" data-qty-dec="{{ forloop.index }}" aria-label="{{ 'general.accessibility.decrease_quantity' | t }}">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/></svg>
+                </button>
+                <span class="cart-qty__value">{{ item.quantity }}</span>
+                <button class="cart-qty__btn" data-qty-inc="{{ forloop.index }}" aria-label="{{ 'general.accessibility.increase_quantity' | t }}">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+                </button>
+              </div>
+              <span class="cart-drawer__item-total">{{ item.final_line_price | money }}</span>
+            </div>
+          </div>
+        </div>
+      {%- endfor -%}
+    {%- endif -%}
+  </div>
+
+  {%- if cart.item_count > 0 -%}
+    <div class="cart-drawer__footer" data-cart-footer>
+      <div class="cart-drawer__subtotal">
+        <span class="cart-drawer__subtotal-label">{{ 'general.cart.subtotal' | t }}</span>
+        <span class="cart-drawer__subtotal-value" data-cart-subtotal>{{ cart.total_price | money }}</span>
+      </div>
+      <div class="cart-drawer__trust">
+        {%- render 'icon', icon: 'shield' -%}
+        {{ 'general.cart.secure_checkout_msg' | t }} · {{ 'general.cart.cod_available' | t }}
+      </div>
+      <form action="/cart" method="get">
+        <button type="submit" class="btn btn-primary btn-block">
+          {{ 'general.cart.checkout' | t }}
+          {%- render 'icon', icon: 'arrow-right' -%}
+        </button>
+      </form>
+      <a href="/cart" class="cart-drawer__continue" data-cart-close>{{ 'general.cart.continue_shopping' | t }}</a>
+    </div>
+  {%- endif -%}
+</aside>

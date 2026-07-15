@@ -1,0 +1,223 @@
+{%- assign current_variant = product.selected_or_first_available_variant -%}
+{%- assign on_sale = false -%}
+{%- if product.compare_at_price > product.price -%}
+  {%- assign on_sale = true -%}
+  {%- assign discount = product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price -%}
+{%- endif -%}
+
+<!-- Breadcrumb -->
+<div class="container">
+  <nav class="breadcrumb">
+    <a href="{{ routes.root_url }}">{{ 'sections.header.home' | t }}</a>
+    {%- render 'icon', icon: 'chevron-right' -%}
+    <a href="/collections/all">{{ 'sections.header.shop' | t }}</a>
+    {%- render 'icon', icon: 'chevron-right' -%}
+    <span>{{ product.title }}</span>
+  </nav>
+</div>
+
+<!-- Product Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": {{ product.title | json }},
+  "description": {{ product.description | strip_html | truncatewords: 50 | json }},
+  "image": "https:{{ product.featured_image | image_url: width: 1200 }}",
+  "offers": {
+    "@type": "Offer",
+    "price": "{{ current_variant.price | divided_by: 100.0 }}",
+    "priceCurrency": {{ cart.currency.iso_code | json }},
+    "availability": "{% if product.available %}https://schema.org/InStock{% else %}https://schema.org/OutOfStock{% endif %}"
+  }
+}
+</script>
+
+<div class="container">
+  <div class="product__grid">
+    <!-- Gallery -->
+    <div class="product__gallery">
+      <div class="product__main-image">
+        <img src="{{ product.featured_image | image_url: width: 1000 }}" alt="{{ product.title | escape }}" id="product-main-img" loading="eager">
+        <span class="product__zoom-hint">{%- render 'icon', icon: 'zoom-in' -%} Hover to zoom</span>
+        {%- if product.tags contains 'bestseller' -%}
+          <span class="featured__badge">Bestseller</span>
+        {%- elsif product.tags contains 'new' -%}
+          <span class="featured__badge">New</span>
+        {%- endif -%}
+      </div>
+      <div class="product__thumbs">
+        {%- for image in product.images -%}
+          <button class="product__thumb{% if forloop.first %} active{% endif %}" data-thumb>
+            <img src="{{ image | image_url: width: 200 }}" alt="" loading="lazy">
+          </button>
+        {%- endfor -%}
+      </div>
+    </div>
+
+    <!-- Info -->
+    <div class="product__info">
+      {%- if product.type != blank -%}
+        <p class="product__category">{{ product.type }}</p>
+      {%- endif -%}
+      <h1 class="h1 product__title">{{ product.title }}</h1>
+      {%- if product.metafields.custom.subtitle != blank -%}
+        <p class="product__subtitle">{{ product.metafields.custom.subtitle }}</p>
+      {%- endif -%}
+
+      <div style="margin-top:16px; display:flex; align-items:center; gap:12px;">
+        {%- render 'rating', rating_value: 5, rating_count: product.metafields.reviews.rating_count.value, rating_size: 'md' -%}
+      </div>
+
+      <div class="product__price-row">
+        <span class="product__price">{{ current_variant.price | money }}</span>
+        {%- if on_sale -%}
+          <span class="product__compare">{{ current_variant.compare_at_price | money }}</span>
+          <span class="product__discount">Save {{ discount }}%</span>
+        {%- endif -%}
+      </div>
+
+      <p class="product__desc text-pretty">
+        {%- if product.metafields.custom.short_description != blank -%}
+          {{ product.metafields.custom.short_description }}
+        {%- else -%}
+          {{ product.description | strip_html | truncatewords: 40 }}
+        {%- endif -%}
+      </p>
+
+      <!-- Product form -->
+      <form method="post" action="/cart/add" data-product-form style="margin-top:32px;">
+        <input type="hidden" name="id" value="{{ current_variant.id }}" data-variant-id>
+
+        {%- unless product.has_only_default_variant -%}
+          {%- for option in product.options_with_values -%}
+            <div style="margin-bottom:16px;">
+              <label style="display:block; margin-bottom:6px; font-size:14px; font-weight:500;">{{ option.name }}</label>
+              <select class="input" data-variant-select>
+                {%- for value in option.values -%}
+                  <option value="{{ value }}">{{ value }}</option>
+                {%- endfor -%}
+              </select>
+            </div>
+          {%- endfor -%}
+        {%- endunless -%}
+
+        {%- for variant in product.variants -%}
+          <span data-variant-option="{{ variant.title }}" data-variant-id="{{ variant.id }}" style="display:none;"></span>
+        {%- endfor -%}
+
+        <div class="product__actions">
+          <div class="qty-selector">
+            <button type="button" class="qty-btn" data-qty-dec-page aria-label="{{ 'general.accessibility.decrease_quantity' | t }}">−</button>
+            <input type="number" value="1" min="1" name="quantity" data-qty style="border:none; background:none; text-align:center; width:40px; font-weight:600;">
+            <button type="button" class="qty-btn" data-qty-inc-page aria-label="{{ 'general.accessibility.increase_quantity' | t }}">+</button>
+          </div>
+          <button type="submit" class="btn btn-primary" data-add-to-cart="{{ current_variant.id }}">
+            {%- render 'icon', icon: 'bag' -%}
+            {{ 'general.products.add_to_cart' | t }}
+          </button>
+          <button type="button" class="product__wishlist-btn" data-wishlist="{{ product.id }}" aria-label="{{ 'general.accessibility.toggle_wishlist' | t }}">
+            {%- render 'icon', icon: 'heart' -%}
+          </button>
+        </div>
+      </form>
+
+      <!-- Trust badges -->
+      <div class="product__trust">
+        <div class="product__trust-item">{%- render 'icon', icon: 'leaf' -%}<span>{{ 'general.products.natural_formula' | t }}</span></div>
+        <div class="product__trust-item">{%- render 'icon', icon: 'truck' -%}<span>{{ 'general.products.fast_delivery' | t }}</span></div>
+        <div class="product__trust-item">{%- render 'icon', icon: 'shield' -%}<span>{{ 'general.products.secure_checkout' | t }}</span></div>
+      </div>
+
+      <!-- Accordion -->
+      <div style="margin-top:40px;">
+        <div class="accordion">
+          <div class="accordion__item open">
+            <button class="accordion__btn" type="button">
+              <span class="accordion__question">{{ 'general.products.description' | t }}</span>
+              <span class="accordion__icon">{%- render 'icon', icon: 'plus' -%}</span>
+            </button>
+            <div class="accordion__content"><div class="accordion__content-inner"><div class="accordion__answer rte">{{ product.description }}</div></div></div>
+          </div>
+
+          {%- if product.metafields.custom.benefits != blank -%}
+            <div class="accordion__item">
+              <button class="accordion__btn" type="button">
+                <span class="accordion__question">{{ 'general.products.benefits' | t }}</span>
+                <span class="accordion__icon">{%- render 'icon', icon: 'plus' -%}</span>
+              </button>
+              <div class="accordion__content"><div class="accordion__content-inner"><div class="accordion__answer">{{ product.metafields.custom.benefits }}</div></div></div>
+            </div>
+          {%- endif -%}
+
+          {%- if product.metafields.custom.ingredients != blank -%}
+            <div class="accordion__item">
+              <button class="accordion__btn" type="button">
+                <span class="accordion__question">{{ 'general.products.ingredients' | t }}</span>
+                <span class="accordion__icon">{%- render 'icon', icon: 'plus' -%}</span>
+              </button>
+              <div class="accordion__content"><div class="accordion__content-inner"><div class="accordion__answer">{{ product.metafields.custom.ingredients }}</div></div></div>
+            </div>
+          {%- endif -%}
+
+          {%- if product.metafields.custom.how_to_use != blank -%}
+            <div class="accordion__item">
+              <button class="accordion__btn" type="button">
+                <span class="accordion__question">{{ 'general.products.how_to_use' | t }}</span>
+                <span class="accordion__icon">{%- render 'icon', icon: 'plus' -%}</span>
+              </button>
+              <div class="accordion__content"><div class="accordion__content-inner"><div class="accordion__answer">{{ product.metafields.custom.how_to_use }}</div></div></div>
+            </div>
+          {%- endif -%}
+
+          <div class="accordion__item">
+            <button class="accordion__btn" type="button">
+              <span class="accordion__question">{{ 'general.products.shipping_information' | t }}</span>
+              <span class="accordion__icon">{%- render 'icon', icon: 'plus' -%}</span>
+            </button>
+            <div class="accordion__content"><div class="accordion__content-inner"><div class="accordion__answer">Free delivery on orders over Rs.2,500. Standard delivery 2–4 business days. Cash on delivery available across Pakistan.</div></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Related products -->
+  {%- assign related = collections[section.settings.related_collection] -%}
+  {%- if related != blank and related.products.size > 0 -%}
+    <section style="border-top:1px solid var(--color-border); padding-block: var(--section-spacing, 80px); margin-top: var(--section-spacing, 80px);">
+      <h2 class="h3" style="text-align:center;">{{ 'general.products.related_products' | t }}</h2>
+      <div class="collection-grid" style="padding-top:48px;">
+        {%- for related_product in related.products limit: 4 -%}
+          {%- if related_product.id != product.id -%}
+            {%- render 'product-card', product: related_product, lazy: true -%}
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </section>
+  {%- endif -%}
+</div>
+
+<!-- Mobile sticky buy bar -->
+<div class="mobile-buy-bar">
+  <div class="mobile-buy-bar__info">
+    <p class="mobile-buy-bar__name">{{ product.title }}</p>
+    <p class="mobile-buy-bar__price">{{ current_variant.price | money }}</p>
+  </div>
+  <form method="post" action="/cart/add" style="flex:1;">
+    <input type="hidden" name="id" value="{{ current_variant.id }}">
+    <button type="submit" class="btn btn-primary btn-block" data-add-to-cart="{{ current_variant.id }}">
+      {%- render 'icon', icon: 'bag' -%}
+      {{ 'general.products.add_to_cart' | t }}
+    </button>
+  </form>
+</div>
+
+{% schema %}
+{
+  "name": "Product",
+  "settings": [
+    { "type": "collection", "id": "related_collection", "label": "Related products collection" }
+  ]
+}
+{% endschema %}

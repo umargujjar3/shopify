@@ -1,0 +1,13 @@
+{%- comment -%} WhatsApp floating button {%- endcomment -%}
+<a href="https://wa.me/{{ settings.whatsapp_number }}?text={{ 'Hi! I would like to know more about Spinexa products.' | url_encode }}"
+   class="whatsapp-btn"
+   target="_blank" rel="noopener noreferrer"
+   aria-label="Chat on WhatsApp">
+  <span class="whatsapp-btn__tip">
+    <span class="whatsapp-btn__tip-text">Need help? Chat with us</span>
+  </span>
+  <span class="whatsapp-btn__icon">
+    <span class="whatsapp-btn__pulse"></span>
+    {%- render 'icon', icon: 'message-circle' -%}
+  </span>
+</a>

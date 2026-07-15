@@ -1,0 +1,106 @@
+<header class="header">
+  <div class="container">
+    <div class="header__inner">
+      <!-- Mobile menu toggle -->
+      <button class="header__menu-toggle header__action-btn" aria-label="{{ 'general.accessibility.open_menu' | t }}">
+        {%- render 'icon', icon: 'menu' -%}
+      </button>
+
+      <!-- Logo -->
+      <a href="{{ routes.root_url }}" class="logo" aria-label="{{ shop.name }}">
+        <svg class="logo__icon" viewBox="0 0 64 64" aria-hidden="true">
+          <rect width="64" height="64" rx="16" fill="var(--color-primary)"/>
+          <path d="M32 14c-7 8-11 14-11 21a11 11 0 0 0 22 0c0-7-4-13-11-21z" fill="var(--color-natural-green)"/>
+          <path d="M32 22c-3.5 4-5.5 7-5.5 10.5a5.5 5.5 0 0 0 11 0c0-3.5-2-6.5-5.5-10.5z" fill="var(--color-gold)"/>
+        </svg>
+        <span class="logo__text">Spin<span class="logo__accent">exa</span></span>
+      </a>
+
+      <!-- Desktop nav -->
+      <nav class="header__nav">
+        <a href="{{ routes.root_url }}" class="header__nav-link{% if request.page_type == 'index' %} active{% endif %}">{{ 'sections.header.home' | t }}</a>
+        <a href="/collections/all" class="header__nav-link{% if request.page_type == 'collection' %} active{% endif %}">{{ 'sections.header.shop' | t }}</a>
+        <a href="/pages/about" class="header__nav-link{% if request.page_type == 'page' and page.handle == 'about' %} active{% endif %}">{{ 'sections.header.about' | t }}</a>
+        <a href="/blogs/journal" class="header__nav-link{% if request.page_type == 'blog' %} active{% endif %}">{{ 'sections.header.blog' | t }}</a>
+        <a href="/pages/faq" class="header__nav-link{% if request.page_type == 'page' and page.handle == 'faq' %} active{% endif %}">{{ 'sections.header.faq' | t }}</a>
+        <a href="/pages/contact" class="header__nav-link{% if request.page_type == 'page' and page.handle == 'contact' %} active{% endif %}">{{ 'sections.header.contact' | t }}</a>
+      </nav>
+
+      <!-- Actions -->
+      <div class="header__actions">
+        <button class="header__action-btn header__search-toggle" aria-label="{{ 'general.accessibility.open_search' | t }}">
+          {%- render 'icon', icon: 'search' -%}
+        </button>
+        <a href="/pages/wishlist" class="header__action-btn header__action-desktop" aria-label="{{ 'sections.header.wishlist' | t }}">
+          {%- render 'icon', icon: 'heart' -%}
+        </a>
+        <a href="{{ routes.account_url }}" class="header__action-btn header__action-desktop" aria-label="{{ 'sections.header.account' | t }}">
+          {%- render 'icon', icon: 'user' -%}
+        </a>
+        <button class="header__action-btn" data-cart-open aria-label="{{ 'general.accessibility.open_cart' | t }}">
+          {%- render 'icon', icon: 'bag' -%}
+          {%- if cart.item_count > 0 -%}
+            <span class="header__cart-count" data-cart-count-badge>{{ cart.item_count }}</span>
+          {%- endif -%}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Search dropdown -->
+  <div class="header__search">
+    <div class="container" style="padding: 20px;">
+      <form action="{{ routes.search_url }}" method="get" class="header__search-form">
+        <span class="header__search-icon">{%- render 'icon', icon: 'search' -%}</span>
+        <input type="text" name="q" class="header__search-input" placeholder="{{ 'general.search.search_placeholder' | t }}" value="{{ search.terms | escape }}">
+      </form>
+    </div>
+  </div>
+</header>
+
+<!-- Mobile menu -->
+<div class="mobile-menu" aria-hidden="true">
+  <div class="mobile-menu__overlay"></div>
+  <div class="mobile-menu__panel">
+    <div class="mobile-menu__header">
+      <a href="{{ routes.root_url }}" class="logo">
+        <svg class="logo__icon" viewBox="0 0 64 64"><rect width="64" height="64" rx="16" fill="var(--color-primary)"/><path d="M32 14c-7 8-11 14-11 21a11 11 0 0 0 22 0c0-7-4-13-11-21z" fill="var(--color-natural-green)"/><path d="M32 22c-3.5 4-5.5 7-5.5 10.5a5.5 5.5 0 0 0 11 0c0-3.5-2-6.5-5.5-10.5z" fill="var(--color-gold)"/></svg>
+        <span class="logo__text">Spin<span class="logo__accent">exa</span></span>
+      </a>
+      <button class="mobile-menu__close header__action-btn" aria-label="{{ 'general.accessibility.close_menu' | t }}">
+        {%- render 'icon', icon: 'close' -%}
+      </button>
+    </div>
+    <nav class="mobile-menu__nav">
+      <a href="{{ routes.root_url }}" class="mobile-menu__link{% if request.page_type == 'index' %} active{% endif %}">{{ 'sections.header.home' | t }}</a>
+      <a href="/collections/all" class="mobile-menu__link{% if request.page_type == 'collection' %} active{% endif %}">{{ 'sections.header.shop' | t }}</a>
+      <a href="/pages/about" class="mobile-menu__link">{{ 'sections.header.about' | t }}</a>
+      <a href="/blogs/journal" class="mobile-menu__link">{{ 'sections.header.blog' | t }}</a>
+      <a href="/pages/faq" class="mobile-menu__link">{{ 'sections.header.faq' | t }}</a>
+      <a href="/pages/contact" class="mobile-menu__link">{{ 'sections.header.contact' | t }}</a>
+    </nav>
+    <div class="mobile-menu__footer">
+      <a href="/collections/all" class="btn btn-primary btn-block">{{ 'sections.header.shop' | t }}</a>
+    </div>
+  </div>
+</div>
+
+{%- if settings.discount_banner_enabled -%}
+  <div class="discount-banner">
+    <span style="display:inline-flex;align-items:center;gap:8px;">
+      {%- render 'icon', icon: 'sparkles' -%}
+      {{ settings.discount_banner_text }}
+      <span class="discount-banner__code">{{ settings.discount_banner_code }}</span>
+    </span>
+    <button class="discount-banner__close" data-discount-close aria-label="{{ 'general.accessibility.close' | t }}">
+      {%- render 'icon', icon: 'close' -%}
+    </button>
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": []
+}
+{% endschema %}

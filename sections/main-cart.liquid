@@ -1,0 +1,151 @@
+{%- if cart.item_count == 0 -%}
+  <div class="container">
+    <div class="cart-empty">
+      <div class="cart-empty__icon">{%- render 'icon', icon: 'bag' -%}</div>
+      <h1 class="h2">{{ 'general.cart.empty' | t }}</h1>
+      <p style="max-width:400px; margin-top:12px; color: var(--color-text-muted);">{{ 'general.cart.empty_text' | t }}</p>
+      <a href="/collections/all" class="btn btn-primary" style="margin-top:32px;">
+        {{ 'general.cart.empty_button' | t }}
+        {%- render 'icon', icon: 'arrow-right' -%}
+      </a>
+    </div>
+  </div>
+{%- else -%}
+  <div class="container cart-page">
+    <div class="cart-page__header" style="padding-top:48px;">
+      <h1 class="h2">{{ 'general.cart.title' | t }}</h1>
+      <p style="margin-top:8px; font-size:14px; color: var(--color-text-muted);">{{ cart.item_count }} {{ 'general.cart.items_in_cart' | t }}</p>
+    </div>
+
+    <div class="cart-page__grid">
+      <!-- Items -->
+      <div>
+        {%- if settings.free_shipping_bar_enabled -%}
+          {%- assign threshold = settings.free_shipping_threshold | times: 100 -%}
+          {%- assign remaining = threshold | minus: cart.total_price -%}
+          {%- if remaining > 0 -%}
+            {%- assign progress = cart.total_price | times: 100 | divided_by: threshold -%}
+          {%- else -%}
+            {%- assign progress = 100 -%}
+          {%- endif -%}
+          <div class="cart-shipping-bar">
+            <div class="cart-drawer__shipping-text">
+              {%- render 'icon', icon: 'truck' -%}
+              {%- if remaining > 0 -%}
+                {{ 'general.cart.add_more_for_free' | t }} <strong>{{ remaining | money }}</strong>
+              {%- else -%}
+                {{ 'general.cart.free_shipping_unlocked' | t }}
+              {%- endif -%}
+            </div>
+            <div class="cart-drawer__progress" style="margin-top:10px;">
+              <div class="cart-drawer__progress-bar" style="width:{{ progress | at_most: 100 }}%"></div>
+            </div>
+          </div>
+        {%- endif -%}
+
+        <form action="{{ routes.cart_url }}" method="post" id="cart-form">
+          {%- for item in cart.items -%}
+            <div class="cart-page__item">
+              <a href="{{ item.url }}" class="cart-page__item-img">
+                <img src="{{ item.image | image_url: width: 256 }}" alt="{{ item.title | escape }}" loading="lazy">
+              </a>
+              <div class="cart-page__item-info">
+                <div class="cart-page__item-top">
+                  <div>
+                    <a href="{{ item.url }}" class="cart-page__item-title">{{ item.product_title }}</a>
+                    <p style="font-size:12px; color: var(--color-text-muted);">{{ item.variant_title }}</p>
+                  </div>
+                  <button type="button" class="cart-page__item-remove" data-page-remove aria-label="{{ 'general.cart.remove' | t }}">
+                    {%- render 'icon', icon: 'trash' -%}
+                  </button>
+                </div>
+                <div class="cart-page__item-bottom">
+                  <div class="cart-qty">
+                    <button type="button" class="cart-qty__btn" data-page-qty-dec aria-label="Decrease">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/></svg>
+                    </button>
+                    <input type="number" name="updates[]" value="{{ item.quantity }}" min="0" class="cart-qty__value" style="border:none; background:none; width:40px; text-align:center;">
+                    <button type="button" class="cart-qty__btn" data-page-qty-inc aria-label="Increase">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+                    </button>
+                  </div>
+                  <span class="cart-page__item-total">{{ item.final_line_price | money }}</span>
+                </div>
+              </div>
+            </div>
+          {%- endfor -%}
+        </form>
+
+        <div class="cart-page__actions">
+          <a href="/collections/all" class="link-underline" style="font-size:14px; font-weight:500; color: var(--color-primary);">← {{ 'general.cart.continue_shopping' | t }}</a>
+          <button type="submit" form="cart-form" class="btn btn-ghost" style="color: #9AA5B1;">{{ 'general.cart.clear_cart' | t }}</button>
+        </div>
+      </div>
+
+      <!-- Summary -->
+      <div class="cart-summary">
+        <div class="cart-summary__card">
+          <h2 class="h3">{{ 'general.cart.order_summary' | t }}</h2>
+
+          {%- if settings.discount_banner_enabled -%}
+            <div class="cart-summary__promo">
+              {%- render 'icon', icon: 'tag' -%}
+              {{ 'general.cart.discount_applied' | t }} <strong>{{ settings.discount_banner_code }}</strong>
+            </div>
+          {%- endif -%}
+
+          <div class="cart-summary__rows">
+            <div class="cart-summary__row">
+              <span style="color: var(--color-text-muted);">{{ 'general.cart.subtotal' | t }}</span>
+              <span class="cart-summary__row-value">{{ cart.total_price | money }}</span>
+            </div>
+            <div class="cart-summary__row">
+              <span style="color: var(--color-text-muted);">Delivery</span>
+              <span class="cart-summary__row-value" style="color: var(--color-primary);">{{ 'general.cart.cod_available' | t }}</span>
+            </div>
+          </div>
+
+          <div class="cart-summary__total">
+            <span style="font-size:14px; color: var(--color-text-muted);">{{ 'general.cart.total' | t }}</span>
+            <span class="cart-summary__total-value">{{ cart.total_price | money }}</span>
+          </div>
+
+          <form action="{{ routes.cart_url }}" method="post">
+            <button type="submit" name="checkout" class="btn btn-primary btn-block" style="margin-top:24px; padding:16px;">
+              {{ 'general.cart.checkout' | t }}
+              {%- render 'icon', icon: 'arrow-right' -%}
+            </button>
+          </form>
+
+          <div class="cart-summary__trust">
+            <div class="cart-summary__trust-item">{%- render 'icon', icon: 'shield' -%} {{ 'general.cart.secure_checkout_msg' | t }}</div>
+            <div class="cart-summary__trust-item">{%- render 'icon', icon: 'truck' -%} {{ 'general.cart.cod_available' | t }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {%- if settings.cart_show_recommendations -%}
+      {%- assign recommended = collections[section.settings.recommendation_collection] -%}
+      {%- if recommended != blank and recommended.products.size > 0 -%}
+        <section style="margin-top:88px; border-top:1px solid var(--color-border); padding-top: var(--section-spacing, 80px);">
+          <h2 class="h3">{{ 'general.cart.you_may_also_love' | t }}</h2>
+          <div class="collection-grid" style="padding-top:32px;">
+            {%- for product in recommended.products limit: 4 -%}
+              {%- render 'product-card', product: product, lazy: true -%}
+            {%- endfor -%}
+          </div>
+        </section>
+      {%- endif -%}
+    {%- endif -%}
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Cart",
+  "settings": [
+    { "type": "collection", "id": "recommendation_collection", "label": "Recommended products collection" }
+  ]
+}
+{% endschema %}

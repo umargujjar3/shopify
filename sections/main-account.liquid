@@ -1,0 +1,47 @@
+<div class="customer-page">
+  <div class="customer-card" style="max-width:640px;">
+    <h1 class="h2 customer-card__title">My account</h1>
+    <p class="customer-card__subtitle">Welcome, {{ customer.first_name }}</p>
+
+    <div style="margin-top:32px;">
+      <h2 class="h3">Order history</h2>
+      {%- if customer.orders.size > 0 -%}
+        <div style="margin-top:16px; overflow-x:auto;">
+          <table style="width:100%; border-collapse:collapse; font-size:14px;">
+            <thead>
+              <tr style="border-bottom: 1px solid var(--color-border); text-align:left;">
+                <th style="padding:12px 8px; font-weight:500; color: var(--color-text-muted);">Order</th>
+                <th style="padding:12px 8px; font-weight:500; color: var(--color-text-muted);">Date</th>
+                <th style="padding:12px 8px; font-weight:500; color: var(--color-text-muted);">Total</th>
+                <th style="padding:12px 8px; font-weight:500; color: var(--color-text-muted);">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {%- for order in customer.orders -%}
+                <tr style="border-bottom: 1px solid var(--color-border);">
+                  <td style="padding:12px 8px;"><a href="{{ order.customer_url }}" style="color: var(--color-primary); font-weight:500;">{{ order.name }}</a></td>
+                  <td style="padding:12px 8px; color: var(--color-text-muted);">{{ order.created_at | date: '%b %d, %Y' }}</td>
+                  <td style="padding:12px 8px; font-weight:500;">{{ order.total_price | money }}</td>
+                  <td style="padding:12px 8px; color: var(--color-text-muted);">{{ order.financial_status_label }}</td>
+                </tr>
+              {%- endfor -%}
+            </tbody>
+          </table>
+        </div>
+      {%- else -%}
+        <p style="margin-top:16px; color: var(--color-text-muted);">You haven't placed any orders yet.</p>
+      {%- endif -%}
+    </div>
+
+    <div style="margin-top:32px; display:flex; gap:16px;">
+      <a href="{{ routes.account_logout_url }}" class="btn btn-outline">Sign out</a>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Account",
+  "settings": []
+}
+{% endschema %}

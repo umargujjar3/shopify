@@ -1,0 +1,32 @@
+<article class="container" style="padding: var(--section-spacing, 80px) 0;">
+  <a href="{{ blog.url }}" class="article__back">
+    {%- render 'icon', icon: 'arrow-left' -%}
+    Back to {{ blog.title }}
+  </a>
+
+  <div class="article__header">
+    <span class="eyebrow center">{{ article.tags | first }}</span>
+    <h1 class="h1 article__title text-balance">{{ article.title }}</h1>
+    <div class="article__meta">
+      {%- render 'icon', icon: 'clock' -%}
+      <span>{{ article.published_at | date: '%B %d, %Y' }}</span>
+    </div>
+  </div>
+
+  {%- if article.image -%}
+    <div class="article__img">
+      <img src="{{ article.image | image_url: width: 1400 }}" alt="{{ article.title | escape }}" loading="lazy">
+    </div>
+  {%- endif -%}
+
+  <div class="article__content rte">
+    {{ article.content }}
+  </div>
+</article>
+
+{% schema %}
+{
+  "name": "Article",
+  "settings": []
+}
+{% endschema %}

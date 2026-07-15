@@ -1,0 +1,36 @@
+<section style="padding-block: var(--section-spacing, 80px);">
+  <div class="container">
+    <div class="reveal">
+      <div class="newsletter__wrap">
+        <span class="eyebrow">{%- render 'icon', icon: 'sparkles' -%} {{ section.settings.eyebrow }}</span>
+        <h2 class="h2 newsletter__title text-balance">{{ section.settings.title }}</h2>
+        <p class="newsletter__text text-pretty">{{ section.settings.subtitle }}</p>
+
+        {%- form 'customer', class: 'newsletter__form', data-newsletter-section: '' -%}
+          <input type="hidden" name="contact[tags]" value="newsletter">
+          <input type="email" name="contact[email]" required class="newsletter__input" placeholder="{{ 'general.newsletter.placeholder' | t }}">
+          <button type="submit" class="btn btn-gold">{{ 'general.newsletter.button' | t }}</button>
+        {%- endform -%}
+
+        <div class="newsletter__success" data-newsletter-section-success style="display:none">
+          <span class="newsletter__success-icon">{%- render 'icon', icon: 'check' -%}</span>
+          <p>{{ 'general.newsletter.success' | t }}</p>
+        </div>
+
+        <p class="newsletter__fineprint">{{ 'general.newsletter.no_spam' | t }}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Newsletter",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Stay In Touch" },
+    { "type": "text", "id": "title", "label": "Title", "default": "Join the Spinexa Circle" },
+    { "type": "textarea", "id": "subtitle", "label": "Subtitle", "default": "Get herbal wellness tips, early access to new blends, and 10% off your first order." }
+  ],
+  "presets": [{ "name": "Newsletter" }]
+}
+{% endschema %}

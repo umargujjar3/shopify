@@ -1,0 +1,21 @@
+<div class="page-header">
+  <div class="container">
+    <h1 class="h1 page-header__title">{{ page.title }}</h1>
+    {%- if page.metafields.custom.subtitle != blank -%}
+      <p class="page-header__subtitle text-pretty">{{ page.metafields.custom.subtitle }}</p>
+    {%- endif -%}
+  </div>
+</div>
+
+<div class="container" style="padding: var(--section-spacing, 80px) 0;">
+  <div class="page-content rte">
+    {{ page.content }}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Page",
+  "settings": []
+}
+{% endschema %}

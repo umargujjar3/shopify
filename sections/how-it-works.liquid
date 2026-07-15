@@ -1,0 +1,63 @@
+<section class="section--dark howitworks" style="padding-block: var(--section-spacing, 80px);">
+  <div class="container">
+    <div class="section-header">
+      <div class="reveal"><span class="eyebrow center">{{ section.settings.eyebrow }}</span></div>
+      <div class="reveal" style="--reveal-delay:100ms"><h2 class="h2 section-header__title">{{ section.settings.title }}</h2></div>
+      <div class="reveal" style="--reveal-delay:200ms"><p class="section-header__subtitle text-pretty">{{ section.settings.subtitle }}</p></div>
+    </div>
+
+    <div class="howitworks__grid">
+      {%- for block in section.blocks -%}
+        <div class="howitworks__step reveal" style="--reveal-delay:{{ forloop.index0 | times: 120 }}ms" {{ block.shopify_attributes }}>
+          <div class="howitworks__step-image">
+            {%- if block.settings.image != blank -%}
+              <img src="{{ block.settings.image | image_url: width: 800, height: 600, crop: 'center' }}" alt="{{ block.settings.title | escape }}" loading="lazy">
+            {%- else -%}
+              <img src="https://images.pexels.com/photos/3997989/pexels-photo-3997989.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop" alt="{{ block.settings.title | escape }}" loading="lazy">
+            {%- endif -%}
+            <div class="howitworks__step-overlay"></div>
+            <span class="howitworks__step-num">{{ forloop.index }}</span>
+            <div class="howitworks__step-content">
+              <span class="howitworks__step-icon">{%- render 'icon', icon: block.settings.icon -%}</span>
+              <h3 class="howitworks__step-title">{{ block.settings.title }}</h3>
+              <p class="howitworks__step-desc text-pretty">{{ block.settings.desc }}</p>
+            </div>
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "How it works",
+  "max_blocks": 3,
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Simple Ritual" },
+    { "type": "text", "id": "title", "label": "Title", "default": "How It Works" },
+    { "type": "textarea", "id": "subtitle", "label": "Subtitle", "default": "Three simple steps that turn any moment into a wellness ritual." }
+  ],
+  "blocks": [
+    { "type": "step", "name": "Step", "settings": [
+      { "type": "select", "id": "icon", "label": "Icon", "default": "hand", "options": [
+        { "value": "hand", "label": "Hand" },
+        { "value": "sparkles", "label": "Sparkles" },
+        { "value": "moon", "label": "Moon" },
+        { "value": "leaf", "label": "Leaf" }
+      ]},
+      { "type": "text", "id": "title", "label": "Title", "default": "Apply" },
+      { "type": "textarea", "id": "desc", "label": "Description", "default": "Dispense a small amount of Spinexa Oil onto the area that needs care." },
+      { "type": "image_picker", "id": "image", "label": "Image" }
+    ]}
+  ],
+  "presets": [{
+    "name": "How it works",
+    "blocks": [
+      { "type": "step", "settings": { "icon": "hand", "title": "Apply", "desc": "Dispense a small amount of Spinexa Oil onto the area that needs care." } },
+      { "type": "step", "settings": { "icon": "sparkles", "title": "Massage", "desc": "Gently massage in circular motions for 1–2 minutes until lightly absorbed." } },
+      { "type": "step", "settings": { "icon": "moon", "title": "Relax", "desc": "Let the botanical blend work while you breathe in the calming aroma." } }
+    ]
+  }]
+}
+{% endschema %}

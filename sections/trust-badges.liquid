@@ -1,0 +1,47 @@
+<section class="trust-badges">
+  <div class="container">
+    <div class="trust-badges__grid">
+      {%- for block in section.blocks -%}
+        <div class="trust-badge reveal" style="--reveal-delay:{{ forloop.index0 | times: 80 }}ms" {{ block.shopify_attributes }}>
+          <span class="trust-badge__icon">{%- render 'icon', icon: block.settings.icon -%}</span>
+          <div>
+            <p class="trust-badge__title">{{ block.settings.title }}</p>
+            <p class="trust-badge__desc">{{ block.settings.desc }}</p>
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Trust badges",
+  "max_blocks": 4,
+  "blocks": [
+    {
+      "type": "badge",
+      "name": "Badge",
+      "settings": [
+        { "type": "select", "id": "icon", "label": "Icon", "default": "leaf", "options": [
+          { "value": "leaf", "label": "Leaf" },
+          { "value": "shield", "label": "Shield" },
+          { "value": "truck", "label": "Truck" },
+          { "value": "award", "label": "Award" }
+        ]},
+        { "type": "text", "id": "title", "label": "Title", "default": "Natural Ingredients" },
+        { "type": "text", "id": "desc", "label": "Description", "default": "Cold-pressed botanicals" }
+      ]
+    }
+  ],
+  "presets": [{
+    "name": "Trust badges",
+    "blocks": [
+      { "type": "badge", "settings": { "icon": "leaf", "title": "Natural Ingredients", "desc": "Cold-pressed botanicals" } },
+      { "type": "badge", "settings": { "icon": "shield", "title": "Secure Checkout", "desc": "Encrypted & protected" } },
+      { "type": "badge", "settings": { "icon": "truck", "title": "Fast Delivery", "desc": "2–4 business days" } },
+      { "type": "badge", "settings": { "icon": "award", "title": "Premium Quality", "desc": "Crafted with care" } }
+    ]
+  }]
+}
+{% endschema %}

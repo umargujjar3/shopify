@@ -1,0 +1,64 @@
+<section class="section--cream" style="padding-block: var(--section-spacing, 80px);">
+  <div class="container">
+    <div class="faq__grid">
+      <div class="faq__intro">
+        <div class="reveal"><span class="eyebrow">{{ section.settings.eyebrow }}</span></div>
+        <div class="reveal" style="--reveal-delay:100ms"><h2 class="h2 text-balance">{{ section.settings.title }}</h2></div>
+        <div class="reveal" style="--reveal-delay:200ms"><p class="faq__intro-text text-pretty">{{ section.settings.subtitle }}</p></div>
+      </div>
+
+      <div class="reveal" style="--reveal-delay:150ms">
+        <div class="accordion">
+          {%- for block in section.blocks -%}
+            <div class="accordion__item" {{ block.shopify_attributes }}>
+              <button class="accordion__btn" type="button">
+                <span class="accordion__question">{{ block.settings.question }}</span>
+                <span class="accordion__icon">{%- render 'icon', icon: 'plus' -%}</span>
+              </button>
+              <div class="accordion__content">
+                <div class="accordion__content-inner">
+                  <p class="accordion__answer">{{ block.settings.answer }}</p>
+                </div>
+              </div>
+            </div>
+          {%- endfor -%}
+        </div>
+
+        <div class="faq__contact reveal" style="--reveal-delay:200ms">
+          <span class="faq__contact-icon">{%- render 'icon', icon: 'message-circle' -%}</span>
+          <h3 class="faq__contact-title">{{ 'sections.faq.still_have_questions' | t }}</h3>
+          <p class="faq__contact-text">{{ 'sections.faq.still_have_questions_text' | t }}</p>
+          <a href="/pages/contact" class="btn btn-primary" style="margin-top:20px;">{{ 'sections.faq.contact_us' | t }}</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "FAQ",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Good To Know" },
+    { "type": "text", "id": "title", "label": "Title", "default": "Frequently Asked Questions" },
+    { "type": "textarea", "id": "subtitle", "label": "Subtitle", "default": "Everything you need to know about Spinexa. Can't find an answer? Our care team is one message away." }
+  ],
+  "blocks": [
+    { "type": "qa", "name": "Question", "settings": [
+      { "type": "text", "id": "question", "label": "Question", "default": "Are Spinexa products made with natural ingredients?" },
+      { "type": "textarea", "id": "answer", "label": "Answer", "default": "Yes. Every Spinexa formula is crafted with cold-pressed botanical extracts and essential oils. We never use synthetic fragrances or parabens." }
+    ]}
+  ],
+  "presets": [{
+    "name": "FAQ",
+    "blocks": [
+      { "type": "qa", "settings": { "question": "Are Spinexa products made with natural ingredients?", "answer": "Yes. Every Spinexa formula is crafted with cold-pressed botanical extracts and essential oils. We never use synthetic fragrances or parabens." } },
+      { "type": "qa", "settings": { "question": "How long does delivery take?", "answer": "Standard delivery across Pakistan takes 2–4 business days. Orders above Rs.2,500 ship free. Cash on delivery is available." } },
+      { "type": "qa", "settings": { "question": "Is Spinexa cruelty-free?", "answer": "Absolutely. Spinexa is proudly cruelty-free and vegan-friendly. We never test on animals." } },
+      { "type": "qa", "settings": { "question": "Can I use Spinexa daily?", "answer": "Yes — Spinexa is designed for everyday use. Apply 2–3 times daily as part of your wellness routine." } },
+      { "type": "qa", "settings": { "question": "What is your return policy?", "answer": "We offer a 14-day satisfaction guarantee. If you are not happy, contact our care team and we will make it right." } },
+      { "type": "qa", "settings": { "question": "Do you ship internationally?", "answer": "We currently focus on Pakistan with fast domestic delivery. International shipping is coming soon — join our newsletter to be notified." } }
+    ]
+  }]
+}
+{% endschema %}

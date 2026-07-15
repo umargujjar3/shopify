@@ -1,0 +1,38 @@
+{%- comment -%} Newsletter popup {%- endcomment -%}
+<div class="newsletter-popup" aria-hidden="true">
+  <div class="newsletter-popup__overlay" data-newsletter-close></div>
+  <div class="newsletter-popup__card">
+    <div class="newsletter-popup__visual">
+      <img src="https://images.pexels.com/photos/1087905/pexels-photo-1087905.jpeg?auto=compress&cs=tinysrgb&w=600&h=700&fit=crop" alt="" loading="lazy">
+      <div class="newsletter-popup__visual-overlay"></div>
+      <div class="newsletter-popup__visual-text">
+        {%- render 'icon', icon: 'sparkles' -%}
+        <p class="newsletter-popup__visual-title">Join the Spinexa circle</p>
+      </div>
+    </div>
+    <div class="newsletter-popup__content" data-newsletter-content>
+      <button class="newsletter-popup__close" data-newsletter-close aria-label="{{ 'general.accessibility.close' | t }}">
+        {%- render 'icon', icon: 'close' -%}
+      </button>
+      <span class="eyebrow">{{ 'sections.newsletter.eyebrow' | t }}</span>
+      <h3 class="newsletter-popup__title">Get 10% off your first order</h3>
+      <p class="newsletter-popup__text">Join thousands who trust Spinexa for natural, everyday wellness. Subscribe for herbal tips, early access, and your welcome discount.</p>
+      {%- form 'customer', class: 'newsletter-popup__form', data-newsletter-form: '' -%}
+        <input type="hidden" name="contact[tags]" value="newsletter">
+        <input type="email" name="contact[email]" required class="input" placeholder="{{ 'general.newsletter.placeholder' | t }}">
+        <button type="submit" class="btn btn-primary btn-block">{{ 'general.newsletter.button' | t }}</button>
+      {%- endform -%}
+      <button class="newsletter-popup__skip" data-newsletter-skip>{{ 'general.newsletter.no_thanks' | t | default: 'No thanks, I will pay full price' }}</button>
+    </div>
+    <div class="newsletter-popup__success" data-newsletter-success style="display:none">
+      <div class="newsletter-popup__success-icon">{%- render 'icon', icon: 'mail' -%}</div>
+      <h3 class="newsletter-popup__success-title">{{ 'general.newsletter.title' | t | default: 'Welcome aboard!' }}</h3>
+      <p class="newsletter-popup__success-text">Check your inbox for your 10% off code.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+  window.theme = window.theme || {};
+  window.theme.newsletterDelay = {{ settings.newsletter_popup_delay | default: 12 }};
+</script>

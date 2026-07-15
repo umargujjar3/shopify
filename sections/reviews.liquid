@@ -1,0 +1,72 @@
+<section class="section--white" style="padding-block: var(--section-spacing, 80px);">
+  <div class="container">
+    <div class="section-header">
+      <div class="reveal"><span class="eyebrow center">{{ section.settings.eyebrow }}</span></div>
+      <div class="reveal" style="--reveal-delay:100ms"><h2 class="h2 section-header__title text-balance">{{ section.settings.title }}</h2></div>
+      <div class="reveal" style="--reveal-delay:200ms">
+        <div class="reviews__rating-row">
+          {%- render 'rating', rating_value: 5, rating_size: 'lg', show_count: false -%}
+          <span class="reviews__rating-value">4.9</span>
+          <span class="reviews__rating-text">· 1,280+ {{ 'sections.reviews.verified_reviews' | t }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="reviews__grid">
+      {%- for block in section.blocks -%}
+        <figure class="review-card reveal" style="--reveal-delay:{{ forloop.index0 | modulo: 3 | times: 100 }}ms" {{ block.shopify_attributes }}>
+          {%- render 'icon', icon: 'quote' -%}
+          <figcaption class="review-card__author">
+            {%- if block.settings.avatar != blank -%}
+              <img src="{{ block.settings.avatar | image_url: width: 80, height: 80, crop: 'center' }}" alt="{{ block.settings.name | escape }}" class="review-card__avatar" loading="lazy">
+            {%- else -%}
+              <img src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=80&h=80&fit=crop" alt="" class="review-card__avatar" loading="lazy">
+            {%- endif -%}
+            <div>
+              <p class="review-card__name">
+                {{ block.settings.name }}
+                {%- render 'icon', icon: 'badge-check', class: 'review-card__verified' -%}
+              </p>
+              <p class="review-card__meta">{{ block.settings.location }} · {{ block.settings.date }}</p>
+            </div>
+          </figcaption>
+          {%- render 'rating', rating_value: block.settings.rating, show_count: false -%}
+          <h3 class="review-card__title">{{ block.settings.title }}</h3>
+          <p class="review-card__body text-pretty">{{ block.settings.body }}</p>
+        </figure>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Reviews",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Loved By Thousands" },
+    { "type": "text", "id": "title", "label": "Title", "default": "What Our Customers Say" }
+  ],
+  "blocks": [
+    { "type": "review", "name": "Review", "settings": [
+      { "type": "text", "id": "name", "label": "Name", "default": "Ayesha K." },
+      { "type": "text", "id": "location", "label": "Location", "default": "Karachi, Pakistan" },
+      { "type": "range", "id": "rating", "label": "Rating", "min": 1, "max": 5, "step": 1, "default": 5 },
+      { "type": "text", "id": "date", "label": "Date", "default": "2 weeks ago" },
+      { "type": "text", "id": "title", "label": "Review title", "default": "My evening ritual now" },
+      { "type": "textarea", "id": "body", "label": "Review body", "default": "I have been using Spinexa for two months and it has genuinely become the part of my day I look forward to. The aroma is calming and it absorbs without any greasiness." },
+      { "type": "image_picker", "id": "avatar", "label": "Avatar" }
+    ]}
+  ],
+  "presets": [{
+    "name": "Reviews",
+    "blocks": [
+      { "type": "review", "settings": { "name": "Ayesha K.", "location": "Karachi, Pakistan", "rating": 5, "date": "2 weeks ago", "title": "My evening ritual now", "body": "I have been using Spinexa for two months and it has genuinely become the part of my day I look forward to. The aroma is calming and it absorbs without any greasiness. Worth every rupee." } },
+      { "type": "review", "settings": { "name": "Daniyal R.", "location": "Lahore, Pakistan", "rating": 5, "date": "1 month ago", "title": "Perfect for my desk job", "body": "Hours at the desk leave my shoulders tight. A quick massage with this in the evening and I feel human again. The packaging feels premium too." } },
+      { "type": "review", "settings": { "name": "Fatima S.", "location": "Islamabad, Pakistan", "rating": 5, "date": "1 month ago", "title": "Genuinely natural feel", "body": "You can tell the ingredients are quality. No synthetic smell, just a clean herbal scent. My skin loves it. Delivery was fast and the bottle lasted longer than I expected." } },
+      { "type": "review", "settings": { "name": "Bilal M.", "location": "Faisalabad, Pakistan", "rating": 4, "date": "2 months ago", "title": "Great for post-gym recovery", "body": "I use the Active Recovery Oil after training. The warming sensation is real and it helps me wind down. Knocked one star only because I wish the bottle was bigger!" } },
+      { "type": "review", "settings": { "name": "Hira N.", "location": "Rawalpindi, Pakistan", "rating": 5, "date": "2 months ago", "title": "Gifted this to my mother", "body": "Bought it as a gift and my mother adores it. She uses it every night. The gold detailing on the box made it feel like a real luxury present." } },
+      { "type": "review", "settings": { "name": "Usman T.", "location": "Multan, Pakistan", "rating": 5, "date": "3 months ago", "title": "Repeat purchase — that says it all", "body": "On my third bottle. That is really the review. Consistent quality, fast delivery, and it just works for everyday aches." } }
+    ]
+  }]
+}
+{% endschema %}

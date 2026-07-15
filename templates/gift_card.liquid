@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ 'gift_cards.issued.title' | t: value: gift_card.initial_value | strip_html }}</title>
+  {{ 'theme.css' | asset_url | stylesheet_tag }}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { background: var(--color-bg, #F7F9F5); font-family: 'Plus Jakarta Sans', sans-serif; color: var(--color-text, #1F2933); }
+    .gift-card { max-width: 560px; margin: 60px auto; padding: 48px; background: #fff; border-radius: 20px; box-shadow: 0 8px 32px rgba(0,0,0,0.08); text-align: center; }
+    .gift-card__brand { font-family: 'Cormorant Garamond', serif; font-size: 36px; font-weight: 700; color: var(--color-primary, #2F7D32); margin: 0 0 8px; }
+    .gift-card__value { font-size: 48px; font-weight: 700; margin: 24px 0; }
+    .gift-card__code { font-family: monospace; font-size: 24px; letter-spacing: 4px; padding: 16px 24px; background: var(--color-bg, #F7F9F5); border: 2px dashed var(--color-border, #e5e5e5); border-radius: 12px; margin: 24px 0; }
+    .gift-card__image { width: 100%; border-radius: 12px; margin: 24px 0; }
+    .gift-card__qr { margin: 24px auto; }
+    .gift-card__shop-btn { display: inline-block; padding: 14px 32px; background: var(--color-primary, #2F7D32); color: #fff; border-radius: 999px; text-decoration: none; font-weight: 600; margin-top: 16px; }
+    .gift-card__expires { color: var(--color-text-muted, #6b7280); font-size: 14px; margin-top: 16px; }
+  </style>
+</head>
+<body>
+  <div class="gift-card">
+    <header>
+      <p class="gift-card__brand">Spinexa</p>
+      <p style="color: var(--color-text-muted, #6b7280); font-size: 14px; text-transform: uppercase; letter-spacing: 0.1em;">Gift Card</p>
+    </header>
+
+    {%- if gift_card.pass_url -%}
+      <a href="{{ gift_card.pass_url }}" style="display:inline-block; margin-bottom:16px;">Add to Apple Wallet</a>
+    {%- endif -%}
+
+    <div class="gift-card__value">{{ gift_card.balance | money }}</div>
+    <p style="color: var(--color-text-muted, #6b7280); margin: 0 0 24px;">Available balance</p>
+
+    <div class="gift-card__code">{{ gift_card.code | format_code }}</div>
+
+    {%- if gift_card.image -%}
+      <img class="gift-card__image" src="{{ gift_card.image | image_url: width: 480 }}" alt="Gift card" loading="lazy">
+    {%- endif -%}
+
+    <div class="gift-card__qr">{{ gift_card.qr }}</div>
+
+    <a href="{{ shop.url }}" class="gift-card__shop-btn">Shop Now</a>
+
+    <p class="gift-card__expires">
+      {%- if gift_card.expires_on -%}
+        Expires {{ gift_card.expires_on | date: '%B %d, %Y' }}
+      {%- endif -%}
+    </p>
+  </div>
+</body>
+</html>

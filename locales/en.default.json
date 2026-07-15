@@ -1,0 +1,224 @@
+{
+  "general": {
+    "404": {
+      "title": "Page not found",
+      "subtext": "The page you are looking for may have been moved or no longer exists.",
+      "link": "Back to home"
+    },
+    "search": {
+      "search": "Search",
+      "search_placeholder": "Search for wellness oils, ingredients…",
+      "no_results": "No products found. Try a different keyword.",
+      "results_for": "results for",
+      "no_results_title": "No products found",
+      "no_results_text": "Try a different keyword like \"oil\", \"relaxation\", or \"recovery\".",
+      "browse_all": "Browse All Products"
+    },
+    "pagination": {
+      "label": "Pagination",
+      "prev": "Previous",
+      "next": "Next"
+    },
+    "cart": {
+      "title": "Shopping Cart",
+      "empty": "Your cart is empty",
+      "empty_text": "Discover premium herbal wellness oils crafted for your everyday comfort.",
+      "empty_button": "Shop All Products",
+      "subtotal": "Subtotal",
+      "checkout": "Secure Checkout",
+      "continue_shopping": "Continue shopping",
+      "remove": "Remove",
+      "quantity": "Quantity",
+      "total": "Total",
+      "items_in_cart": "items in your cart",
+      "free_shipping_unlocked": "You have unlocked free delivery!",
+      "add_more_for_free": "Add more for free delivery",
+      "order_summary": "Order Summary",
+      "clear_cart": "Clear cart",
+      "secure_checkout_msg": "256-bit encrypted checkout",
+      "cod_available": "Cash on delivery available",
+      "you_may_also_love": "You May Also Love",
+      "discount_applied": "Code applied at checkout"
+    },
+    "newsletter": {
+      "title": "Join the Spinexa Circle",
+      "text": "Get herbal wellness tips, early access to new blends, and 10% off your first order.",
+      "placeholder": "Enter your email",
+      "button": "Subscribe",
+      "success": "You're in! Check your inbox for your welcome code.",
+      "no_spam": "No spam, just wellness. Unsubscribe anytime."
+    },
+    "social": {
+      "instagram": "Instagram",
+      "facebook": "Facebook",
+      "tiktok": "TikTok",
+      "twitter": "Twitter",
+      "share_on_facebook": "Share on Facebook",
+      "share_on_twitter": "Share on Twitter",
+      "share_on_pinterest": "Share on Pinterest"
+    },
+    "accessibility": {
+      "menu": "Menu",
+      "close": "Close",
+      "open_cart": "Open cart",
+      "open_search": "Search",
+      "open_menu": "Open menu",
+      "close_menu": "Close menu",
+      "close_cart": "Close cart",
+      "increase_quantity": "Increase quantity",
+      "decrease_quantity": "Decrease quantity",
+      "remove_item": "Remove item",
+      "toggle_wishlist": "Toggle wishlist",
+      "view_product": "View product"
+    },
+    "products": {
+      "add_to_cart": "Add to Cart",
+      "added": "Added!",
+      "added_to_cart": "Added to cart",
+      "sold_out": "Sold Out",
+      "unavailable": "Unavailable",
+      "from": "From",
+      "save": "Save",
+      "off": "off",
+      "quantity": "Quantity",
+      "view_details": "View full product details",
+      "quick_add": "Quick Add",
+      "you_may_also_love": "You May Also Love",
+      "verified_reviews": "Verified reviews",
+      "natural_formula": "Natural Formula",
+      "fast_delivery": "Fast Delivery",
+      "secure_checkout": "Secure Checkout",
+      "description": "Description",
+      "benefits": "Benefits",
+      "ingredients": "Ingredients",
+      "how_to_use": "How To Use",
+      "shipping_information": "Shipping Information",
+      "reviews": "Reviews",
+      "write_a_review": "Write a review",
+      "based_on": "based on",
+      "reviews_lowercase": "reviews",
+      "related_products": "You May Also Love"
+    }
+  },
+  "sections": {
+    "header": {
+      "announcement_1": "Premium Herbal Wellness",
+      "announcement_2": "Fast Delivery Available",
+      "announcement_3": "Cruelty-Free & Vegan-Friendly",
+      "shop": "Shop",
+      "about": "About",
+      "blog": "Blog",
+      "faq": "FAQ",
+      "contact": "Contact",
+      "home": "Home",
+      "account": "Account",
+      "wishlist": "Wishlist"
+    },
+    "footer": {
+      "about_title": "About Spinexa",
+      "about_text": "A modern herbal wellness brand combining traditional herbal inspiration with premium design. Crafted for your everyday comfort routine.",
+      "shop_title": "Shop",
+      "support_title": "Customer Support",
+      "company_title": "Company",
+      "contact_email": "care@spinexa.com",
+      "contact_phone": "+92 300 1234567",
+      "contact_address": "Lahore, Punjab, Pakistan",
+      "rights": "All rights reserved. Crafted with natural care.",
+      "cruelty_free": "Cruelty-Free",
+      "vegan": "Vegan",
+      "natural_ingredients": "Natural Ingredients"
+    },
+    "hero": {
+      "eyebrow": "Premium Herbal Wellness",
+      "title": "Natural Wellness Inspired By Nature",
+      "subtitle": "Discover Spinexa Herbal Wellness Oil designed for your everyday comfort routine.",
+      "shop_now": "Shop Now",
+      "learn_more": "Learn More",
+      "customers_loved": "Loved by",
+      "customers_suffix": "customers"
+    },
+    "trust_badges": {
+      "natural_ingredients": "Natural Ingredients",
+      "natural_ingredients_desc": "Cold-pressed botanicals",
+      "secure_checkout": "Secure Checkout",
+      "secure_checkout_desc": "Encrypted & protected",
+      "fast_delivery": "Fast Delivery",
+      "fast_delivery_desc": "2–4 business days",
+      "premium_quality": "Premium Quality",
+      "premium_quality_desc": "Crafted with care"
+    },
+    "problem": {
+      "eyebrow": "The Everyday Struggle",
+      "title": "Your Body Deserves Better Care",
+      "p1": "Modern life pulls your body in every direction. Hours at a desk. Workouts that push limits. Evenings that never quite switch off. The tension builds quietly — in your shoulders, your back, your everyday comfort.",
+      "p2": "You deserve more than quick fixes and synthetic shortcuts. You deserve care that understands the way your body moves through the day — natural, intentional, and made to fit seamlessly into your routine.",
+      "guarantee": "satisfaction guarantee"
+    },
+    "benefits": {
+      "eyebrow": "Why Spinexa",
+      "title": "Care That Works With Your Body",
+      "subtitle": "Every detail — from ingredient to bottle — is designed to deliver a wellness experience you can feel.",
+      "herbal_formula": "Herbal Formula",
+      "herbal_formula_desc": "Cold-pressed botanical extracts, crafted with traditional herbal wisdom and modern precision.",
+      "relaxing": "Relaxing Experience",
+      "relaxing_desc": "A calming aromatic ritual that helps you unwind, release tension, and find your moment of calm.",
+      "everyday": "Everyday Wellness",
+      "everyday_desc": "Designed for daily use — a simple, versatile addition to your morning and evening routine.",
+      "premium": "Premium Quality",
+      "premium_desc": "Meticulously sourced ingredients and premium packaging you will be proud to display."
+    },
+    "how_it_works": {
+      "eyebrow": "Simple Ritual",
+      "title": "How It Works",
+      "subtitle": "Three simple steps that turn any moment into a wellness ritual.",
+      "step_1_title": "Apply",
+      "step_1_desc": "Dispense a small amount of Spinexa Oil onto the area that needs care.",
+      "step_2_title": "Massage",
+      "step_2_desc": "Gently massage in circular motions for 1–2 minutes until lightly absorbed.",
+      "step_3_title": "Relax",
+      "step_3_desc": "Let the botanical blend work while you breathe in the calming aroma."
+    },
+    "ingredients": {
+      "eyebrow": "Pure Botanicals",
+      "title": "Ingredients Inspired By Nature",
+      "subtitle": "Every drop of Spinexa is built from cold-pressed botanicals chosen for their soothing, comforting properties — never synthetic fragrances, never parabens.",
+      "cruelty_free": "Cruelty-free & vegan",
+      "no_synthetic": "No synthetic fragrances",
+      "cold_pressed": "Cold-pressed extraction",
+      "derma_reviewed": "Dermatologist reviewed"
+    },
+    "reviews": {
+      "eyebrow": "Loved By Thousands",
+      "title": "What Our Customers Say",
+      "verified_reviews": "verified reviews"
+    },
+    "faq": {
+      "eyebrow": "Good To Know",
+      "title": "Frequently Asked Questions",
+      "subtitle": "Everything you need to know about Spinexa. Can't find an answer? Our care team is one message away.",
+      "still_have_questions": "Still have questions?",
+      "still_have_questions_text": "Our care team is ready to help.",
+      "contact_us": "Contact Us"
+    },
+    "newsletter": {
+      "eyebrow": "Stay In Touch",
+      "title": "Join the Spinexa Circle",
+      "subtitle": "Get herbal wellness tips, early access to new blends, and 10% off your first order."
+    },
+    "featured_product": {
+      "eyebrow": "Featured Product",
+      "verified": "Verified reviews"
+    },
+    "collection": {
+      "title": "Spinexa Wellness Oils",
+      "subtitle": "Premium botanical blends crafted for everyday comfort, relaxation, and active recovery.",
+      "sort_featured": "Featured",
+      "sort_price_asc": "Price: Low to High",
+      "sort_price_desc": "Price: High to Low",
+      "sort_rating": "Top Rated",
+      "sort_by": "Sort:",
+      "products_count": "products",
+      "filter_all": "All"
+    }
+  }
+}

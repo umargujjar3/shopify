@@ -1,0 +1,35 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero"
+    },
+    "trust-badges": {
+      "type": "trust-badges"
+    },
+    "problem": {
+      "type": "problem"
+    },
+    "featured-product": {
+      "type": "featured-product"
+    },
+    "benefits": {
+      "type": "benefits"
+    },
+    "how-it-works": {
+      "type": "how-it-works"
+    },
+    "ingredients": {
+      "type": "ingredients"
+    },
+    "reviews": {
+      "type": "reviews"
+    },
+    "faq": {
+      "type": "faq"
+    },
+    "newsletter": {
+      "type": "newsletter"
+    }
+  },
+  "order": ["hero", "trust-badges", "problem", "featured-product", "benefits", "how-it-works", "ingredients", "reviews", "faq", "newsletter"]
+}

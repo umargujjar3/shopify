@@ -1,0 +1,53 @@
+<div class="customer-page">
+  <div class="customer-card">
+    {%- form 'recover_customer_password', class: 'customer-form' -%}
+      {%- if form.posted_successfully? -%}
+        <h1 class="h2 customer-card__title">Check your email</h1>
+        <p class="customer-card__subtitle">We've sent you an email with a link to reset your password.</p>
+      {%- else -%}
+        <h1 class="h2 customer-card__title">Reset password</h1>
+        <p class="customer-card__subtitle">We'll send you an email to reset your password.</p>
+
+        {%- if form.errors -%}
+          <div class="form-errors">{{ form.errors | default_errors }}</div>
+        {%- endif -%}
+
+        <div class="customer-form__field">
+          <label class="customer-form__label" for="RecoverEmail">Email</label>
+          <input type="email" id="RecoverEmail" name="email" class="input" required autocomplete="email">
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Send reset email</button>
+      {%- endif -%}
+    {%- endform -%}
+
+    {%- form 'reset_customer_password', class: 'customer-form' -%}
+      <h1 class="h2 customer-card__title">Set a new password</h1>
+      <p class="customer-card__subtitle">Enter a new password for your account.</p>
+
+      {%- if form.errors -%}
+        <div class="form-errors">{{ form.errors | default_errors }}</div>
+      {%- endif -%}
+
+      <div class="customer-form__field">
+        <label class="customer-form__label" for="ResetPassword">New password</label>
+        <input type="password" id="ResetPassword" name="customer[password]" class="input" required autocomplete="new-password">
+      </div>
+      <div class="customer-form__field">
+        <label class="customer-form__label" for="ResetPasswordConfirmation">Confirm password</label>
+        <input type="password" id="ResetPasswordConfirmation" name="customer[password_confirmation]" class="input" required autocomplete="new-password">
+      </div>
+      <button type="submit" class="btn btn-primary btn-block">Reset password</button>
+    {%- endform -%}
+
+    <p class="customer-card__footer">
+      <a href="{{ routes.account_login_url }}">Back to login</a>
+    </p>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Reset password",
+  "settings": []
+}
+{% endschema %}

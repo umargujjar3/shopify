@@ -1,0 +1,66 @@
+<div class="search-header">
+  <div class="container">
+    <span class="eyebrow center">Help Center</span>
+    <h1 class="h1" style="margin-top:16px;">{{ 'general.search.search' | t }}</h1>
+    <form action="{{ routes.search_url }}" method="get" class="search-form">
+      <span class="search-form__icon">{%- render 'icon', icon: 'search' -%}</span>
+      <input type="text" name="q" class="search-form__input" placeholder="{{ 'general.search.search_placeholder' | t }}" value="{{ search.terms | escape }}" autofocus>
+      <button type="submit" class="btn btn-primary search-form__btn">{{ 'general.search.search' | t }}</button>
+    </form>
+  </div>
+</div>
+
+<div class="container" style="padding: 56px 0;">
+  {%- if search.performed -%}
+    <p style="margin-bottom:32px; font-size:14px; color: var(--color-text-muted);">
+      {%- if search.results_count > 0 -%}
+        {{ search.results_count }} {{ 'general.search.results_for' | t }} "{{ search.terms }}"
+      {%- else -%}
+        {{ 'general.search.no_results' | t }}
+      {%- endif -%}
+    </p>
+
+    {%- if search.results_count > 0 -%}
+      <div class="collection-grid">
+        {%- for item in search.results -%}
+          {%- if item.object_type == 'product' -%}
+            {%- render 'product-card', product: item, lazy: true -%}
+          {%- elsif item.object_type == 'article' -%}
+            <a href="{{ item.url }}" class="blog-card">
+              <div class="blog-card__img">
+                {%- if item.image -%}
+                  <img src="{{ item.image | image_url: width: 800, height: 500, crop: 'center' }}" alt="{{ item.title | escape }}" loading="lazy">
+                {%- endif -%}
+              </div>
+              <div class="blog-card__content">
+                <span class="blog-card__category">Article</span>
+                <h3 class="blog-card__title">{{ item.title }}</h3>
+                <p class="blog-card__excerpt">{{ item.content | strip_html | truncatewords: 20 }}</p>
+              </div>
+            </a>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    {%- else -%}
+      <div class="search-empty">
+        <div class="search-empty__icon">{%- render 'icon', icon: 'search-x' -%}</div>
+        <h2 class="h3">{{ 'general.search.no_results_title' | t }}</h2>
+        <p style="max-width:400px; color: var(--color-text-muted);">{{ 'general.search.no_results_text' | t }}</p>
+        <a href="/collections/all" class="btn btn-primary" style="margin-top:24px;">{{ 'general.search.browse_all' | t }}</a>
+      </div>
+    {%- endif -%}
+  {%- else -%}
+    <div class="search-empty">
+      <div class="search-empty__icon">{%- render 'icon', icon: 'search' -%}</div>
+      <h2 class="h3">Start your search</h2>
+      <p style="max-width:400px; color: var(--color-text-muted);">Search across our full range of premium herbal wellness oils.</p>
+    </div>
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "Search results",
+  "settings": []
+}
+{% endschema %}
