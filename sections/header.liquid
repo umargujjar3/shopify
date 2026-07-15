@@ -94,16 +94,18 @@
   </div>
 </div>
 
-{%- if settings.discount_banner_enabled -%}
-  <div class="discount-banner">
-    <span style="display:inline-flex;align-items:center;gap:8px;">
+<!-- Perfect, Sleek (Patla) Discount Banner -->
+{%- if section.settings.discount_banner_enabled -%}
+  <div class="discount-banner" style="background-color: #d1a454; color: #1e293b; padding: 10px 20px; text-align: center; font-size: 14px; font-weight: 500; border-bottom: 1px solid rgba(0,0,0,0.05); display: flex; justify-content: center; align-items: center; gap: 8px; position: relative;">
+    <span style="display:inline-flex; align-items:center; gap:8px;">
       {%- render 'icon', icon: 'sparkles' -%}
-      {{ settings.discount_banner_text }}
-      <span class="discount-banner__code">{{ settings.discount_banner_code }}</span>
+      <span>{{ section.settings.discount_banner_text }}</span>
+      {%- if section.settings.discount_banner_code != blank -%}
+        <span class="discount-banner__code" style="background-color: #1e293b; color: #ffffff; padding: 2px 8px; border-radius: 4px; font-size: 12px; font-weight: bold; margin-left: 5px; text-transform: uppercase; letter-spacing: 0.5px;">
+          {{ section.settings.discount_banner_code }}
+        </span>
+      {%- endif -%}
     </span>
-    <button class="discount-banner__close" data-discount-close aria-label="{{ 'general.accessibility.close' | t }}">
-      {%- render 'icon', icon: 'close' -%}
-    </button>
   </div>
 {%- endif -%}
 
@@ -111,6 +113,10 @@
 {
   "name": "Header",
   "settings": [
+    {
+      "type": "header",
+      "content": "Logo Settings"
+    },
     {
       "type": "image_picker",
       "id": "logo",
@@ -125,6 +131,28 @@
       "default": 130,
       "unit": "px",
       "label": "Custom Logo Width"
+    },
+    {
+      "type": "header",
+      "content": "Discount Banner Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "discount_banner_enabled",
+      "label": "Enable Discount Banner",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "discount_banner_text",
+      "label": "Banner Text",
+      "default": "Get 10% off your first order! Use code:"
+    },
+    {
+      "type": "text",
+      "id": "discount_banner_code",
+      "label": "Promo Code",
+      "default": "SPINEXA10"
     }
   ]
 }
