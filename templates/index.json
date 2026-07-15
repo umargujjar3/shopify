@@ -11,15 +11,22 @@
   "sections": {
     "hero": {
       "type": "hero",
-      "settings": {}
+      "settings": {
+        "heading": "Premium Organic Supplements",
+        "subheading": "Feel the power of natural organic ingredients crafted for your health."
+      }
     },
     "benefits": {
       "type": "benefits",
-      "settings": {}
+      "settings": {
+        "title": "Why Choose Spinexa?"
+      }
     },
     "ingredients": {
       "type": "ingredients",
-      "settings": {}
+      "settings": {
+        "title": "Our Pure Ingredients"
+      }
     }
   },
   "order": [
