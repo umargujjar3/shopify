@@ -1,0 +1,16 @@
+<section class="bg-gray-900 text-white py-32 text-center">
+  <h1 class="text-5xl font-extrabold mb-4">{{ section.settings.heading }}</h1>
+  <p class="text-xl text-gray-300 mb-8">{{ section.settings.subheading }}</p>
+  <a href="/collections/all" class="bg-white text-gray-900 px-6 py-3 rounded font-bold hover:bg-gray-100">Shop All</a>
+</section>
+
+{% schema %}
+{
+  "name": "Hero Banner",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Welcome to My Store" },
+    { "type": "textarea", "id": "subheading", "label": "Subheading", "default": "Premium Products Only." }
+  ],
+  "presets": [{ "name": "Hero Banner" }]
+}
+{% endschema %}
