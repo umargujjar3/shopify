@@ -1,4 +1,4 @@
-<section class="relative bg-gray-900 text-white min-h-[500px] md:min-h-[600px] flex items-center justify-center overflow-hidden">
+<section class="relative bg-gray-900 text-white min-h-[380px] md:min-h-[480px] flex items-center justify-center overflow-hidden">
   
   <!-- Desktop & Mobile Banner Images -->
   <div class="absolute inset-0 z-0">
@@ -22,24 +22,24 @@
   </div>
 
   <!-- Banner Content -->
-  <div class="container relative z-10 mx-auto px-6 py-24 text-center max-w-4xl">
+  <div class="container relative z-10 mx-auto px-6 py-12 md:py-16 text-center max-w-4xl">
     {%- if section.settings.subheading_top != blank -%}
-      <span class="inline-block text-green-400 font-bold tracking-widest text-sm uppercase mb-3">
+      <span class="inline-block text-green-400 font-bold tracking-widest text-xs md:text-sm uppercase mb-2">
         {{ section.settings.subheading_top }}
       </span>
     {%- endif -%}
     
-    <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight mb-6 leading-tight">
+    <h1 class="text-3xl md:text-5xl font-extrabold tracking-tight mb-4 leading-tight">
       {{ section.settings.heading }}
     </h1>
     
-    <p class="text-lg md:text-xl text-gray-200 mb-10 max-w-2xl mx-auto leading-relaxed">
+    <p class="text-base md:text-lg text-gray-200 mb-6 max-w-2xl mx-auto leading-relaxed">
       {{ section.settings.subheading }}
     </p>
     
     {%- if section.settings.button_text != blank -%}
       <a href="{{ section.settings.button_link | default: '/collections/all' }}" 
-         class="inline-block bg-green-500 hover:bg-green-600 text-white font-bold px-8 py-4 rounded-lg shadow-lg hover:shadow-green-500/20 transition-all duration-200 transform hover:-translate-y-0.5">
+         class="inline-block bg-green-500 hover:bg-green-600 text-white font-bold px-6 py-3 rounded shadow-lg hover:shadow-green-500/20 transition-all duration-200 transform hover:-translate-y-0.5 text-sm md:text-base">
         {{ section.settings.button_text }}
       </a>
     {%- endif -%}
