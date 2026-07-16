@@ -10,6 +10,7 @@
         <img src="{{ section.settings.image | image_url: width: 2000 }}" 
              alt="{{ section.settings.heading | escape }}" 
              class="w-full h-full object-cover object-center"
+             style="display: block;"
              loading="eager">
       </picture>
     {%- else -%}
@@ -17,8 +18,9 @@
       <div class="w-full h-full bg-gradient-to-r from-green-900 to-gray-900 opacity-90"></div>
     {%- endif -%}
     
-    <!-- Image overlay (Darkness adjust karne ke liye) -->
-    <div class="absolute inset-0 bg-black" style="opacity: {{ section.settings.overlay_opacity | divide: 100.0 }};"></div>
+    <!-- Image overlay (Fixed Opacity Math Error) -->
+    {%- assign overlay_value = section.settings.overlay_opacity | times: 0.01 -%}
+    <div class="absolute inset-0 bg-black" style="opacity: {{ overlay_value }};"></div>
   </div>
 
   <!-- Banner Content -->
