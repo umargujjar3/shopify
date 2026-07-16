@@ -1,48 +1,99 @@
-<section style="padding: 60px 0; background: #fdfaf6;">
+<section class="section--cream" style="padding-block: var(--section-spacing, 80px);">
   <div class="container">
-    <div style="text-align: center; margin-bottom: 40px;">
-      <h2>{{ section.settings.title }}</h2>
-      <p>{{ section.settings.subtitle }}</p>
+    <div class="section-header">
+      <div class="reveal"><span class="eyebrow center">{{ section.settings.eyebrow }}</span></div>
+      <div class="reveal" style="--reveal-delay:100ms"><h2 class="h2 section-header__title text-balance">{{ section.settings.title }}</h2></div>
+      <div class="reveal" style="--reveal-delay:200ms"><p class="section-header__subtitle text-pretty">{{ section.settings.subtitle }}</p></div>
     </div>
 
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
-      {% for block in section.blocks %}
-        <div style="position: relative; height: 300px; border-radius: 15px; overflow: hidden; display: flex; align-items: flex-end; padding: 20px;">
+    <div class="benefits__grid">
+      {%- for block in section.blocks -%}
+        {%- assign has_image = false -%}
+        {%- if block.settings.image != blank -%}
+          {%- assign has_image = true -%}
+        {%- endif -%}
+
+        <div class="benefit-card reveal" 
+             style="--reveal-delay:{{ forloop.index0 | times: 100 }}ms; 
+                    {% if has_image %}
+                      position: relative; 
+                      min-height: 320px; 
+                      display: flex; 
+                      flex-direction: column; 
+                      justify-content: flex-end; 
+                      padding: 25px; 
+                      border-radius: 12px; 
+                      overflow: hidden; 
+                      color: #ffffff !important;
+                    {% endif %}" 
+             {{ block.shopify_attributes }}>
           
-          {% if block.settings.image != blank %}
-            <img src="{{ block.settings.image | image_url: width: 600 }}" style="position: absolute; top:0; left:0; width:100%; height:100%; object-fit: cover;">
-          {% else %}
-            <div style="position: absolute; top:0; left:0; width:100%; height:100%; background: #ccc;"></div>
-          {% endif %}
-          
-          <div style="position: relative; z-index: 1; background: rgba(0,0,0,0.5); padding: 15px; width: 100%; border-radius: 10px; color: white;">
-            <h3 style="margin: 0; color: #fff;">{{ block.settings.title }}</h3>
-            <p style="margin: 5px 0 0; color: #eee;">{{ block.settings.desc }}</p>
+          {%- if has_image -%}
+            <!-- Background Image for Overlay -->
+            <img src="{{ block.settings.image | image_url: width: 600 }}" 
+                 alt="{{ block.settings.title | escape }}" 
+                 style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; border-radius: 12px;">
+            <!-- Dark Shadow Overlay for Text Readability -->
+            <div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.7) 100%); z-index: 1;"></div>
+          {%- endif -%}
+
+          <!-- Content (Z-index keeps it on top of image) -->
+          <div style="{% if has_image %}position: relative; z-index: 2; text-align: left;{% endif %}">
+            {%- unless has_image -%}
+              <span class="benefit-card__icon">{%- render 'icon', icon: block.settings.icon -%}</span>
+            {%- endunless -%}
+            
+            <h3 class="benefit-card__title" style="{% if has_image %}color: #ffffff !important; margin-bottom: 8px; font-weight: 700; text-shadow: 1px 1px 3px rgba(0,0,0,0.5);{% endif %}">
+              {{ block.settings.title }}
+            </h3>
+            <p class="benefit-card__desc text-pretty" style="{% if has_image %}color: #f3f4f6 !important; font-size: 0.9rem; margin: 0; text-shadow: 1px 1px 2px rgba(0,0,0,0.5);{% endif %}">
+              {{ block.settings.desc }}
+            </p>
           </div>
+
         </div>
-      {% endfor %}
+      {%- endfor -%}
     </div>
   </div>
 </section>
 
 {% schema %}
 {
-  "name": "Spinexa Benefits",
+  "name": "Benefits",
+  "max_blocks": 4,
   "settings": [
-    { "type": "text", "id": "title", "label": "Title", "default": "Why Spinexa" },
-    { "type": "text", "id": "subtitle", "label": "Subtitle", "default": "Natural relief for your spine." }
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Why Spinexa" },
+    { "type": "text", "id": "title", "label": "Title", "default": "Care That Works With Your Body" },
+    { "type": "textarea", "id": "subtitle", "label": "Subtitle", "default": "Every detail — from ingredient to bottle — is designed to deliver a wellness experience you can feel." }
   ],
   "blocks": [
-    {
-      "type": "benefit",
-      "name": "Benefit Card",
+    { 
+      "type": "benefit", 
+      "name": "Benefit Card", 
       "settings": [
-        { "type": "image_picker", "id": "image", "label": "Select Image" },
-        { "type": "text", "id": "title", "label": "Title", "default": "Natural Healing" },
-        { "type": "text", "id": "desc", "label": "Description", "default": "Herbal medicine for spine pain." }
+        { "type": "image_picker", "id": "image", "label": "Select Background Image", "info": "Agar aap yahan image lagayenge to card par image overlay ban jayega." },
+        { "type": "select", "id": "icon", "label": "Icon (Only if image is empty)", "default": "sprout", "options": [
+          { "value": "sprout", "label": "Sprout" },
+          { "value": "wind", "label": "Wind" },
+          { "value": "sun", "label": "Sun" },
+          { "value": "gem", "label": "Gem" },
+          { "value": "leaf", "label": "Leaf" },
+          { "value": "shield", "label": "Shield" },
+          { "value": "award", "label": "Award" }
+        ]},
+        { "type": "text", "id": "title", "label": "Title", "default": "Herbal Formula" },
+        { "type": "textarea", "id": "desc", "label": "Description", "default": "Cold-pressed botanical extracts, crafted with traditional herbal wisdom and modern precision." }
       ]
     }
   ],
-  "presets": [{ "name": "Spinexa Benefits" }]
+  "presets": [{
+    "name": "Benefits",
+    "blocks": [
+      { "type": "benefit", "settings": { "icon": "sprout", "title": "Herbal Formula", "desc": "Cold-pressed botanical extracts, crafted with traditional herbal wisdom and modern precision." } },
+      { "type": "benefit", "settings": { "icon": "wind", "title": "Relaxing Experience", "desc": "A calming aromatic ritual that helps you unwind, release tension, and find your moment of calm." } },
+      { "type": "benefit", "settings": { "icon": "sun", "title": "Everyday Wellness", "desc": "Designed for daily use — a simple, versatile addition to your morning and evening routine." } },
+      { "type": "benefit", "settings": { "icon": "gem", "title": "Premium Quality", "desc": "Meticulously sourced ingredients and premium packaging you will be proud to display." } }
+    ]
+  }]
 }
 {% endschema %}
