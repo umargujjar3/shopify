@@ -1,43 +1,36 @@
 <section class="hero-slider-section relative w-full overflow-hidden" style="background-color: #000;">
   
-  <!-- Swiper Slider Wrapper -->
   <div class="hero-swiper overflow-hidden relative w-full">
     <div class="swiper-wrapper flex" style="transition-property: transform;">
       
       {%- for block in section.blocks -%}
-        <div class="swiper-slide shrink-0 w-full relative flex items-center justify-center" style="min-height: 480px; md:min-height: 600px;" {{ block.shopify_attributes }}>
+        <div class="swiper-slide shrink-0 w-full relative flex items-center justify-center" style="min-height: 480px; lg:min-height: 600px;" {{ block.shopify_attributes }}>
           
-          <!-- Background: Image OR Video -->
-          <div class="absolute inset-0 z-0">
+          <div class="absolute inset-0 w-full h-full z-0">
             {%- if block.settings.video_url != blank -%}
-              <!-- Video Background -->
               <video class="w-full h-full object-cover" autoplay loop muted playsinline>
                 <source src="{{ block.settings.video_url }}" type="video/mp4">
               </video>
             {%- elsif block.settings.image != blank -%}
-              <!-- Image Background with Desktop/Mobile Responsive option -->
               <picture>
                 {%- if block.settings.image_mobile != blank -%}
                   <source media="(max-width: 767px)" srcset="{{ block.settings.image_mobile | image_url: width: 800 }}">
                 {%- endif -%}
                 <img src="{{ block.settings.image | image_url: width: 2000 }}" 
                      alt="{{ block.settings.heading | escape }}" 
-                     class="w-full h-full object-cover object-center"
-                     style="display: block; width: 100%; height: 100%;"
+                     class="w-full h-full absolute inset-0 object-cover object-center"
+                     style="width: 100%; height: 100%;"
                      loading="eager">
               </picture>
             {%- else -%}
-              <!-- Default gradient fallback if empty -->
               <div class="w-full h-full bg-gradient-to-r from-green-950 to-emerald-900 opacity-90"></div>
             {%- endif -%}
 
-            <!-- Dark Tint Overlay for clean text readability -->
             {%- assign overlay_opacity = block.settings.overlay_opacity | times: 0.01 -%}
-            <div class="absolute inset-0 bg-black" style="opacity: {{ overlay_opacity }}; pointer-events: none;"></div>
+            <div class="absolute inset-0 bg-black" style="opacity: {{ overlay_opacity }}; pointer-events: none; z-index: 1;"></div>
           </div>
 
-          <!-- Content (Centered over video/image) -->
-          <div class="container relative z-10 mx-auto px-6 py-20 text-center max-w-4xl text-white">
+          <div class="absolute inset-0 z-10 flex flex-col items-center justify-center text-center px-6 py-20 max-w-4xl mx-auto text-white">
             {%- if block.settings.subheading_top != blank -%}
               <span class="inline-block text-green-400 font-bold tracking-widest text-xs md:text-sm uppercase mb-3 animate-fade-in">
                 {{ block.settings.subheading_top }}
@@ -45,13 +38,13 @@
             {%- endif -%}
             
             {%- if block.settings.heading != blank -%}
-              <h2 class="text-3xl md:text-6xl font-extrabold tracking-tight mb-4 leading-tight uppercase" style="text-shadow: 0 4px 10px rgba(0,0,0,0.3);">
+              <h2 class="text-3xl md:text-6xl font-extrabold tracking-tight mb-4 leading-tight uppercase" style="text-shadow: 0 4px 10px rgba(0,0,0,0.5);">
                 {{ block.settings.heading }}
               </h2>
             {%- endif -%}
             
             {%- if block.settings.subheading != blank -%}
-              <p class="text-sm md:text-lg text-gray-200 mb-8 max-w-2xl mx-auto leading-relaxed">
+              <p class="text-sm md:text-lg text-gray-200 mb-8 max-w-2xl mx-auto leading-relaxed" style="text-shadow: 0 2px 8px rgba(0,0,0,0.5);">
                 {{ block.settings.subheading }}
               </p>
             {%- endif -%}
@@ -69,16 +62,13 @@
 
     </div>
 
-    <!-- Navigation Arrows -->
     <div class="swiper-btn-prev absolute left-4 top-1/2 -translate-y-1/2 z-20 cursor-pointer bg-white/10 hover:bg-white/20 p-3 rounded-full text-white transition duration-200 hidden md:block">❮</div>
     <div class="swiper-btn-next absolute right-4 top-1/2 -translate-y-1/2 z-20 cursor-pointer bg-white/10 hover:bg-white/20 p-3 rounded-full text-white transition duration-200 hidden md:block">❯</div>
     
-    <!-- Pagination Dots -->
-    <div class="swiper-pagination-dots absolute bottom-4 left-1/2 -translate-y-1/2 z-20 flex justify-center gap-2"></div>
+    <div class="swiper-pagination-dots absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex justify-center gap-2"></div>
   </div>
 </section>
 
-<!-- Swiper Library Assets (Fully Responsive Navigation) -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
 <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
 
