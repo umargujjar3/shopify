@@ -1,76 +1,37 @@
-<section class="hero-slider-section" style="position: relative; width: 100%; overflow: hidden; background-color: #000;">
+<section class="hero-slider-section" style="position: relative; width: 100%; overflow: hidden; background-color: #ffffff;">
   
   <div class="hero-swiper" style="overflow: hidden; position: relative; width: 100%;">
-    <div class="swiper-wrapper" style="display: flex; transition-property: transform;">
+    <div class="swiper-wrapper" style="display: flex; transition-property: transform; width: 100%;">
       
       {%- for block in section.blocks -%}
-        {%- assign has_content = false -%}
-        {%- if block.settings.heading != blank or block.settings.subheading != blank or block.settings.subheading_top != blank -%}
-          {%- assign has_content = true -%}
-        {%- endif -%}
-
-        <div class="swiper-slide" style="flex-shrink: 0; width: 100%; display: flex; flex-direction: column; position: relative;" {{ block.shopify_attributes }}>
+        <div class="swiper-slide" style="flex-shrink: 0; width: 100%; position: relative; display: block;" {{ block.shopify_attributes }}>
           
-          <a href="{{ block.settings.button_link | default: '/collections/all' }}" class="hero-media-link" style="display: block; position: relative; width: 100; text-decoration: none; z-index: 1;">
+          <a href="{{ block.settings.button_link | default: '/collections/all' }}" style="display: block; width: 100%; height: 100%; text-decoration: none; outline: none;">
+            
             <div class="hero-media-container" style="position: relative; width: 100%; overflow: hidden;">
               {%- if block.settings.video_url != blank -%}
                 <video style="width: 100%; height: 100%; object-fit: cover; display: block;" autoplay loop muted playsinline>
                   <source src="{{ block.settings.video_url }}" type="video/mp4">
                 </video>
               {%- elsif block.settings.image != blank -%}
-                <picture>
+                <picture style="display: block; width: 100%; height: 100%;">
                   {%- if block.settings.image_mobile != blank -%}
                     <source media="(max-width: 767px)" srcset="{{ block.settings.image_mobile | image_url: width: 800 }}">
                   {%- endif -%}
                   <img src="{{ block.settings.image | image_url: width: 2000 }}" 
-                       alt="{{ block.settings.heading | escape }}" 
+                       alt="OrganicsFU Banner" 
                        style="width: 100%; height: 100%; object-fit: cover; object-position: center; display: block;"
                        loading="eager">
                 </picture>
               {%- else -%}
-                <div style="width: 100%; height: 100%; background: linear-gradient(to right, #052e16, #064e3b); opacity: 0.9;"></div>
+                <div style="width: 100%; height: 100%; background: linear-gradient(to right, #052e16, #064e3b);"></div>
               {%- endif -%}
 
               {%- assign overlay_opacity = block.settings.overlay_opacity | times: 0.01 -%}
               <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-color: #000000; opacity: {{ overlay_opacity }}; pointer-events: none; z-index: 2;"></div>
             </div>
+
           </a>
-
-          {%- if has_content == false and block.settings.button_text != blank -%}
-            <div style="position: absolute; bottom: 25px; left: 50%; transform: translateX(-50%); z-index: 10; text-align: center; width: 100%;">
-              <a href="{{ block.settings.button_link | default: '/collections/all' }}" class="hero-floating-btn">
-                {{ block.settings.button_text }}
-              </a>
-            </div>
-          {%- endif -%}
-
-          {%- if has_content -%}
-            <div class="hero-text-container" style="width: 100%; max-width: 800px; margin: 0 auto; text-align: center; background-color: #ffffff; box-sizing: border-box;">
-              {%- if block.settings.subheading_top != blank -%}
-                <span style="display: inline-block; color: #16a34a; font-weight: 700; letter-spacing: 0.12em; font-size: 11px; text-transform: uppercase; margin-bottom: 6px;">
-                  {{ block.settings.subheading_top }}
-                </span>
-              {%- endif -%}
-              
-              {%- if block.settings.heading != blank -%}
-                <h2 style="font-size: clamp(20px, 2.5vw, 32px); color: #1f2937; font-weight: 800; letter-spacing: -0.01em; margin-bottom: 8px; margin-top: 0; line-height: 1.2; text-transform: uppercase;">
-                  {{ block.settings.heading }}
-                </h2>
-              {%- endif -%}
-              
-              {%- if block.settings.subheading != blank -%}
-                <p style="font-size: clamp(13px, 1.3vw, 15px); color: #4b5563; margin-bottom: 16px; line-height: 1.5; max-width: 600px; margin-left: auto; margin-right: auto;">
-                  {{ block.settings.subheading }}
-                </p>
-              {%- endif -%}
-              
-              {%- if block.settings.button_text != blank -%}
-                <a href="{{ block.settings.button_link | default: '/collections/all' }}" class="hero-normal-btn">
-                  {{ block.settings.button_text }}
-                </a>
-              {%- endif -%}
-            </div>
-          {%- endif -%}
 
         </div>
       {%- endfor -%}
@@ -110,14 +71,11 @@
 </script>
 
 <style>
-  /* Base Desktop Heights */
+  /* 100% Seamless Aspect Ratio setup */
   .hero-media-container {
-    height: 40vh; /* Premium cinematic aspect ratio */
-    min-height: 300px;
-  }
-
-  .hero-text-container {
-    padding: 20px 15px;
+    width: 100%;
+    height: 42vh; /* Perfect height balance for Desktop banner image */
+    min-height: 280px;
   }
 
   /* Navigation Arrows Styling */
@@ -127,15 +85,16 @@
     transform: translateY(-50%);
     z-index: 20;
     cursor: pointer;
-    background: rgba(0,0,0,0.4);
-    padding: 10px 14px;
+    background: rgba(0,0,0,0.3);
+    padding: 12px 16px;
     border-radius: 50%;
     color: #fff;
-    transition: 0.2s;
+    transition: all 0.2s ease;
     display: none;
+    user-select: none;
   }
-  .swiper-btn-prev { left: 16px; }
-  .swiper-btn-next { right: 16px; }
+  .swiper-btn-prev { left: 20px; }
+  .swiper-btn-next { right: 20px; }
 
   @media (min-width: 768px) {
     .swiper-btn-prev, .swiper-btn-next {
@@ -143,13 +102,13 @@
     }
   }
   .swiper-btn-prev:hover, .swiper-btn-next:hover {
-    background: rgba(0,0,0,0.7) !important;
+    background: rgba(0,0,0,0.6) !important;
   }
 
-  /* Pagination Dots styling (Elegant floating overlay style) */
+  /* Pagination Dots (Beautiful minimal style floating over image) */
   .swiper-pagination-dots {
     position: absolute;
-    bottom: 15px;
+    bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
     z-index: 20;
@@ -163,57 +122,22 @@
     border-radius: 50%;
     background: rgba(255, 255, 255, 0.4);
     cursor: pointer;
-    transition: background 0.3s;
+    transition: background 0.3s, width 0.3s;
   }
   .hero-bullet-active {
-    background: #16a34a !important;
-    width: 20px;
+    background: #16a34a !important; /* Premium brand green dot */
+    width: 22px;
     border-radius: 6px;
   }
 
-  /* Floating Button (Clean & minimalistic over picture) */
-  .hero-floating-btn {
-    display: inline-block;
-    background-color: #16a34a;
-    color: #ffffff;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    padding: 10px 24px;
-    border-radius: 4px;
-    text-decoration: none;
-    font-size: 12px;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-  }
-  .hero-floating-btn:hover {
-    background-color: #15803d;
-    transform: scale(1.03);
-  }
-
-  /* Normal Content Button */
-  .hero-normal-btn {
-    display: inline-block;
-    background-color: #16a34a;
-    color: #ffffff;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    padding: 10px 24px;
-    border-radius: 4px;
-    text-decoration: none;
-    font-size: 12px;
-    transition: all 0.3s ease;
-  }
-
-  /* Mobile Responsive Height Adjustments */
+  /* Mobile Aspect Ratio Adjustments */
   @media (max-width: 767px) {
     .hero-media-container {
-      height: 35vh;
-      min-height: 240px;
+      height: 35vh; /* Responsive height for mobile screens */
+      min-height: 200px;
     }
-    .hero-text-container {
-      padding: 15px 10px;
+    .swiper-pagination-dots {
+      bottom: 12px;
     }
   }
 </style>
@@ -235,11 +159,11 @@
           "type": "text",
           "id": "video_url",
           "label": "MP4 Video Direct Link",
-          "info": "Upload video in Shopify 'Files' section, copy URL and paste here. (Keep below 15mb)"
+          "info": "Upload video in Shopify 'Files' section, copy URL and paste here."
         },
         {
           "type": "header",
-          "content": "Fallback Image (If video is empty)"
+          "content": "Fallback Image"
         },
         {
           "type": "image_picker",
@@ -261,37 +185,13 @@
           "step": 10,
           "default": 0,
           "unit": "%",
-          "label": "Overlay Shadow Opacity"
-        },
-        {
-          "type": "header",
-          "content": "Text Content"
-        },
-        {
-          "type": "text",
-          "id": "subheading_top",
-          "label": "Small Top Subheading"
-        },
-        {
-          "type": "text",
-          "id": "heading",
-          "label": "Main Heading"
-        },
-        {
-          "type": "textarea",
-          "id": "subheading",
-          "label": "Description"
-        },
-        {
-          "type": "text",
-          "id": "button_text",
-          "label": "Button Text",
-          "default": "Explore Now"
+          "label": "Overlay Shadow Opacity (Keep 0% to keep original colors)"
         },
         {
           "type": "url",
           "id": "button_link",
-          "label": "Button Link"
+          "label": "Click Link",
+          "info": "User can click anywhere on the banner to open this link."
         }
       ]
     }
