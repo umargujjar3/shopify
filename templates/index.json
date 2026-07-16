@@ -12,20 +12,53 @@
     "hero": {
       "type": "hero",
       "settings": {
-        "heading": "Premium Organic Supplements",
-        "subheading": "Feel the power of natural organic ingredients crafted for your health."
+        "image": "shopify://shop_images/Rustic_Table_with_Fresh_Herbs_and_Books_20260716_144212_0000_6e6766d4-b452-4d56-8926-85f6d31c3b44.png",
+        "overlay_opacity": 90,
+        "subheading_top": "",
+        "heading": "",
+        "subheading": "",
+        "button_text": "Shop Now",
+        "button_link": ""
       }
     },
     "benefits": {
       "type": "benefits",
+      "blocks": {
+        "benefit_Arbf4k": {
+          "type": "benefit",
+          "settings": {
+            "image": "shopify://shop_images/Minimal_Natural_Icons_with_Herb_Theme_20260716_022418_0000.png",
+            "icon": "shield",
+            "title": "Herbal Formula",
+            "desc": "Cold-pressed botanical extracts, crafted with traditional herbal wisdom and modern precision."
+          }
+        },
+        "benefit_M7GX3z": {
+          "type": "benefit",
+          "settings": {
+            "image": "shopify://shop_images/Elegant_Herbs_with_Hand-Lettered_Text_20260716_022922_0000.png",
+            "icon": "sprout",
+            "title": "Herbal Formula",
+            "desc": "Cold-pressed botanical extracts, crafted with traditional herbal wisdom and modern precision."
+          }
+        }
+      },
+      "block_order": [
+        "benefit_Arbf4k",
+        "benefit_M7GX3z"
+      ],
       "settings": {
-        "title": "Why Choose Spinexa?"
+        "eyebrow": "Why Spinexa",
+        "title": "Why Choose Spinexa?",
+        "subtitle": "Every detail — from ingredient to bottle — is designed to deliver a wellness experience you can feel."
       }
     },
     "ingredients": {
       "type": "ingredients",
       "settings": {
-        "title": "Our Pure Ingredients"
+        "eyebrow": "Pure Botanicals",
+        "title": "Our Pure Ingredients",
+        "subtitle": "Every drop of Spinexa is built from cold-pressed botanicals chosen for their soothing, comforting properties — never synthetic fragrances, never parabens."
       }
     }
   },
