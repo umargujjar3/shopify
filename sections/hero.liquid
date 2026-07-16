@@ -29,28 +29,27 @@
             <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-color: #000000; opacity: {{ overlay_opacity }}; pointer-events: none; z-index: 2;"></div>
           </div>
 
-          <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 10; width: 100%; max-width: 800px; padding: 20px; text-align: center; color: #ffffff; box-sizing: border-box;">
+          <div class="hero-content-box">
             {%- if block.settings.subheading_top != blank -%}
-              <span style="display: inline-block; color: #4ade80; font-weight: 700; letter-spacing: 0.1em; font-size: 14px; text-transform: uppercase; margin-bottom: 12px;">
+              <span class="hero-top-subheading">
                 {{ block.settings.subheading_top }}
               </span>
             {%- endif -%}
             
             {%- if block.settings.heading != blank -%}
-              <h2 style="font-size: clamp(28px, 5vw, 56px); font-weight: 800; letter-spacing: -0.025em; margin-bottom: 16px; margin-top: 0; line-height: 1.2; text-transform: uppercase; text-shadow: 0 4px 12px rgba(0,0,0,0.6);">
+              <h2 class="hero-main-heading">
                 {{ block.settings.heading }}
               </h2>
             {%- endif -%}
             
             {%- if block.settings.subheading != blank -%}
-              <p style="font-size: clamp(14px, 2vw, 18px); color: #e5e7eb; margin-bottom: 30px; line-height: 1.6; max-width: 600px; margin-left: auto; margin-right: auto; text-shadow: 0 2px 8px rgba(0,0,0,0.6);">
+              <p class="hero-description">
                 {{ block.settings.subheading }}
               </p>
             {%- endif -%}
             
             {%- if block.settings.button_text != blank -%}
-              <a href="{{ block.settings.button_link | default: '/collections/all' }}" 
-                 style="display: inline-block; background-color: #22c55e; color: #ffffff; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; padding: 14px 32px; border-radius: 6px; text-decoration: none; font-size: 14px; transition: all 0.3s ease; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+              <a href="{{ block.settings.button_link | default: '/collections/all' }}" class="hero-btn">
                 {{ block.settings.button_text }}
               </a>
             {%- endif -%}
@@ -94,6 +93,80 @@
 </script>
 
 <style>
+  /* Custom Styling for Left Alignment & Responsiveness */
+  .hero-content-box {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 8%; /* Left side spacing on Desktop */
+    z-index: 10;
+    width: 100%;
+    max-width: 550px; /* Limits width so it doesn't cross center */
+    padding: 20px;
+    text-align: left;
+    color: #ffffff;
+    box-sizing: border-box;
+  }
+
+  .hero-top-subheading {
+    display: inline-block;
+    color: #4ade80;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    font-size: 14px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .hero-main-heading {
+    font-size: clamp(28px, 4vw, 52px);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin-bottom: 16px;
+    margin-top: 0;
+    line-height: 1.2;
+    text-transform: uppercase;
+    text-shadow: 0 4px 12px rgba(0,0,0,0.6);
+  }
+
+  .hero-description {
+    font-size: clamp(14px, 1.8vw, 17px);
+    color: #e5e7eb;
+    margin-bottom: 30px;
+    line-height: 1.6;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+  }
+
+  .hero-btn {
+    display: inline-block;
+    background-color: #22c55e;
+    color: #ffffff;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 14px 32px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(34, 197, 94, 0.3);
+  }
+
+  .hero-btn:hover {
+    background-color: #16a34a;
+    transform: translateY(-2px);
+  }
+
+  /* Responsive styling for Mobile Screens */
+  @media (max-width: 767px) {
+    .hero-content-box {
+      left: 50% !important;
+      transform: translate(-50%, -50%) !important;
+      text-align: center !important;
+      max-width: 90% !important;
+    }
+  }
+
   /* Show navigation arrows on desktop */
   @media (min-width: 768px) {
     .swiper-btn-prev, .swiper-btn-next {
@@ -103,6 +176,7 @@
   .swiper-btn-prev:hover, .swiper-btn-next:hover {
     background: rgba(255,255,255,0.25) !important;
   }
+  
   /* Dot styling */
   .hero-bullet {
     width: 10px;
