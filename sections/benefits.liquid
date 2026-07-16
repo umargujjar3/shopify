@@ -1,12 +1,31 @@
-<section class="section--cream" style="padding-block: var(--section-spacing, 80px);">
-  <div class="container">
-    <div class="section-header">
-      <div class="reveal"><span class="eyebrow center">{{ section.settings.eyebrow }}</span></div>
-      <div class="reveal" style="--reveal-delay:100ms"><h2 class="h2 section-header__title text-balance">{{ section.settings.title }}</h2></div>
-      <div class="reveal" style="--reveal-delay:200ms"><p class="section-header__subtitle text-pretty">{{ section.settings.subtitle }}</p></div>
+<section class="section--cream" style="padding-block: 50px 35px; background-color: #fcf9f4;">
+  <div class="container" style="max-width: 1200px; margin: 0 auto; padding-inline: 20px;">
+    
+    <div class="section-header" style="text-align: center; margin-bottom: 35px;">
+      {%- if section.settings.eyebrow != blank -%}
+        <div class="reveal">
+          <span class="eyebrow center" style="color: #2d5a27; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; font-size: 0.8rem; display: inline-block; margin-bottom: 8px;">
+            {{ section.settings.eyebrow }}
+          </span>
+        </div>
+      {%- endif -%}
+      
+      <div class="reveal" style="--reveal-delay:100ms">
+        <h2 class="h2 section-header__title text-balance" style="color: #1e293b; font-size: 2rem; font-weight: 800; margin: 0 0 10px 0; line-height: 1.3;">
+          {{ section.settings.title }}
+        </h2>
+      </div>
+      
+      {%- if section.settings.subtitle != blank -%}
+        <div class="reveal" style="--reveal-delay:200ms">
+          <p class="section-header__subtitle text-pretty" style="color: #64748b; font-size: 0.95rem; max-width: 600px; margin: 0 auto; line-height: 1.6;">
+            {{ section.settings.subtitle }}
+          </p>
+        </div>
+      {%- endif -%}
     </div>
 
-    <div class="benefits__grid">
+    <div class="benefits__grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px;">
       {%- for block in section.blocks -%}
         {%- assign has_image = false -%}
         {%- if block.settings.image != blank -%}
@@ -15,38 +34,41 @@
 
         <div class="benefit-card reveal" 
              style="--reveal-delay:{{ forloop.index0 | times: 100 }}ms; 
-                    {% if has_image %}
-                      position: relative; 
-                      min-height: 320px; 
-                      display: flex; 
-                      flex-direction: column; 
-                      justify-content: flex-end; 
-                      padding: 25px; 
-                      border-radius: 12px; 
-                      overflow: hidden; 
-                      color: #ffffff !important;
-                    {% endif %}" 
+                    position: relative; 
+                    min-height: 260px; /* Fitting size: 320px se kam karke 260px kiya */
+                    display: flex; 
+                    flex-direction: column; 
+                    justify-content: flex-end; 
+                    padding: 20px; 
+                    border-radius: 12px; 
+                    overflow: hidden; 
+                    background: {% if has_image %}transparent{% else %}#ffffff{% endif %};
+                    box-shadow: 0 10px 25px rgba(0,0,0,0.03);
+                    border: 1px solid rgba(0,0,0,0.04);
+                    transition: transform 0.3s ease, box-shadow 0.3s ease;
+                    color: {% if has_image %}#ffffff{% else %}#334155{% endif %};" 
              {{ block.shopify_attributes }}>
           
           {%- if has_image -%}
-            <!-- Background Image for Overlay -->
             <img src="{{ block.settings.image | image_url: width: 600 }}" 
                  alt="{{ block.settings.title | escape }}" 
-                 style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; border-radius: 12px;">
-            <!-- Dark Shadow Overlay for Text Readability -->
-            <div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.7) 100%); z-index: 1;"></div>
+                 style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; border-radius: 12px;"
+                 loading="lazy">
+            <div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.75) 100%); z-index: 1; pointer-events: none;"></div>
           {%- endif -%}
 
-          <!-- Content (Z-index keeps it on top of image) -->
-          <div style="{% if has_image %}position: relative; z-index: 2; text-align: left;{% endif %}">
+          <div style="position: relative; z-index: 2; text-align: left;">
             {%- unless has_image -%}
-              <span class="benefit-card__icon">{%- render 'icon', icon: block.settings.icon -%}</span>
+              <span class="benefit-card__icon" style="color: #2d5a27; display: inline-block; margin-bottom: 15px; font-size: 24px;">
+                {%- render 'icon', icon: block.settings.icon -%}
+              </span>
             {%- endunless -%}
             
-            <h3 class="benefit-card__title" style="{% if has_image %}color: #ffffff !important; margin-bottom: 8px; font-weight: 700; text-shadow: 1px 1px 3px rgba(0,0,0,0.5);{% endif %}">
+            <h3 class="benefit-card__title" style="font-size: 1.15rem; font-weight: 700; margin: 0 0 8px 0; color: {% if has_image %}#ffffff{% else %}#1e293b{% endif %}; {% if has_image %}text-shadow: 1px 1px 3px rgba(0,0,0,0.4);{% endif %}">
               {{ block.settings.title }}
             </h3>
-            <p class="benefit-card__desc text-pretty" style="{% if has_image %}color: #f3f4f6 !important; font-size: 0.9rem; margin: 0; text-shadow: 1px 1px 2px rgba(0,0,0,0.5);{% endif %}">
+            
+            <p class="benefit-card__desc text-pretty" style="font-size: 0.88rem; line-height: 1.5; margin: 0; color: {% if has_image %}#f3f4f6{% else %}#475569{% endif %}; {% if has_image %}text-shadow: 1px 1px 2px rgba(0,0,0,0.4);{% endif %}">
               {{ block.settings.desc }}
             </p>
           </div>
@@ -56,6 +78,14 @@
     </div>
   </div>
 </section>
+
+<style>
+  /* Hover effects for elegant feeling */
+  .benefit-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(45,90,39,0.08) !important;
+  }
+</style>
 
 {% schema %}
 {
