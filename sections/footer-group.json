@@ -11,6 +11,51 @@
   "type": "footer",
   "name": "Footer group",
   "sections": {
+    "trust_badges_dazpWP": {
+      "type": "trust-badges",
+      "blocks": {
+        "badge_cwNAea": {
+          "type": "badge",
+          "settings": {
+            "icon": "leaf",
+            "title": "Natural Ingredients",
+            "desc": "Cold-pressed botanicals"
+          }
+        },
+        "badge_3RbUi8": {
+          "type": "badge",
+          "settings": {
+            "icon": "shield",
+            "title": "Secure Checkout",
+            "desc": "Encrypted & protected"
+          }
+        },
+        "badge_JxwYUQ": {
+          "type": "badge",
+          "settings": {
+            "icon": "truck",
+            "title": "Fast Delivery",
+            "desc": "2–4 business days"
+          }
+        },
+        "badge_tLXCyd": {
+          "type": "badge",
+          "settings": {
+            "icon": "award",
+            "title": "Premium Quality",
+            "desc": "Crafted with care"
+          }
+        }
+      },
+      "block_order": [
+        "badge_cwNAea",
+        "badge_3RbUi8",
+        "badge_JxwYUQ",
+        "badge_tLXCyd"
+      ],
+      "name": "Trust badges",
+      "settings": {}
+    },
     "footer": {
       "type": "footer",
       "settings": {
@@ -19,6 +64,7 @@
     }
   },
   "order": [
+    "trust_badges_dazpWP",
     "footer"
   ]
 }
