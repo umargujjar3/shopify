@@ -1,18 +1,42 @@
-<footer class="footer" style="
-  position: relative;
-  background-image: {% if section.settings.bg_image != blank %}url('{{ section.settings.bg_image | image_url: width: 2000 }}'){% else %}none{% endif %};
-  background-color: #1a331e; /* Fallback dark green agar picture na ho */
-  background-size: cover;
-  background-position: center center;
-  background-repeat: no-repeat;
-  padding-block: 60px 40px;
-  color: #ffffff;
-">
-  {% if section.settings.bg_image != blank %}
+<style>
+  .footer-responsive {
+    position: relative;
+    background-color: #1a331e; /* Fallback dark green */
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    padding-block: 60px 40px;
+    color: #ffffff;
+  }
+
+  /* Laptop/Desktop ke liye background */
+  @media screen and (min-width: 768px) {
+    .footer-responsive {
+      background-image: {% if section.settings.bg_image_desktop != blank %}url('{{ section.settings.bg_image_desktop | image_url: width: 2000 }}'){% else %}none{% endif %};
+    }
+  }
+
+  /* Mobile ke liye background */
+  @media screen and (max-width: 767px) {
+    .footer-responsive {
+      background-image: {% if section.settings.bg_image_mobile != blank %}
+        url('{{ section.settings.bg_image_mobile | image_url: width: 800 }}')
+      {% elsif section.settings.bg_image_desktop != blank %}
+        url('{{ section.settings.bg_image_desktop | image_url: width: 1000 }}')
+      {% else %}
+        none
+      {% endif %};
+      background-position: center center; /* Mobile par image center mein fit hogi */
+    }
+  }
+</style>
+
+<footer class="footer footer-responsive">
+  {% if section.settings.bg_image_desktop != blank or section.settings.bg_image_mobile != blank %}
     <div class="footer__overlay" style="
       position: absolute;
       top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(18, 38, 21, 0.88); /* Aap is opacity ko dark/light kar sakte hain */
+      background: rgba(18, 38, 21, 0.88); /* Dark green shadow overlay */
       z-index: 1;
     "></div>
   {% endif %}
@@ -110,7 +134,7 @@
       </div>
     </div>
   </div>
-</section>
+</footer>
 
 {% schema %}
 {
@@ -133,9 +157,15 @@
     },
     {
       "type": "image_picker",
-      "id": "bg_image",
-      "label": "Footer Background Image",
-      "info": "Upload an elegant dark or organic textured image (Recommended size: 1920x800px)"
+      "id": "bg_image_desktop",
+      "label": "Desktop Background Image",
+      "info": "Laptop/Desktop par dikhne wali wide image (Recommended: 1920x800px)"
+    },
+    {
+      "type": "image_picker",
+      "id": "bg_image_mobile",
+      "label": "Mobile Background Image (Optional)",
+      "info": "Mobile par dikhne wali vertical image. Agar khali chhodenge to Desktop wali hi use hogi."
     }
   ]
 }
