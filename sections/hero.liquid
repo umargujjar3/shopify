@@ -1,35 +1,42 @@
-<section class="hero-slider-section" style="position: relative; width: 100%; overflow: hidden; background-color: #ffffff;">
+<section class="hero-slider-section" style="position: relative; width: 100%; overflow: hidden; background-color: #ffffff; line-height: 0;">
   
   <div class="hero-swiper" style="overflow: hidden; position: relative; width: 100%;">
     <div class="swiper-wrapper" style="display: flex; transition-property: transform; width: 100%;">
       
       {%- for block in section.blocks -%}
-        <div class="swiper-slide" style="flex-shrink: 0; width: 100%; position: relative; display: block;" {{ block.shopify_attributes }}>
+        <div class="swiper-slide" style="flex-shrink: 0; width: 100%; position: relative; display: block; line-height: 0;" {{ block.shopify_attributes }}>
           
-          <a href="{{ block.settings.button_link | default: '/collections/all' }}" style="display: block; width: 100%; height: 100%; text-decoration: none; outline: none;">
+          <a href="{{ block.settings.button_link | default: '/collections/all' }}" style="display: block; width: 100%; position: relative; text-decoration: none; outline: none; line-height: 0;">
             
-            <div class="hero-media-container" style="position: relative; width: 100%; overflow: hidden;">
+            <div class="hero-media-container" style="position: relative; width: 100%;">
               {%- if block.settings.video_url != blank -%}
-                <video style="width: 100%; height: 100%; object-fit: cover; display: block;" autoplay loop muted playsinline>
+                <video style="width: 100%; height: auto; display: block;" autoplay loop muted playsinline>
                   <source src="{{ block.settings.video_url }}" type="video/mp4">
                 </video>
               {%- elsif block.settings.image != blank -%}
-                <picture style="display: block; width: 100%; height: 100%;">
+                <picture style="display: block; width: 100%;">
                   {%- if block.settings.image_mobile != blank -%}
                     <source media="(max-width: 767px)" srcset="{{ block.settings.image_mobile | image_url: width: 800 }}">
                   {%- endif -%}
                   <img src="{{ block.settings.image | image_url: width: 2000 }}" 
-                       alt="OrganicsFU Banner" 
-                       style="width: 100%; height: 100%; object-fit: cover; object-position: center; display: block;"
+                       alt="OrganicsFU Premium Banner" 
+                       style="width: 100%; height: auto; display: block;"
                        loading="eager">
                 </picture>
               {%- else -%}
-                <div style="width: 100%; height: 100%; background: linear-gradient(to right, #052e16, #064e3b);"></div>
+                <div style="width: 100%; aspect-ratio: 1920/800; background: linear-gradient(to right, #052e16, #064e3b);"></div>
               {%- endif -%}
 
-              {%- assign overlay_opacity = block.settings.overlay_opacity | times: 0.01 -%}
-              <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-color: #000000; opacity: {{ overlay_opacity }}; pointer-events: none; z-index: 2;"></div>
+              <div style="position: absolute; bottom: 0; left: 0; right: 0; height: 30%; background: linear-gradient(to top, rgba(0,0,0,0.25), rgba(0,0,0,0)); pointer-events: none; z-index: 2;"></div>
             </div>
+
+            {%- if block.settings.button_text != blank -%}
+              <div class="hero-btn-wrapper">
+                <span class="hero-floating-btn">
+                  {{ block.settings.button_text }}
+                </span>
+              </div>
+            {%- endif -%}
 
           </a>
 
@@ -71,11 +78,41 @@
 </script>
 
 <style>
-  /* 100% Seamless Aspect Ratio setup */
-  .hero-media-container {
+  /* Floating Button Wrapper */
+  .hero-btn-wrapper {
+    position: absolute;
+    bottom: 12%; /* Perfectly placed above the lower edge */
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    text-align: center;
     width: 100%;
-    height: 42vh; /* Perfect height balance for Desktop banner image */
-    min-height: 280px;
+    line-height: normal;
+  }
+
+  /* Premium Floating Pill Button */
+  .hero-floating-btn {
+    display: inline-block;
+    background-color: #16a34a; /* Premium Brand Green */
+    color: #ffffff !important;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    padding: 14px 38px;
+    border-radius: 50px; /* Elegant Rounded Pill */
+    box-shadow: 0 8px 20px rgba(22, 163, 74, 0.4);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    border: 2px solid transparent;
+  }
+
+  /* Premium Hover Interactions */
+  .hero-floating-btn:hover {
+    background-color: #ffffff;
+    color: #16a34a !important;
+    border-color: #16a34a;
+    transform: translateY(-3px);
+    box-shadow: 0 12px 24px rgba(22, 163, 74, 0.5);
   }
 
   /* Navigation Arrows Styling */
@@ -85,16 +122,19 @@
     transform: translateY(-50%);
     z-index: 20;
     cursor: pointer;
-    background: rgba(0,0,0,0.3);
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(4px);
     padding: 12px 16px;
     border-radius: 50%;
-    color: #fff;
+    color: #1f2937;
+    font-size: 14px;
     transition: all 0.2s ease;
     display: none;
     user-select: none;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
   }
-  .swiper-btn-prev { left: 20px; }
-  .swiper-btn-next { right: 20px; }
+  .swiper-btn-prev { left: 24px; }
+  .swiper-btn-next { right: 24px; }
 
   @media (min-width: 768px) {
     .swiper-btn-prev, .swiper-btn-next {
@@ -102,39 +142,45 @@
     }
   }
   .swiper-btn-prev:hover, .swiper-btn-next:hover {
-    background: rgba(0,0,0,0.6) !important;
+    background: #16a34a !important;
+    color: #ffffff;
+    transform: translateY(-50%) scale(1.05);
   }
 
-  /* Pagination Dots (Beautiful minimal style floating over image) */
+  /* Floating Dots Over Image */
   .swiper-pagination-dots {
     position: absolute;
-    bottom: 20px;
+    bottom: 25px;
     left: 50%;
     transform: translateX(-50%);
     z-index: 20;
     display: flex;
     gap: 8px;
+    line-height: normal;
   }
   
   .hero-bullet {
     width: 8px;
     height: 8px;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.5);
     cursor: pointer;
     transition: background 0.3s, width 0.3s;
   }
   .hero-bullet-active {
-    background: #16a34a !important; /* Premium brand green dot */
-    width: 22px;
+    background: #16a34a !important;
+    width: 24px;
     border-radius: 6px;
   }
 
-  /* Mobile Aspect Ratio Adjustments */
+  /* Mobile Adjustments */
   @media (max-width: 767px) {
-    .hero-media-container {
-      height: 35vh; /* Responsive height for mobile screens */
-      min-height: 200px;
+    .hero-btn-wrapper {
+      bottom: 8%;
+    }
+    .hero-floating-btn {
+      font-size: 11px;
+      padding: 10px 24px;
     }
     .swiper-pagination-dots {
       bottom: 12px;
@@ -153,13 +199,13 @@
       "settings": [
         {
           "type": "header",
-          "content": "Video (Recommended for Premium Vibe)"
+          "content": "Video"
         },
         {
           "type": "text",
           "id": "video_url",
           "label": "MP4 Video Direct Link",
-          "info": "Upload video in Shopify 'Files' section, copy URL and paste here."
+          "info": "Upload video in Shopify Files, copy URL and paste here."
         },
         {
           "type": "header",
@@ -178,20 +224,19 @@
           "info": "800x1000px suggested"
         },
         {
-          "type": "range",
-          "id": "overlay_opacity",
-          "min": 0,
-          "max": 90,
-          "step": 10,
-          "default": 0,
-          "unit": "%",
-          "label": "Overlay Shadow Opacity (Keep 0% to keep original colors)"
+          "type": "header",
+          "content": "Floating Action"
+        },
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "Button Text",
+          "default": "Shop Now"
         },
         {
           "type": "url",
           "id": "button_link",
-          "label": "Click Link",
-          "info": "User can click anywhere on the banner to open this link."
+          "label": "Click Link"
         }
       ]
     }
