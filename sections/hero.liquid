@@ -1,117 +1,215 @@
-<section class="relative bg-gray-900 text-white min-h-[380px] md:min-h-[480px] flex items-center justify-center overflow-hidden">
+<section class="hero-slider-section relative w-full overflow-hidden" style="background-color: #000;">
   
-  <div class="absolute inset-0 z-0">
-    {%- if section.settings.image != blank -%}
-      <picture>
-        {%- if section.settings.image_mobile != blank -%}
-          <source media="(max-width: 767px)" srcset="{{ section.settings.image_mobile | image_url: width: 800 }}">
-        {%- endif -%}
-        <img src="{{ section.settings.image | image_url: width: 2000 }}" 
-             alt="{{ section.settings.heading | escape }}" 
-             class="w-full h-full object-cover object-center"
-             style="display: block; width: 100%; height: 100%;"
-             loading="eager">
-      </picture>
-    {%- else -%}
-      <div class="w-full h-full bg-gradient-to-r from-green-900 to-gray-900 opacity-90"></div>
-    {%- endif -%}
-    
-    {%- assign overlay_value = section.settings.overlay_opacity | times: 0.01 -%}
-    <div class="absolute inset-0 bg-black" style="opacity: {{ overlay_value }}; pointer-events: none;"></div>
-  </div>
+  <!-- Swiper Slider Wrapper -->
+  <div class="hero-swiper overflow-hidden relative w-full">
+    <div class="swiper-wrapper flex" style="transition-property: transform;">
+      
+      {%- for block in section.blocks -%}
+        <div class="swiper-slide shrink-0 w-full relative flex items-center justify-center" style="min-height: 480px; md:min-height: 600px;" {{ block.shopify_attributes }}>
+          
+          <!-- Background: Image OR Video -->
+          <div class="absolute inset-0 z-0">
+            {%- if block.settings.video_url != blank -%}
+              <!-- Video Background -->
+              <video class="w-full h-full object-cover" autoplay loop muted playsinline>
+                <source src="{{ block.settings.video_url }}" type="video/mp4">
+              </video>
+            {%- elsif block.settings.image != blank -%}
+              <!-- Image Background with Desktop/Mobile Responsive option -->
+              <picture>
+                {%- if block.settings.image_mobile != blank -%}
+                  <source media="(max-width: 767px)" srcset="{{ block.settings.image_mobile | image_url: width: 800 }}">
+                {%- endif -%}
+                <img src="{{ block.settings.image | image_url: width: 2000 }}" 
+                     alt="{{ block.settings.heading | escape }}" 
+                     class="w-full h-full object-cover object-center"
+                     style="display: block; width: 100%; height: 100%;"
+                     loading="eager">
+              </picture>
+            {%- else -%}
+              <!-- Default gradient fallback if empty -->
+              <div class="w-full h-full bg-gradient-to-r from-green-950 to-emerald-900 opacity-90"></div>
+            {%- endif -%}
 
-  <div class="container relative z-10 mx-auto px-6 py-12 md:py-16 text-center max-w-4xl">
-    {%- if section.settings.subheading_top != blank -%}
-      <span class="inline-block text-green-400 font-bold tracking-widest text-xs md:text-sm uppercase mb-2">
-        {{ section.settings.subheading_top }}
-      </span>
-    {%- endif -%}
+            <!-- Dark Tint Overlay for clean text readability -->
+            {%- assign overlay_opacity = block.settings.overlay_opacity | times: 0.01 -%}
+            <div class="absolute inset-0 bg-black" style="opacity: {{ overlay_opacity }}; pointer-events: none;"></div>
+          </div>
+
+          <!-- Content (Centered over video/image) -->
+          <div class="container relative z-10 mx-auto px-6 py-20 text-center max-w-4xl text-white">
+            {%- if block.settings.subheading_top != blank -%}
+              <span class="inline-block text-green-400 font-bold tracking-widest text-xs md:text-sm uppercase mb-3 animate-fade-in">
+                {{ block.settings.subheading_top }}
+              </span>
+            {%- endif -%}
+            
+            {%- if block.settings.heading != blank -%}
+              <h2 class="text-3xl md:text-6xl font-extrabold tracking-tight mb-4 leading-tight uppercase" style="text-shadow: 0 4px 10px rgba(0,0,0,0.3);">
+                {{ block.settings.heading }}
+              </h2>
+            {%- endif -%}
+            
+            {%- if block.settings.subheading != blank -%}
+              <p class="text-sm md:text-lg text-gray-200 mb-8 max-w-2xl mx-auto leading-relaxed">
+                {{ block.settings.subheading }}
+              </p>
+            {%- endif -%}
+            
+            {%- if block.settings.button_text != blank -%}
+              <a href="{{ block.settings.button_link | default: '/collections/all' }}" 
+                 class="inline-block bg-green-500 hover:bg-green-600 text-white font-extrabold uppercase tracking-wider px-8 py-4 rounded-md shadow-lg hover:shadow-green-500/20 transition-all duration-300 transform hover:-translate-y-1 text-xs md:text-sm">
+                {{ block.settings.button_text }}
+              </a>
+            {%- endif -%}
+          </div>
+
+        </div>
+      {%- endfor -%}
+
+    </div>
+
+    <!-- Navigation Arrows -->
+    <div class="swiper-btn-prev absolute left-4 top-1/2 -translate-y-1/2 z-20 cursor-pointer bg-white/10 hover:bg-white/20 p-3 rounded-full text-white transition duration-200 hidden md:block">❮</div>
+    <div class="swiper-btn-next absolute right-4 top-1/2 -translate-y-1/2 z-20 cursor-pointer bg-white/10 hover:bg-white/20 p-3 rounded-full text-white transition duration-200 hidden md:block">❯</div>
     
-    <h1 class="text-3xl md:text-5xl font-extrabold tracking-tight mb-4 leading-tight">
-      {{ section.settings.heading }}
-    </h1>
-    
-    <p class="text-base md:text-lg text-gray-200 mb-6 max-w-2xl mx-auto leading-relaxed">
-      {{ section.settings.subheading }}
-    </p>
-    
-    {%- if section.settings.button_text != blank -%}
-      <a href="{{ section.settings.button_link | default: '/collections/all' }}" 
-         class="inline-block bg-green-500 hover:bg-green-600 text-white font-bold px-6 py-3 rounded shadow-lg hover:shadow-green-500/20 transition-all duration-200 transform hover:-translate-y-0.5 text-sm md:text-base">
-        {{ section.settings.button_text }}
-      </a>
-    {%- endif -%}
+    <!-- Pagination Dots -->
+    <div class="swiper-pagination-dots absolute bottom-4 left-1/2 -translate-y-1/2 z-20 flex justify-center gap-2"></div>
   </div>
 </section>
 
+<!-- Swiper Library Assets (Fully Responsive Navigation) -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+<script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    new Swiper('.hero-swiper', {
+      loop: true,
+      autoplay: {
+        delay: 5000,
+        disableOnInteraction: false,
+      },
+      navigation: {
+        nextEl: '.swiper-btn-next',
+        prevEl: '.swiper-btn-prev',
+      },
+      pagination: {
+        el: '.swiper-pagination-dots',
+        clickable: true,
+        bulletClass: 'hero-bullet',
+        bulletActiveClass: 'hero-bullet-active'
+      }
+    });
+  });
+</script>
+
+<style>
+  /* Dot styling */
+  .hero-bullet {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.4);
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  .hero-bullet-active {
+    background: #22c55e !important;
+    width: 24px;
+    border-radius: 6px;
+  }
+</style>
+
 {% schema %}
 {
-  "name": "Hero Banner",
-  "settings": [
+  "name": "Hero Slider / Video",
+  "settings": [],
+  "blocks": [
     {
-      "type": "header",
-      "content": "Banner Images"
-    },
-    {
-      "type": "image_picker",
-      "id": "image",
-      "label": "Desktop Banner Image",
-      "info": "Recommended size: 1920x800px"
-    },
-    {
-      "type": "image_picker",
-      "id": "image_mobile",
-      "label": "Mobile Banner Image (Optional)",
-      "info": "Recommended size: 800x1000px. Khali chorne par desktop image hi show hogi."
-    },
-    {
-      "type": "range",
-      "id": "overlay_opacity",
-      "min": 0,
-      "max": 90,
-      "step": 10,
-      "default": 40,
-      "unit": "%",
-      "label": "Overlay Dark/Shadow Opacity",
-      "info": "Text ko zyada clear dikhane ke liye image ko thoda dark karein."
-    },
-    {
-      "type": "header",
-      "content": "Content Settings"
-    },
-    {
-      "type": "text",
-      "id": "subheading_top",
-      "label": "Small Top Subheading",
-      "default": "100% Organic & Natural"
-    },
-    {
-      "type": "text",
-      "id": "heading",
-      "label": "Main Heading",
-      "default": "Premium Organic Supplements"
-    },
-    {
-      "type": "textarea",
-      "id": "subheading",
-      "label": "Main Description",
-      "default": "Feel the power of natural organic ingredients crafted for your health."
-    },
-    {
-      "type": "text",
-      "id": "button_text",
-      "label": "Button Text",
-      "default": "Shop Now"
-    },
-    {
-      "type": "url",
-      "id": "button_link",
-      "label": "Button Link"
+      "type": "slide",
+      "name": "Slide (Image or Video)",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Video (Recommended for Premium Vibe)"
+        },
+        {
+          "type": "text",
+          "id": "video_url",
+          "label": "MP4 Video Direct Link",
+          "info": "Upload video in Shopify 'Files' section, copy URL and paste here. (Keep below 15mb)"
+        },
+        {
+          "type": "header",
+          "content": "Fallback Image (If video is empty)"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Desktop Image",
+          "info": "1920x800px suggested"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_mobile",
+          "label": "Mobile Image (Optional)",
+          "info": "800x1000px suggested"
+        },
+        {
+          "type": "range",
+          "id": "overlay_opacity",
+          "min": 0,
+          "max": 90,
+          "step": 10,
+          "default": 40,
+          "unit": "%",
+          "label": "Overlay Shadow Opacity"
+        },
+        {
+          "type": "header",
+          "content": "Text Content"
+        },
+        {
+          "type": "text",
+          "id": "subheading_top",
+          "label": "Small Top Subheading",
+          "default": "ORGANICSFU SPECIAL"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Main Heading",
+          "default": "Pure Organic Wellness"
+        },
+        {
+          "type": "textarea",
+          "id": "subheading",
+          "label": "Description",
+          "default": "Unlock raw nature secrets with cold-pressed pure extracts designed for your body."
+        },
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "Button Text",
+          "default": "Explore Now"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Button Link"
+        }
+      ]
     }
   ],
   "presets": [
     {
-      "name": "Hero Banner"
+      "name": "Hero Slider / Video",
+      "blocks": [
+        {
+          "type": "slide"
+        }
+      ]
     }
   ]
 }
