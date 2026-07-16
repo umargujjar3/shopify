@@ -4,7 +4,7 @@
       
       <!-- Intro Side -->
       <div class="ingredients__intro">
-        <div class="reveal"><span class="eyebrow" style="color: #2d5a27; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; font-size: 0.85rem; display: inline-block; mb-2;">{{ section.settings.eyebrow }}</span></div>
+        <div class="reveal"><span class="eyebrow" style="color: #2d5a27; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; font-size: 0.85rem; display: inline-block; margin-bottom: 8px;">{{ section.settings.eyebrow }}</span></div>
         <div class="reveal" style="--reveal-delay:100ms"><h2 class="h2 text-balance" style="color: #1e293b; font-weight: 800; line-height: 1.2; margin-bottom: 15px;">{{ section.settings.title }}</h2></div>
         <div class="reveal" style="--reveal-delay:200ms"><p class="ingredients__p text-pretty" style="color: #475569; font-size: 1.05rem; line-height: 1.6; margin-bottom: 25px;">{{ section.settings.subtitle }}</p></div>
         <div class="reveal" style="--reveal-delay:300ms">
@@ -27,7 +27,7 @@
       <div class="ingredients__cards" style="display: grid; grid-template-columns: 1fr; gap: 20px;">
         {%- for block in section.blocks -%}
           {%- if block.type == 'ingredient' -%}
-            <div class="ingredient-card reveal" style="--reveal-delay:{{ forloop.index0 | times: 80 }}ms; display: flex; align-items: center; gap: 20px; background: #ffffff; padding: 20px; border-radius: 16px; box-shadow: 0 4px 20px rgba(45,90,39,0.05); border: 1px solid rgba(45,90,39,0.08); transition: transform 0.2s ease;" {{ block.shopify_attributes }}>
+            <div class="ingredient-card reveal" style="--reveal-delay:{{ forloop.index0 | times: 80 }}ms; display: flex; align-items: center; gap: 20px; background: #ffffff; padding: 20px; border-radius: 16px; box-shadow: 0 4px 20px rgba(45,90,39,0.05); border: 1px solid rgba(45,90,39,0.08);" {{ block.shopify_attributes }}>
               
               <!-- Premium Circular Image Customization -->
               <div class="ingredient-card__img" style="flex-shrink: 0; width: 75px; height: 75px; border-radius: 50%; overflow: hidden; border: 2px solid #d1a454; padding: 3px; background: #fff;">
@@ -53,21 +53,29 @@
 
 {% schema %}
 {
-  "name": "Ingredients",
+  "name": "Ingredients Grid",
   "settings": [
     { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Pure Botanicals" },
     { "type": "text", "id": "title", "label": "Title", "default": "Ingredients Backed By Nature" },
     { "type": "textarea", "id": "subtitle", "label": "Subtitle Description", "default": "Every capsule and blend of Spinexa is built from active, premium cold-pressed herbs specifically chosen for deep back comfort and soothing spine relief — 100% organic, no synthetic fillers." }
   ],
   "blocks": [
-    { "type": "ingredient", "name": "Ingredient", "settings": [
-      { "type": "image_picker", "id": "image", "label": "Ingredient Image" },
-      { "type": "text", "id": "name", "label": "Ingredient Name", "default": "Premium Ashwagandha" },
-      { "type": "textarea", "id": "desc", "label": "Description", "default": "Traditionally celebrated for lowering stress and supporting deep muscle and nerve relaxation around the spine." }
-    ]},
-    { "type": "feature", "name": "Feature checkmark", "settings": [
-      { "type": "text", "id": "text", "label": "Text", "default": "100% Herbal & Pure" }
-    ]}
+    { 
+      "type": "ingredient", 
+      "name": "Ingredient", 
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Ingredient Image" },
+        { "type": "text", "id": "name", "label": "Ingredient Name", "default": "Premium Ashwagandha" },
+        { "type": "textarea", "id": "desc", "label": "Description", "default": "Traditionally celebrated for lowering stress and supporting deep muscle and nerve relaxation around the spine." }
+      ]
+    },
+    { 
+      "type": "feature", 
+      "name": "Feature checkmark", 
+      "settings": [
+        { "type": "text", "id": "text", "label": "Text", "default": "100% Herbal & Pure" }
+      ]
+    }
   ],
   "presets": [{
     "name": "Ingredients Grid",
