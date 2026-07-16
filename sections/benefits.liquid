@@ -1,27 +1,29 @@
 <section class="section--cream" style="padding-block: var(--section-spacing, 80px);">
   <div class="container">
-    <div class="section-header text-center mb-12">
+    <div class="section-header">
       <div class="reveal"><span class="eyebrow center">{{ section.settings.eyebrow }}</span></div>
-      <div class="reveal"><h2 class="h2">{{ section.settings.title }}</h2></div>
+      <div class="reveal" style="--reveal-delay:100ms"><h2 class="h2 section-header__title text-balance">{{ section.settings.title }}</h2></div>
+      <div class="reveal" style="--reveal-delay:200ms"><p class="section-header__subtitle text-pretty">{{ section.settings.subtitle }}</p></div>
     </div>
 
     <div class="benefits__grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
       {%- for block in section.blocks -%}
-        <div class="benefit-card reveal" style="position: relative; overflow: hidden; border-radius: 12px; min-height: 300px; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px; text-align: center; color: white;" {{ block.shopify_attributes }}>
+        <div class="benefit-card reveal" style="--reveal-delay:{{ forloop.index0 | times: 100 }}ms; position: relative; min-height: 350px; display: flex; flex-direction: column; justify-content: flex-end; padding: 30px; border-radius: 12px; overflow: hidden; color: white;" {{ block.shopify_attributes }}>
           
-          <!-- Background Image Overlay -->
+          <!-- Background Image (Overlay) -->
           {%- if block.settings.image != blank -%}
-            <img src="{{ block.settings.image | image_url: width: 600 }}" alt="{{ block.settings.title }}" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0;">
-            <!-- Dark Overlay to make text readable -->
-            <div style="position: absolute; inset: 0; background: rgba(0,0,0,0.4); z-index: 1;"></div>
+            <img src="{{ block.settings.image | image_url: width: 800 }}" alt="{{ block.settings.title | escape }}" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0;">
           {%- else -%}
-            <div style="position: absolute; inset: 0; background: #2d5a27; z-index: 1;"></div>
+            <div style="position: absolute; inset: 0; background-color: #2d5a27; z-index: 0;"></div>
           {%- endif -%}
+          
+          <!-- Dark Overlay for Readability -->
+          <div style="position: absolute; inset: 0; background: rgba(0,0,0,0.4); z-index: 1;"></div>
 
-          <!-- Content -->
+          <!-- Text Content -->
           <div style="position: relative; z-index: 2;">
             <h3 style="color: white; margin-bottom: 10px;">{{ block.settings.title }}</h3>
-            <p style="color: #f0f0f0; font-size: 0.9rem;">{{ block.settings.desc }}</p>
+            <p style="color: #ffffff; font-size: 0.95rem; opacity: 0.9;">{{ block.settings.desc }}</p>
           </div>
         </div>
       {%- endfor -%}
@@ -35,13 +37,14 @@
   "max_blocks": 4,
   "settings": [
     { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Why Spinexa" },
-    { "type": "text", "id": "title", "label": "Title", "default": "Care That Works With Your Body" }
+    { "type": "text", "id": "title", "label": "Title", "default": "Care That Works With Your Body" },
+    { "type": "textarea", "id": "subtitle", "label": "Subtitle", "default": "Every detail — from ingredient to bottle — is designed to deliver a wellness experience you can feel." }
   ],
   "blocks": [
     { "type": "benefit", "name": "Benefit", "settings": [
       { "type": "image_picker", "id": "image", "label": "Background Image" },
       { "type": "text", "id": "title", "label": "Title", "default": "Herbal Formula" },
-      { "type": "textarea", "id": "desc", "label": "Description", "default": "Natural relief for your spine." }
+      { "type": "textarea", "id": "desc", "label": "Description", "default": "Cold-pressed botanical extracts." }
     ]}
   ],
   "presets": [{ "name": "Benefits Overlay" }]
