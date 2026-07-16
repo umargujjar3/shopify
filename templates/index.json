@@ -53,18 +53,32 @@
         "subtitle": "Every detail — from ingredient to bottle — is designed to deliver a wellness experience you can feel."
       }
     },
-    "ingredients": {
+    "ingredients_bGHLPh": {
       "type": "ingredients",
+      "blocks": {
+        "item_card_GAViYH": {
+          "type": "item_card",
+          "settings": {
+            "img_upload": "shopify://shop_images/Artisanal_Herbs_with_Linen_Background_20260716_022851_0000.png",
+            "name": "Premium Ashwagandha",
+            "desc": "Traditionally celebrated for supporting deep muscle and nerve relaxation around the spine."
+          }
+        }
+      },
+      "block_order": [
+        "item_card_GAViYH"
+      ],
+      "name": "Spinexa Herbs Grid",
       "settings": {
         "eyebrow": "Pure Botanicals",
-        "title": "Our Pure Ingredients",
-        "subtitle": "Every drop of Spinexa is built from cold-pressed botanicals chosen for their soothing, comforting properties — never synthetic fragrances, never parabens."
+        "title": "Ingredients Backed By Nature",
+        "subtitle": "Every capsule and blend of Spinexa is built from active, premium cold-pressed herbs specifically chosen for deep back comfort and soothing spine relief — 100% organic, no synthetic fillers."
       }
     }
   },
   "order": [
     "hero",
     "benefits",
-    "ingredients"
+    "ingredients_bGHLPh"
   ]
 }
