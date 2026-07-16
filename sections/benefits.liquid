@@ -1,129 +1,252 @@
-<section class="section--cream" style="padding-block: 50px 35px; background-color: #fcf9f4;">
-  <div class="container" style="max-width: 1200px; margin: 0 auto; padding-inline: 20px;">
+<section class="benefits-section" style="background-color: #faf9f6; padding: 70px 20px; text-align: center; font-family: inherit;">
+  <div class="benefits-container" style="max-width: 1200px; margin: 0 auto;">
     
-    <div class="section-header" style="text-align: center; margin-bottom: 35px;">
+    <div class="benefits-header" style="margin-bottom: 50px;">
       {%- if section.settings.eyebrow != blank -%}
-        <div class="reveal">
-          <span class="eyebrow center" style="color: #2d5a27; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; font-size: 0.8rem; display: inline-block; margin-bottom: 8px;">
-            {{ section.settings.eyebrow }}
-          </span>
-        </div>
+        <span class="benefits-eyebrow">{{ section.settings.eyebrow }}</span>
       {%- endif -%}
-      
-      <div class="reveal" style="--reveal-delay:100ms">
-        <h2 class="h2 section-header__title text-balance" style="color: #1e293b; font-size: 2rem; font-weight: 800; margin: 0 0 10px 0; line-height: 1.3;">
-          {{ section.settings.title }}
-        </h2>
-      </div>
-      
+      {%- if section.settings.title != blank -%}
+        <h2 class="benefits-main-title">{{ section.settings.title }}</h2>
+      {%- endif -%}
       {%- if section.settings.subtitle != blank -%}
-        <div class="reveal" style="--reveal-delay:200ms">
-          <p class="section-header__subtitle text-pretty" style="color: #64748b; font-size: 0.95rem; max-width: 600px; margin: 0 auto; line-height: 1.6;">
-            {{ section.settings.subtitle }}
-          </p>
-        </div>
+        <p class="benefits-subtitle">{{ section.settings.subtitle }}</p>
       {%- endif -%}
     </div>
 
-    <div class="benefits__grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px;">
+    <div class="benefits-grid">
       {%- for block in section.blocks -%}
-        {%- assign has_image = false -%}
-        {%- if block.settings.image != blank -%}
-          {%- assign has_image = true -%}
-        {%- endif -%}
-
-        <div class="benefit-card reveal" 
-             style="--reveal-delay:{{ forloop.index0 | times: 100 }}ms; 
-                    position: relative; 
-                    min-height: 260px; /* Fitting size: 320px se kam karke 260px kiya */
-                    display: flex; 
-                    flex-direction: column; 
-                    justify-content: flex-end; 
-                    padding: 20px; 
-                    border-radius: 12px; 
-                    overflow: hidden; 
-                    background: {% if has_image %}transparent{% else %}#ffffff{% endif %};
-                    box-shadow: 0 10px 25px rgba(0,0,0,0.03);
-                    border: 1px solid rgba(0,0,0,0.04);
-                    transition: transform 0.3s ease, box-shadow 0.3s ease;
-                    color: {% if has_image %}#ffffff{% else %}#334155{% endif %};" 
-             {{ block.shopify_attributes }}>
+        <div class="benefit-card" {{ block.shopify_attributes }}>
           
-          {%- if has_image -%}
-            <img src="{{ block.settings.image | image_url: width: 600 }}" 
-                 alt="{{ block.settings.title | escape }}" 
-                 style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; border-radius: 12px;"
-                 loading="lazy">
-            <div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.75) 100%); z-index: 1; pointer-events: none;"></div>
-          {%- endif -%}
-
-          <div style="position: relative; z-index: 2; text-align: left;">
-            {%- unless has_image -%}
-              <span class="benefit-card__icon" style="color: #2d5a27; display: inline-block; margin-bottom: 15px; font-size: 24px;">
-                {%- render 'icon', icon: block.settings.icon -%}
-              </span>
-            {%- endunless -%}
-            
-            <h3 class="benefit-card__title" style="font-size: 1.15rem; font-weight: 700; margin: 0 0 8px 0; color: {% if has_image %}#ffffff{% else %}#1e293b{% endif %}; {% if has_image %}text-shadow: 1px 1px 3px rgba(0,0,0,0.4);{% endif %}">
-              {{ block.settings.title }}
-            </h3>
-            
-            <p class="benefit-card__desc text-pretty" style="font-size: 0.88rem; line-height: 1.5; margin: 0; color: {% if has_image %}#f3f4f6{% else %}#475569{% endif %}; {% if has_image %}text-shadow: 1px 1px 2px rgba(0,0,0,0.4);{% endif %}">
-              {{ block.settings.desc }}
-            </p>
+          <div class="benefit-icon-wrapper">
+            {%- if block.settings.icon_image != blank -%}
+              <img src="{{ block.settings.icon_image | image_url: width: 120 }}" alt="{{ block.settings.title }}" class="benefit-custom-icon">
+            {%- else -%}
+              <svg class="benefit-default-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v18m9-9H3" />
+              </svg>
+            {%- endif -%}
           </div>
 
+          <h3 class="benefit-card-title">{{ block.settings.title }}</h3>
+          <p class="benefit-card-desc">{{ block.settings.desc }}</p>
+          
         </div>
       {%- endfor -%}
     </div>
+
   </div>
 </section>
 
 <style>
-  /* Hover effects for elegant feeling */
+  /* Eyebrow Style (Small Top Heading) */
+  .benefits-eyebrow {
+    display: block;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: #16a34a; /* Brand Green */
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+
+  /* Main Section Title */
+  .benefits-main-title {
+    font-size: 28px;
+    font-weight: 700;
+    color: #1f2937; /* Dark Slate */
+    margin: 0 0 16px 0;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+  }
+
+  /* Subtitle Description */
+  .benefits-subtitle {
+    font-size: 14px;
+    color: #6b7280; /* Elegant Grey */
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  /* Beautiful Responsive Grid System */
+  .benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 Columns on Desktop */
+    gap: 30px;
+    margin-top: 20px;
+  }
+
+  /* Premium Card Design */
+  .benefit-card {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 40px 30px 35px 30px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    position: relative;
+    border: 1px solid rgba(0, 0, 0, 0.02);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* Premium Hover Effect */
   .benefit-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 30px rgba(45,90,39,0.08) !important;
+    transform: translateY(-6px);
+    box-shadow: 0 12px 30px rgba(22, 163, 74, 0.08);
+    border-color: rgba(22, 163, 74, 0.15);
+  }
+
+  /* Perfect Icon Container */
+  .benefit-icon-wrapper {
+    width: 65px;
+    height: 65px;
+    background-color: #f0fdf4; /* Light Green background */
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+    transition: background-color 0.3s;
+  }
+  .benefit-card:hover .benefit-icon-wrapper {
+    background-color: #16a34a; /* Icon circle turns solid green on hover */
+  }
+
+  /* Icon Images & SVGs */
+  .benefit-custom-icon {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+    transition: filter 0.3s;
+  }
+  .benefit-card:hover .benefit-custom-icon {
+    filter: brightness(0) invert(1); /* Turns white on hover */
+  }
+
+  .benefit-default-svg {
+    width: 28px;
+    height: 28px;
+    color: #16a34a;
+    transition: color 0.3s;
+  }
+  .benefit-card:hover .benefit-default-svg {
+    color: #ffffff;
+  }
+
+  /* Card Headings */
+  .benefit-card-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1f2937;
+    margin: 0 0 12px 0;
+    line-height: 1.4;
+  }
+
+  /* Card Paragraphs */
+  .benefit-card-desc {
+    font-size: 13px;
+    color: #6b7280;
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  /* --- RESPONSIVE MOBILE MEDIA QUERIES --- */
+  @media (max-width: 991px) {
+    .benefits-grid {
+      grid-template-columns: repeat(2, 1fr); /* 2 columns for Tablets */
+      gap: 20px;
+    }
+    .benefits-main-title {
+      font-size: 24px;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .benefits-section {
+      padding: 50px 15px;
+    }
+    .benefits-grid {
+      grid-template-columns: 1fr; /* 1 card per row on mobile—No cutting! */
+      gap: 24px;
+    }
+    .benefit-card {
+      padding: 30px 20px;
+    }
+    .benefits-main-title {
+      font-size: 22px;
+    }
+    .benefits-subtitle {
+      font-size: 13px;
+    }
   }
 </style>
 
 {% schema %}
 {
-  "name": "Benefits",
-  "max_blocks": 4,
+  "name": "Benefits Section",
   "settings": [
-    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Why Spinexa" },
-    { "type": "text", "id": "title", "label": "Title", "default": "Care That Works With Your Body" },
-    { "type": "textarea", "id": "subtitle", "label": "Subtitle", "default": "Every detail — from ingredient to bottle — is designed to deliver a wellness experience you can feel." }
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow Text",
+      "default": "Why Spinexa"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Main Title",
+      "default": "Why Choose Spinexa?"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Every detail — from ingredient to bottle — is designed to deliver a wellness experience you can feel."
+    }
   ],
   "blocks": [
-    { 
-      "type": "benefit", 
-      "name": "Benefit Card", 
+    {
+      "type": "card",
+      "name": "Benefit Card",
       "settings": [
-        { "type": "image_picker", "id": "image", "label": "Select Background Image", "info": "Agar aap yahan image lagayenge to card par image overlay ban jayega." },
-        { "type": "select", "id": "icon", "label": "Icon (Only if image is empty)", "default": "sprout", "options": [
-          { "value": "sprout", "label": "Sprout" },
-          { "value": "wind", "label": "Wind" },
-          { "value": "sun", "label": "Sun" },
-          { "value": "gem", "label": "Gem" },
-          { "value": "leaf", "label": "Leaf" },
-          { "value": "shield", "label": "Shield" },
-          { "value": "award", "label": "Award" }
-        ]},
-        { "type": "text", "id": "title", "label": "Title", "default": "Herbal Formula" },
-        { "type": "textarea", "id": "desc", "label": "Description", "default": "Cold-pressed botanical extracts, crafted with traditional herbal wisdom and modern precision." }
+        {
+          "type": "image_picker",
+          "id": "icon_image",
+          "label": "Card Icon Image",
+          "info": "Upload a PNG transparent icon (suggested size: 64x64px)"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Benefit Title",
+          "default": "100% Organic"
+        },
+        {
+          "type": "textarea",
+          "id": "desc",
+          "label": "Benefit Description",
+          "default": "Cold-pressed botanical extracts, crafted with traditional herbal wisdom and modern precision."
+        }
       ]
     }
   ],
-  "presets": [{
-    "name": "Benefits",
-    "blocks": [
-      { "type": "benefit", "settings": { "icon": "sprout", "title": "Herbal Formula", "desc": "Cold-pressed botanical extracts, crafted with traditional herbal wisdom and modern precision." } },
-      { "type": "benefit", "settings": { "icon": "wind", "title": "Relaxing Experience", "desc": "A calming aromatic ritual that helps you unwind, release tension, and find your moment of calm." } },
-      { "type": "benefit", "settings": { "icon": "sun", "title": "Everyday Wellness", "desc": "Designed for daily use — a simple, versatile addition to your morning and evening routine." } },
-      { "type": "benefit", "settings": { "icon": "gem", "title": "Premium Quality", "desc": "Meticulously sourced ingredients and premium packaging you will be proud to display." } }
-    ]
-  }]
+  "presets": [
+    {
+      "name": "Benefits Section",
+      "blocks": [
+        {
+          "type": "card"
+        },
+        {
+          "type": "card"
+        },
+        {
+          "type": "card"
+        }
+      ]
+    }
+  ]
 }
 {% endschema %}
