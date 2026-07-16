@@ -1,6 +1,5 @@
 <section class="relative bg-gray-900 text-white min-h-[380px] md:min-h-[480px] flex items-center justify-center overflow-hidden">
   
-  <!-- Desktop & Mobile Banner Images -->
   <div class="absolute inset-0 z-0">
     {%- if section.settings.image != blank -%}
       <picture>
@@ -10,20 +9,17 @@
         <img src="{{ section.settings.image | image_url: width: 2000 }}" 
              alt="{{ section.settings.heading | escape }}" 
              class="w-full h-full object-cover object-center"
-             style="display: block;"
+             style="display: block; width: 100%; height: 100%;"
              loading="eager">
       </picture>
     {%- else -%}
-      <!-- Default background placeholder agar image upload na ho -->
       <div class="w-full h-full bg-gradient-to-r from-green-900 to-gray-900 opacity-90"></div>
     {%- endif -%}
     
-    <!-- Image overlay (Fixed Opacity Math Error) -->
     {%- assign overlay_value = section.settings.overlay_opacity | times: 0.01 -%}
-    <div class="absolute inset-0 bg-black" style="opacity: {{ overlay_value }};"></div>
+    <div class="absolute inset-0 bg-black" style="opacity: {{ overlay_value }}; pointer-events: none;"></div>
   </div>
 
-  <!-- Banner Content -->
   <div class="container relative z-10 mx-auto px-6 py-12 md:py-16 text-center max-w-4xl">
     {%- if section.settings.subheading_top != blank -%}
       <span class="inline-block text-green-400 font-bold tracking-widest text-xs md:text-sm uppercase mb-2">
