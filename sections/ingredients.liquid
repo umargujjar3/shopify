@@ -10,7 +10,7 @@
         <div class="reveal" style="--reveal-delay:300ms">
           <ul class="ingredients__list" style="list-style: none; padding: 0; margin: 0;">
             {%- for block in section.blocks -%}
-              {%- if block.type == 'feature' -%}
+              {%- if block.type == 'check_item' -%}
                 <li class="ingredients__list-item" style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px; color: #334155; font-weight: 500;" {{ block.shopify_attributes }}>
                   <span class="ingredients__check" style="background: #2d5a27; color: white; width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; padding: 4px;">
                     {%- render 'icon', icon: 'check' -%}
@@ -26,13 +26,13 @@
       <!-- Cards Grid Side -->
       <div class="ingredients__cards" style="display: grid; grid-template-columns: 1fr; gap: 20px;">
         {%- for block in section.blocks -%}
-          {%- if block.type == 'ingredient' -%}
+          {%- if block.type == 'item_card' -%}
             <div class="ingredient-card reveal" style="--reveal-delay:{{ forloop.index0 | times: 80 }}ms; display: flex; align-items: center; gap: 20px; background: #ffffff; padding: 20px; border-radius: 16px; box-shadow: 0 4px 20px rgba(45,90,39,0.05); border: 1px solid rgba(45,90,39,0.08);" {{ block.shopify_attributes }}>
               
-              <!-- Premium Circular Image Customization -->
+              <!-- Premium Circular Image -->
               <div class="ingredient-card__img" style="flex-shrink: 0; width: 75px; height: 75px; border-radius: 50%; overflow: hidden; border: 2px solid #d1a454; padding: 3px; background: #fff;">
-                {%- if block.settings.image != blank -%}
-                  <img src="{{ block.settings.image | image_url: width: 200, height: 200, crop: 'center' }}" alt="{{ block.settings.name | escape }}" loading="lazy" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
+                {%- if block.settings.img_upload != blank -%}
+                  <img src="{{ block.settings.img_upload | image_url: width: 200, height: 200, crop: 'center' }}" alt="{{ block.settings.name | escape }}" loading="lazy" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
                 {%- else -%}
                   <img src="https://images.pexels.com/photos/4041391/pexels-photo-4041391.jpeg?auto=compress&cs=tinysrgb&w=200&h=200&fit=crop" alt="Herbal ingredient" loading="lazy" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
                 {%- endif -%}
@@ -53,7 +53,7 @@
 
 {% schema %}
 {
-  "name": "Ingredients Grid",
+  "name": "Spinexa Herbs Grid",
   "settings": [
     { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Pure Botanicals" },
     { "type": "text", "id": "title", "label": "Title", "default": "Ingredients Backed By Nature" },
@@ -61,32 +61,24 @@
   ],
   "blocks": [
     { 
-      "type": "ingredient", 
-      "name": "Ingredient", 
+      "type": "item_card", 
+      "name": "Herb Ingredient", 
       "settings": [
-        { "type": "image_picker", "id": "image", "label": "Ingredient Image" },
+        { "type": "image_picker", "id": "img_upload", "label": "Upload Herb Image" },
         { "type": "text", "id": "name", "label": "Ingredient Name", "default": "Premium Ashwagandha" },
-        { "type": "textarea", "id": "desc", "label": "Description", "default": "Traditionally celebrated for lowering stress and supporting deep muscle and nerve relaxation around the spine." }
+        { "type": "textarea", "id": "desc", "label": "Description", "default": "Traditionally celebrated for supporting deep muscle and nerve relaxation around the spine." }
       ]
     },
     { 
-      "type": "feature", 
-      "name": "Feature checkmark", 
+      "type": "check_item", 
+      "name": "Feature Checkmark", 
       "settings": [
         { "type": "text", "id": "text", "label": "Text", "default": "100% Herbal & Pure" }
       ]
     }
   ],
   "presets": [{
-    "name": "Ingredients Grid",
-    "blocks": [
-      { "type": "ingredient", "settings": { "name": "Natural Curcumin", "desc": "A powerful organic anti-inflammatory extract known to target deep back and tissue discomfort." } },
-      { "type": "ingredient", "settings": { "name": "Boswellia Serrata", "desc": "Time-tested herbal medicine that supports structural integrity, joint flexibility, and spine relief." } },
-      { "type": "ingredient", "settings": { "name": "Ginger Root Powder", "desc": "Provides a natural warming sensation from within, improving targeted blood circulation to aching muscles." } },
-      { "type": "feature", "settings": { "text": "100% Organic Spine Support" } },
-      { "type": "feature", "settings": { "text": "No Chemical Additives" } },
-      { "type": "feature", "settings": { "text": "Lab Tested for Purity" } }
-    ]
+    "name": "Spinexa Herbs Grid"
   }]
 }
 {% endschema %}
