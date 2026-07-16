@@ -1,17 +1,20 @@
-<section class="section--cream" style="padding-block: var(--section-spacing, 80px);">
+<section class="section--cream" style="padding-block: var(--section-spacing, 80px); background-color: #fdfaf6;">
   <div class="container">
-    <div class="ingredients__grid">
-      <!-- Intro -->
+    <div class="ingredients__grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; align-items: start;">
+      
+      <!-- Intro Side -->
       <div class="ingredients__intro">
-        <div class="reveal"><span class="eyebrow">{{ section.settings.eyebrow }}</span></div>
-        <div class="reveal" style="--reveal-delay:100ms"><h2 class="h2 text-balance">{{ section.settings.title }}</h2></div>
-        <div class="reveal" style="--reveal-delay:200ms"><p class="ingredients__p text-pretty">{{ section.settings.subtitle }}</p></div>
+        <div class="reveal"><span class="eyebrow" style="color: #2d5a27; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; font-size: 0.85rem; display: inline-block; mb-2;">{{ section.settings.eyebrow }}</span></div>
+        <div class="reveal" style="--reveal-delay:100ms"><h2 class="h2 text-balance" style="color: #1e293b; font-weight: 800; line-height: 1.2; margin-bottom: 15px;">{{ section.settings.title }}</h2></div>
+        <div class="reveal" style="--reveal-delay:200ms"><p class="ingredients__p text-pretty" style="color: #475569; font-size: 1.05rem; line-height: 1.6; margin-bottom: 25px;">{{ section.settings.subtitle }}</p></div>
         <div class="reveal" style="--reveal-delay:300ms">
-          <ul class="ingredients__list">
+          <ul class="ingredients__list" style="list-style: none; padding: 0; margin: 0;">
             {%- for block in section.blocks -%}
               {%- if block.type == 'feature' -%}
-                <li class="ingredients__list-item" {{ block.shopify_attributes }}>
-                  <span class="ingredients__check">{%- render 'icon', icon: 'check' -%}</span>
+                <li class="ingredients__list-item" style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px; color: #334155; font-weight: 500;" {{ block.shopify_attributes }}>
+                  <span class="ingredients__check" style="background: #2d5a27; color: white; width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; padding: 4px;">
+                    {%- render 'icon', icon: 'check' -%}
+                  </span>
                   {{ block.settings.text }}
                 </li>
               {%- endif -%}
@@ -20,26 +23,30 @@
         </div>
       </div>
 
-      <!-- Cards grid -->
-      <div class="ingredients__cards">
+      <!-- Cards Grid Side -->
+      <div class="ingredients__cards" style="display: grid; grid-template-columns: 1fr; gap: 20px;">
         {%- for block in section.blocks -%}
           {%- if block.type == 'ingredient' -%}
-            <div class="ingredient-card reveal" style="--reveal-delay:{{ forloop.index0 | times: 80 }}ms" {{ block.shopify_attributes }}>
-              <div class="ingredient-card__img">
+            <div class="ingredient-card reveal" style="--reveal-delay:{{ forloop.index0 | times: 80 }}ms; display: flex; align-items: center; gap: 20px; background: #ffffff; padding: 20px; border-radius: 16px; box-shadow: 0 4px 20px rgba(45,90,39,0.05); border: 1px solid rgba(45,90,39,0.08); transition: transform 0.2s ease;" {{ block.shopify_attributes }}>
+              
+              <!-- Premium Circular Image Customization -->
+              <div class="ingredient-card__img" style="flex-shrink: 0; width: 75px; height: 75px; border-radius: 50%; overflow: hidden; border: 2px solid #d1a454; padding: 3px; background: #fff;">
                 {%- if block.settings.image != blank -%}
-                  <img src="{{ block.settings.image | image_url: width: 200 }}" alt="{{ block.settings.name | escape }}" loading="lazy">
+                  <img src="{{ block.settings.image | image_url: width: 200, height: 200, crop: 'center' }}" alt="{{ block.settings.name | escape }}" loading="lazy" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
                 {%- else -%}
-                  <img src="https://images.pexels.com/photos/1087905/pexels-photo-1087905.jpeg?auto=compress&cs=tinysrgb&w=200&h=200&fit=crop" alt="" loading="lazy">
+                  <img src="https://images.pexels.com/photos/4041391/pexels-photo-4041391.jpeg?auto=compress&cs=tinysrgb&w=200&h=200&fit=crop" alt="Herbal ingredient" loading="lazy" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
                 {%- endif -%}
               </div>
-              <div>
-                <h3 class="ingredient-card__title">{{ block.settings.name }}</h3>
-                <p class="ingredient-card__desc text-pretty">{{ block.settings.desc }}</p>
+              
+              <div style="flex: 1;">
+                <h3 class="ingredient-card__title" style="color: #2d5a27; font-weight: 700; font-size: 1.15rem; margin: 0 0 4px 0;">{{ block.settings.name }}</h3>
+                <p class="ingredient-card__desc text-pretty" style="color: #64748b; font-size: 0.9rem; line-height: 1.4; margin: 0;">{{ block.settings.desc }}</p>
               </div>
             </div>
           {%- endif -%}
         {%- endfor -%}
       </div>
+
     </div>
   </div>
 </section>
@@ -49,32 +56,28 @@
   "name": "Ingredients",
   "settings": [
     { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Pure Botanicals" },
-    { "type": "text", "id": "title", "label": "Title", "default": "Ingredients Inspired By Nature" },
-    { "type": "textarea", "id": "subtitle", "label": "Subtitle", "default": "Every drop of Spinexa is built from cold-pressed botanicals chosen for their soothing, comforting properties — never synthetic fragrances, never parabens." }
+    { "type": "text", "id": "title", "label": "Title", "default": "Ingredients Backed By Nature" },
+    { "type": "textarea", "id": "subtitle", "label": "Subtitle Description", "default": "Every capsule and blend of Spinexa is built from active, premium cold-pressed herbs specifically chosen for deep back comfort and soothing spine relief — 100% organic, no synthetic fillers." }
   ],
   "blocks": [
     { "type": "ingredient", "name": "Ingredient", "settings": [
-      { "type": "text", "id": "name", "label": "Name", "default": "Eucalyptus Oil" },
-      { "type": "textarea", "id": "desc", "label": "Description", "default": "Refreshing and clearing, traditionally used to soothe everyday tension." },
-      { "type": "image_picker", "id": "image", "label": "Image" }
+      { "type": "image_picker", "id": "image", "label": "Ingredient Image" },
+      { "type": "text", "id": "name", "label": "Ingredient Name", "default": "Premium Ashwagandha" },
+      { "type": "textarea", "id": "desc", "label": "Description", "default": "Traditionally celebrated for lowering stress and supporting deep muscle and nerve relaxation around the spine." }
     ]},
     { "type": "feature", "name": "Feature checkmark", "settings": [
-      { "type": "text", "id": "text", "label": "Text", "default": "Cruelty-free & vegan" }
+      { "type": "text", "id": "text", "label": "Text", "default": "100% Herbal & Pure" }
     ]}
   ],
   "presets": [{
-    "name": "Ingredients",
+    "name": "Ingredients Grid",
     "blocks": [
-      { "type": "ingredient", "settings": { "name": "Eucalyptus Oil", "desc": "Refreshing and clearing, traditionally used to soothe everyday tension." } },
-      { "type": "ingredient", "settings": { "name": "Lavender Essential Oil", "desc": "Calming and balancing — the cornerstone of any relaxation ritual." } },
-      { "type": "ingredient", "settings": { "name": "Wintergreen Extract", "desc": "A warming botanical long valued for comforting active muscles." } },
-      { "type": "ingredient", "settings": { "name": "Peppermint Oil", "desc": "Cooling and invigorating, providing a refreshing sensation." } },
-      { "type": "ingredient", "settings": { "name": "Jojoba Carrier Oil", "desc": "A nourishing base that closely mirrors the skin's natural oils." } },
-      { "type": "ingredient", "settings": { "name": "Vitamin E", "desc": "A protective antioxidant that helps nourish and support the skin." } },
-      { "type": "feature", "settings": { "text": "Cruelty-free & vegan" } },
-      { "type": "feature", "settings": { "text": "No synthetic fragrances" } },
-      { "type": "feature", "settings": { "text": "Cold-pressed extraction" } },
-      { "type": "feature", "settings": { "text": "Dermatologist reviewed" } }
+      { "type": "ingredient", "settings": { "name": "Natural Curcumin", "desc": "A powerful organic anti-inflammatory extract known to target deep back and tissue discomfort." } },
+      { "type": "ingredient", "settings": { "name": "Boswellia Serrata", "desc": "Time-tested herbal medicine that supports structural integrity, joint flexibility, and spine relief." } },
+      { "type": "ingredient", "settings": { "name": "Ginger Root Powder", "desc": "Provides a natural warming sensation from within, improving targeted blood circulation to aching muscles." } },
+      { "type": "feature", "settings": { "text": "100% Organic Spine Support" } },
+      { "type": "feature", "settings": { "text": "No Chemical Additives" } },
+      { "type": "feature", "settings": { "text": "Lab Tested for Purity" } }
     ]
   }]
 }
