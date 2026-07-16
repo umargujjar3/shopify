@@ -60,7 +60,7 @@
       "type": "footer",
       "settings": {
         "logo_width": 250,
-        "bg_image": "shopify://shop_images/Gradient_Background_with_Herbal_Close-Up_20260716_021806_0000.png"
+        "bg_image_desktop": "shopify://shop_images/Gradient_Background_with_Herbal_Close-Up_20260716_021806_0000.png"
       }
     }
   },
