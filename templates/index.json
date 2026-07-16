@@ -74,11 +74,24 @@
         "title": "Ingredients Backed By Nature",
         "subtitle": "Every capsule and blend of Spinexa is built from active, premium cold-pressed herbs specifically chosen for deep back comfort and soothing spine relief — 100% organic, no synthetic fillers."
       }
+    },
+    "featured_product_showcase_YaAzfE": {
+      "type": "featured-product-showcase",
+      "name": "Featured Product Showcase",
+      "settings": {
+        "product_image": "shopify://shop_images/product-capsules.png",
+        "subheading": "Our Signature Blend Spinexa",
+        "product_title": "Premium Herbal Wellness Suppliment",
+        "product_desc": "Experience deep natural relief crafted entirely from organically grown herbs. Carefully extracted to preserve peak potency, this premium formulation helps soothe discomfort and restore daily vitality.",
+        "btn_text": "Shop This Product",
+        "btn_link": "shopify://products/spinexa™-herbal-spine-relief-natural-herbal-formula-for-back-spine-support"
+      }
     }
   },
   "order": [
     "hero",
     "benefits",
-    "ingredients_bGHLPh"
+    "ingredients_bGHLPh",
+    "featured_product_showcase_YaAzfE"
   ]
 }
