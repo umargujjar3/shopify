@@ -1,0 +1,108 @@
+<section class="product-showcase" style="background-color: #fdfaf6; padding-block: 80px; overflow: hidden;">
+  <div class="container" style="max-width: 1200px; margin: 0 auto; padding-inline: 20px;">
+    
+    <div class="showcase__grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 50px; align-items: center;">
+      
+      <div class="showcase__image-wrapper" style="position: relative; border-radius: 24px; overflow: hidden; box-shadow: 0 20px 40px rgba(45,90,39,0.06); border: 1px solid rgba(45,90,39,0.08);">
+        {%- if section.settings.product_image != blank -%}
+          <img src="{{ section.settings.product_image | image_url: width: 800 }}" 
+               alt="{{ section.settings.product_title | escape }}" 
+               style="width: 100%; height: auto; display: block; object-fit: cover;"
+               loading="lazy">
+        {%- else -%}
+          <img src="https://images.pexels.com/photos/4041391/pexels-photo-4041391.jpeg?auto=compress&cs=tinysrgb&w=800" 
+               alt="OrganicsFU Product" 
+               style="width: 100%; height: auto; display: block; object-fit: cover;"
+               loading="lazy">
+        {%- endif -%}
+        
+        <span style="position: absolute; top: 20px; left: 20px; background: #2d5a27; color: #fff; padding: 6px 16px; border-radius: 50px; font-size: 0.75rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;">
+          100% Organic
+        </span>
+      </div>
+
+      <div class="showcase__content" style="padding-inline: 10px;">
+        {%- if section.settings.subheading != blank -%}
+          <span style="color: #2d5a27; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; font-size: 0.85rem; display: inline-block; margin-bottom: 12px;">
+            {{ section.settings.subheading }}
+          </span>
+        {%- endif -%}
+        
+        <h2 style="color: #1e293b; font-size: 2.5rem; font-weight: 800; line-height: 1.2; margin: 0 0 20px 0; font-family: inherit;">
+          {{ section.settings.product_title }}
+        </h2>
+        
+        <p style="color: #475569; font-size: 1.1rem; line-height: 1.7; margin: 0 0 30px 0;">
+          {{ section.settings.product_desc }}
+        </p>
+
+        <div style="display: flex; flex-wrap: wrap; gap: 15px; margin-bottom: 35px; border-top: 1px solid rgba(0,0,0,0.06); padding-top: 20px;">
+          <div style="display: flex; align-items: center; gap: 8px; color: #334155; font-size: 0.95rem; font-weight: 500;">
+            <span style="background: rgba(45,90,39,0.1); color: #2d5a27; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px;">✓</span>
+            Pure Cold-Pressed
+          </div>
+          <div style="display: flex; align-items: center; gap: 8px; color: #334155; font-size: 0.95rem; font-weight: 500;">
+            <span style="background: rgba(45,90,39,0.1); color: #2d5a27; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px;">✓</span>
+            No Synthetic Fillers
+          </div>
+        </div>
+        
+        {%- if section.settings.btn_text != blank -%}
+          <a href="{{ section.settings.btn_link | default: '/collections/all' }}" 
+             style="display: inline-block; background-color: #2d5a27; color: #ffffff; font-weight: 700; font-size: 1rem; padding: 14px 36px; border-radius: 8px; text-decoration: none; box-shadow: 0 10px 20px rgba(45,90,39,0.15); transition: all 0.3s ease; text-align: center;">
+            {{ section.settings.btn_text }}
+          </a>
+        {%- endif -%}
+      </div>
+
+    </div>
+    
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Featured Product Showcase",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "product_image",
+      "label": "Product Image"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Small Subheading",
+      "default": "Our Signature Blend"
+    },
+    {
+      "type": "text",
+      "id": "product_title",
+      "label": "Product Title",
+      "default": "Premium Herbal Wellness Oil"
+    },
+    {
+      "type": "textarea",
+      "id": "product_desc",
+      "label": "Product Description",
+      "default": "Experience deep natural relief crafted entirely from organically grown herbs. Carefully extracted to preserve peak potency, this premium formulation helps soothe discomfort and restore daily vitality."
+    },
+    {
+      "type": "text",
+      "id": "btn_text",
+      "label": "Button Text",
+      "default": "Shop This Product"
+    },
+    {
+      "type": "url",
+      "id": "btn_link",
+      "label": "Button Link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Featured Product Showcase"
+    }
+  ]
+}
+{% endschema %}
