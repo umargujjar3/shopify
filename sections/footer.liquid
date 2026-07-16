@@ -1,5 +1,23 @@
-<footer class="footer">
-  <div class="container">
+<footer class="footer" style="
+  position: relative;
+  background-image: {% if section.settings.bg_image != blank %}url('{{ section.settings.bg_image | image_url: width: 2000 }}'){% else %}none{% endif %};
+  background-color: #1a331e; /* Fallback dark green agar picture na ho */
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  padding-block: 60px 40px;
+  color: #ffffff;
+">
+  {% if section.settings.bg_image != blank %}
+    <div class="footer__overlay" style="
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(18, 38, 21, 0.88); /* Aap is opacity ko dark/light kar sakte hain */
+      z-index: 1;
+    "></div>
+  {% endif %}
+
+  <div class="container" style="position: relative; z-index: 2;">
     <div class="footer__top">
       <div class="footer__grid">
         <div class="footer__brand">
@@ -10,11 +28,11 @@
                    style="max-width: {{ section.settings.logo_width }}px; display: block; height: auto;"
                    loading="lazy">
             {%- else -%}
-              <span class="logo__text">Organics<span class="logo__accent">FU</span></span>
+              <span class="logo__text" style="color: #ffffff;">Organics<span class="logo__accent" style="color: #d1a454;">FU</span></span>
             {%- endif -%}
           </a>
-          <p class="footer__about">{{ 'sections.footer.about_text' | t }}</p>
-          <div class="footer__social">
+          <p class="footer__about" style="color: rgba(255,255,255,0.78); margin-top: 15px;">{{ 'sections.footer.about_text' | t }}</p>
+          <div class="footer__social" style="margin-top: 20px; display: flex; gap: 15px;">
             {%- if settings.social_instagram != blank -%}
               <a href="{{ settings.social_instagram }}" target="_blank" rel="noopener noreferrer" class="footer__social-link" aria-label="{{ 'general.social.instagram' | t }}">{%- render 'icon', icon: 'instagram' -%}</a>
             {%- endif -%}
@@ -31,57 +49,57 @@
         </div>
 
         <div>
-          <h4 class="footer__col-title">{{ 'sections.footer.shop_title' | t }}</h4>
-          <div class="footer__col-links">
-            <a href="/collections/all" class="footer__col-link">All Products</a>
+          <h4 class="footer__col-title" style="color: #ffffff; font-weight: 700; margin-bottom: 20px;">{{ 'sections.footer.shop_title' | t }}</h4>
+          <div class="footer__col-links" style="display: flex; flex-direction: column; gap: 12px;">
+            <a href="/collections/all" class="footer__col-link" style="color: rgba(255,255,255,0.8); text-decoration: none;">All Products</a>
             {%- for collection in collections -%}
               {%- unless collection.handle == 'all' or collection.handle == 'frontpage' -%}
-                <a href="{{ collection.url }}" class="footer__col-link">{{ collection.title }}</a>
+                <a href="{{ collection.url }}" class="footer__col-link" style="color: rgba(255,255,255,0.8); text-decoration: none;">{{ collection.title }}</a>
               {%- endunless -%}
             {%- endfor -%}
           </div>
         </div>
 
         <div>
-          <h4 class="footer__col-title">{{ 'sections.footer.support_title' | t }}</h4>
-          <div class="footer__col-links">
-            <a href="/pages/contact" class="footer__col-link">{{ 'sections.header.contact' | t }}</a>
-            <a href="/pages/faq" class="footer__col-link">{{ 'sections.header.faq' | t }}</a>
-            <a href="/pages/shipping-policy" class="footer__col-link">Shipping Policy</a>
-            <a href="/pages/refund-policy" class="footer__col-link">Refund Policy</a>
+          <h4 class="footer__col-title" style="color: #ffffff; font-weight: 700; margin-bottom: 20px;">{{ 'sections.footer.support_title' | t }}</h4>
+          <div class="footer__col-links" style="display: flex; flex-direction: column; gap: 12px;">
+            <a href="/pages/contact" class="footer__col-link" style="color: rgba(255,255,255,0.8); text-decoration: none;">{{ 'sections.header.contact' | t }}</a>
+            <a href="/pages/faq" class="footer__col-link" style="color: rgba(255,255,255,0.8); text-decoration: none;">{{ 'sections.header.faq' | t }}</a>
+            <a href="/pages/shipping-policy" class="footer__col-link" style="color: rgba(255,255,255,0.8); text-decoration: none;">Shipping Policy</a>
+            <a href="/pages/refund-policy" class="footer__col-link" style="color: rgba(255,255,255,0.8); text-decoration: none;">Refund Policy</a>
           </div>
         </div>
 
         <div>
-          <h4 class="footer__col-title">{{ 'sections.footer.company_title' | t }}</h4>
-          <div class="footer__col-links">
-            <a href="/pages/about" class="footer__col-link">{{ 'sections.footer.about_title' | t }}</a>
-            <a href="/blogs/journal" class="footer__col-link">{{ 'sections.header.blog' | t }}</a>
-            <a href="/pages/privacy-policy" class="footer__col-link">Privacy Policy</a>
+          <h4 class="footer__col-title" style="color: #ffffff; font-weight: 700; margin-bottom: 20px;">{{ 'sections.footer.company_title' | t }}</h4>
+          <div class="footer__col-links" style="display: flex; flex-direction: column; gap: 12px;">
+            <a href="/pages/about" class="footer__col-link" style="color: rgba(255,255,255,0.8); text-decoration: none;">{{ 'sections.footer.about_title' | t }}</a>
+            <a href="/blogs/journal" class="footer__col-link" style="color: rgba(255,255,255,0.8); text-decoration: none;">{{ 'sections.header.blog' | t }}</a>
+            <a href="/pages/privacy-policy" class="footer__col-link" style="color: rgba(255,255,255,0.8); text-decoration: none;">Privacy Policy</a>
           </div>
         </div>
       </div>
 
-      <div class="footer__bottom" style="border-top: 1px solid color-mix(in srgb, #fff 8%, transparent); padding-top: 40px; margin-top: 56px; display:grid; gap:24px; grid-template-columns: 1fr; text-align: left;">
+      <div class="footer__bottom" style="border-top: 1px solid rgba(255,255,255,0.15); padding-top: 30px; margin-top: 50px; display:grid; gap:24px; grid-template-columns: 1fr; text-align: left;">
         <div style="display:flex; gap:24px; flex-wrap:wrap;">
-          <a href="mailto:organicsfu@gmail.com" class="footer__contact">
+          <a href="mailto:organicsfu@gmail.com" class="footer__contact" style="color: rgba(255,255,255,0.9); text-decoration: none; display: flex; align-items: center; gap: 8px;">
             <span class="footer__contact-icon">{%- render 'icon', icon: 'mail' -%}</span>
             organicsfu@gmail.com
           </a>
-          <a href="https://wa.me/923307494441" target="_blank" rel="noopener noreferrer" class="footer__contact">
+          <a href="https://wa.me/923307494441" target="_blank" rel="noopener noreferrer" class="footer__contact" style="color: rgba(255,255,255,0.9); text-decoration: none; display: flex; align-items: center; gap: 8px;">
             <span class="footer__contact-icon">{%- render 'icon', icon: 'phone' -%}</span>
             +92 330 7494441
           </a>
-          <span class="footer__contact">
+          <span class="footer__contact" style="color: rgba(255,255,255,0.9); display: flex; align-items: center; gap: 8px;">
             <span class="footer__contact-icon">{%- render 'icon', icon: 'map-pin' -%}</span>
             Lahore, Punjab, Pakistan
           </span>
         </div>
       </div>
 
-      <div class="footer__bottom" style="margin-top: 0;">
-        <p class="footer__copyright">© {{ 'now' | date: '%Y' }} {{ shop.name }}. {{ 'sections.footer.rights' | t }}</p>
-        <div class="footer__badges">
+      <div class="footer__bottom" style="margin-top: 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
+        <p class="footer__copyright" style="color: rgba(255,255,255,0.6); margin: 0;">© {{ 'now' | date: '%Y' }} {{ shop.name }}. {{ 'sections.footer.rights' | t }}</p>
+        <div class="footer__badges" style="color: rgba(255,255,255,0.7); display: flex; align-items: center; gap: 8px;">
           {%- render 'icon', icon: 'leaf' -%}
           <span>{{ 'sections.footer.cruelty_free' | t }}</span>
           <span>·</span>
@@ -92,7 +110,7 @@
       </div>
     </div>
   </div>
-</footer>
+</section>
 
 {% schema %}
 {
@@ -112,6 +130,12 @@
       "default": 130,
       "unit": "px",
       "label": "Footer Logo Width"
+    },
+    {
+      "type": "image_picker",
+      "id": "bg_image",
+      "label": "Footer Background Image",
+      "info": "Upload an elegant dark or organic textured image (Recommended size: 1920x800px)"
     }
   ]
 }
