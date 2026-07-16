@@ -101,7 +101,7 @@
     {% if settings.cart_drawer_enabled %}
       {% render 'cart-drawer' %}
     {% endif %}
-
+   {% comment %}
     {% if settings.whatsapp_button_enabled %}
       {% render 'whatsapp-button' %}
     {% endif %}
@@ -109,7 +109,7 @@
     {% if settings.social_proof_enabled %}
       {% render 'social-proof-popup' %}
     {% endif %}
-
+   {% endcomment %}
     {% if settings.newsletter_popup_enabled %}
       {% render 'newsletter-popup' %}
     {% endif %}
